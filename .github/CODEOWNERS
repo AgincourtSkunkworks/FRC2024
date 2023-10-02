@@ -1,0 +1,7 @@
+# All robot code, to allow for required reviews
+/src/main/java/frc/robot/ @TheodoreHua
+# Any GitHub configuration files
+/.github/ @TheodoreHua
+# License Files (sensitive)
+LICENSE @TheodoreHua
+WPILib-License.md @TheodoreHua
