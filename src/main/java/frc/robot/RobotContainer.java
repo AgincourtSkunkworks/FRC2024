@@ -35,6 +35,10 @@ public class RobotContainer {
         )
         .addLeftMotors(Constants.ID.LM1, Constants.ID.LM2)
         .addRightMotors(Constants.ID.RM1, Constants.ID.RM2);
+    private final GyroSubsystem gyro = new GyroSubsystem(
+        Constants.Gyro.USE_ROLL,
+        Constants.Gyro.UPSIDE_DOWN
+    );
     private final Joystick controller = new Joystick(Constants.ID.JOYSTICK);
     private final SendableChooser<Command> autoChooser =
         new SendableChooser<>();

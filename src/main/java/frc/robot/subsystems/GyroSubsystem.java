@@ -1,7 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -11,16 +7,15 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class GyroSubsystem extends SubsystemBase {
 
-    public AHRS gyroscopeAHRS;
-    private boolean useRoll, upsideDown;
+    public AHRS ahrs;
+    private final boolean useRoll, upsideDown;
 
-    /**
-     * Creates a new ArmSubsystem with brake mode enabled.
-     *
-     * @param armMotorID ID of the arm motor controller
+    /** Create a GyroSubsystem
+     * @param useRoll   Whether to use the roll or pitch value
+     * @param upsideDown Whether the gyro is upside down
      */
     public GyroSubsystem(boolean useRoll, boolean upsideDown) {
-        gyroscopeAHRS = new AHRS(SPI.Port.kMXP);
+        ahrs = new AHRS(SPI.Port.kMXP);
         this.useRoll = useRoll;
         this.upsideDown = upsideDown;
     }
@@ -31,7 +26,7 @@ public class GyroSubsystem extends SubsystemBase {
      * @return True if the gyro is ready, false otherwise.
      */
     public boolean isReady() {
-        return gyroscopeAHRS.isConnected();
+        return ahrs.isConnected();
     }
 
     /**
@@ -44,7 +39,7 @@ public class GyroSubsystem extends SubsystemBase {
     public double getVAngle() {
         if (!isReady()) throw new IllegalStateException("Gyro is not ready!");
         return (
-            ((useRoll) ? gyroscopeAHRS.getRoll() : gyroscopeAHRS.getPitch()) *
+            ((useRoll) ? ahrs.getRoll() : ahrs.getPitch()) *
             (upsideDown ? -1 : 1)
         );
     }
@@ -58,7 +53,7 @@ public class GyroSubsystem extends SubsystemBase {
      */
     public double getYaw() {
         if (!isReady()) throw new IllegalStateException("Gyro is not ready!");
-        return gyroscopeAHRS.getYaw();
+        return ahrs.getYaw();
     }
 
     /**
@@ -66,15 +61,15 @@ public class GyroSubsystem extends SubsystemBase {
      */
     public void zeroYaw() {
         if (!isReady()) throw new IllegalStateException("Gyro is not ready!");
-        gyroscopeAHRS.zeroYaw();
+        ahrs.zeroYaw();
     }
 
     @Override
     public void periodic() {
         if (!isReady()) return;
         SmartDashboard.putNumber("Gyro Vertical Angle (Pitch)", getVAngle());
-        SmartDashboard.putNumber("Yaw", gyroscopeAHRS.getYaw());
-        SmartDashboard.putNumber("Pitch", gyroscopeAHRS.getPitch());
-        SmartDashboard.putNumber("Roll", gyroscopeAHRS.getRoll());
+        SmartDashboard.putNumber("Yaw", ahrs.getYaw());
+        SmartDashboard.putNumber("Pitch", ahrs.getPitch());
+        SmartDashboard.putNumber("Roll", ahrs.getRoll());
     }
 }
