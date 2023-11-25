@@ -5,30 +5,24 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.ArrayList;
 
 public class DriveSubsystem extends SubsystemBase {
 
-    private final ArrayList<WPI_TalonFX> leftMotors, rightMotors, motors;
-    NeutralMode neutralMode;
-    SupplyCurrentLimitConfiguration supplyLimit;
-    StatorCurrentLimitConfiguration statorLimit;
-    boolean lInvert, rInvert;
-    double lCorrect, rCorrect, brakeThreshold;
+    final ArrayList<WPI_TalonFX> leftMotors = new ArrayList<>(), rightMotors =
+        new ArrayList<>(), motors = new ArrayList<>();
+    SupplyCurrentLimitConfiguration supplyLimit =
+        new SupplyCurrentLimitConfiguration(false, 0, 0, 0);
+    StatorCurrentLimitConfiguration statorLimit =
+        new StatorCurrentLimitConfiguration(false, 0, 0, 0);
+    NeutralMode neutralMode = NeutralMode.Brake;
+    boolean lInvert = false, rInvert = false;
+    double lCorrect = 1, rCorrect = 1, brakeThreshold = 0, maxTemp = 0;
 
     // Private constructor so people use .create() instead
-    private DriveSubsystem() {
-        this.leftMotors = new ArrayList<>();
-        this.rightMotors = new ArrayList<>();
-        this.motors = new ArrayList<>();
-        this.neutralMode = NeutralMode.Brake;
-        this.supplyLimit = new SupplyCurrentLimitConfiguration(false, 0, 0, 0);
-        this.statorLimit = new StatorCurrentLimitConfiguration(false, 0, 0, 0);
-        this.brakeThreshold = 0;
-        this.lCorrect = 1;
-        this.rCorrect = 1;
-    }
+    private DriveSubsystem() {}
 
     /**
      * Create a new DriveSubsystem.
@@ -153,6 +147,16 @@ public class DriveSubsystem extends SubsystemBase {
         return this;
     }
 
+    /** The maximum motor temp for any non-default command requiring the DriveSubsystem before it is forcefully stopped.
+     * Default: -1 (disabled)
+     * @param maxTemp The maximum temperature, -1 to disable
+     * @return The DriveSubsystem, for chaining
+     */
+    public DriveSubsystem setMaxTemp(double maxTemp) {
+        this.maxTemp = maxTemp;
+        return this;
+    }
+
     /** Set the speed of the left motors.
      * @param speed Speed to set the motors to (-1 to 1)
      */
@@ -202,5 +206,24 @@ public class DriveSubsystem extends SubsystemBase {
             motor.getTemperature() > highest
         ) highest = motor.getTemperature();
         return highest;
+    }
+
+    @Override
+    public void periodic() {
+        if (maxTemp > 0 && getHighestTemp() >= maxTemp) {
+            Command currentCommand = this.getCurrentCommand();
+            if (
+                currentCommand != null &&
+                currentCommand != this.getDefaultCommand()
+            ) {
+                currentCommand.cancel();
+                System.out.printf(
+                    "[%s] Command Cancelled | Motor temperature of %f exceeds maximum of %f.%n",
+                    currentCommand.getName(),
+                    getHighestTemp(),
+                    maxTemp
+                );
+            }
+        }
     }
 }

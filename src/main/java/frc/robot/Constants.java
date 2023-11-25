@@ -34,7 +34,6 @@ public final class Constants {
         public static final int LM2 = 15; // Left Motor 2 ID
         public static final int RM1 = 12; // Right Motor 1 ID
         public static final int RM2 = 13; // Right Motor 2 ID
-        public static final int ARM = 11; // Arm Motor ID
         public static final int JOYSTICK = 0; // Joystick ID
     }
 
@@ -43,11 +42,10 @@ public final class Constants {
         static final double BRAKE_THRESHOLD = 0.005; // Speed threshold to round to 0 (and thus brake)
         static final double LM_SPEED_OFFSET = 0; // Percent offset (0-1) for left motor speed (to ensure that it can drive straight)
         static final double RM_SPEED_OFFSET = 0; // Percent offset (0-1) for right motor speed (to ensure that it can drive straight)
-        static final double THERMAL_WARNING = 80; // Temperature (in degrees C) to warn the driver about
         static final boolean LM_INVERSE = false; // Whether the left motors are inverted
         static final boolean RM_INVERSE = true; // Whether the right motors are inverted
 
-        public final class CurrentLimit {
+        public static final class CurrentLimit {
 
             static final boolean SUPPLY = true; // Whether to enable supply current limiting
             static final double SUPPLY_LIMIT = 100; // Supply current limit
@@ -68,7 +66,7 @@ public final class Constants {
 
     public static final class Autonomous {
 
-        static final double MAX_TEMP = 60; // Maximum temperature (in degrees C) before autonomous stops
+        static final double MAX_TEMP = 60; // Maximum temperature (in degrees C) before autonomous stops (-1 to disable)
     }
 
     public static final class TeleOp {

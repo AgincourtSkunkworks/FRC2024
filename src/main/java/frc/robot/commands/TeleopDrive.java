@@ -13,8 +13,7 @@ public class TeleopDrive extends CommandBase {
     SlewRateLimiter leftLimiter, rightLimiter;
 
     /**
-     * Creates a TeleOpDrive Command. This command is used to control the drive in
-     * teleop.
+     * Creates a TeleopDrive Command. This command is used to control the drive in the teleop phase.
      *
      * @param drive      The drive subsystem
      * @param lSpeedFunc Function to get the speed to set the left motors to
@@ -55,10 +54,5 @@ public class TeleopDrive extends CommandBase {
     public void end(boolean interrupted) {
         drive.setMotors(0);
         SmartDashboard.putString("Command", "None");
-    }
-
-    @Override
-    public boolean isFinished() {
-        return false;
     }
 }

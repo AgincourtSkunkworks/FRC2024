@@ -9,8 +9,8 @@ public class DriveUntilPitch extends CommandBase {
 
     DriveSubsystem drive;
     GyroSubsystem gyro;
-    double speed, target, tolerance, maxTemp;
-    boolean not, failsafe = false;
+    double speed, target, tolerance;
+    boolean not;
 
     /**
      * Creates a DriveUntilPitch Command. This command is used to drive at a certain
@@ -39,24 +39,15 @@ public class DriveUntilPitch extends CommandBase {
         this.target = target;
         this.tolerance = tolerance;
         this.not = not;
-        this.maxTemp = drive.getMaxTemp();
     }
 
     @Override
     public void initialize() {
         SmartDashboard.putString("Command", "DriveUntilPitch");
-        this.failsafe = false;
     }
 
     @Override
     public void execute() {
-        if (drive.getHighestTemp() >= maxTemp) {
-            failsafe = true;
-            System.out.println(
-                "[DriveUntilPitch] Failsafe activated, high motor temperature!]"
-            );
-            return;
-        }
         drive.setMotors(speed);
     }
 
@@ -68,8 +59,6 @@ public class DriveUntilPitch extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        final boolean finished =
-            Math.abs(gyro.getVAngle() - target) <= tolerance;
-        return this.failsafe || (not ? !finished : finished);
+        return not != (Math.abs(gyro.getVAngle() - target) <= tolerance);
     }
 }
