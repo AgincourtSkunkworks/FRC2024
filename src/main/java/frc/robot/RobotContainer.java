@@ -8,35 +8,33 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
 public class RobotContainer {
 
-    private final DriveSubsystem drive = new DriveSubsystem(
-        Constants.ID.LM1,
-        Constants.ID.LM2,
-        Constants.ID.RM1,
-        Constants.ID.RM2,
-        Constants.Drive.LM_INVERSE,
-        Constants.Drive.RM_INVERSE,
-        Constants.Drive.LM_SPEED_OFFSET,
-        Constants.Drive.RM_SPEED_OFFSET,
-        Constants.Drive.BRAKE_THRESHOLD,
-        Constants.Drive.THERMAL_WARNING,
-        Constants.Drive.CurrentLimit.SUPPLY,
-        Constants.Drive.CurrentLimit.SUPPLY_LIMIT,
-        Constants.Drive.CurrentLimit.SUPPLY_TRIGGER,
-        Constants.Drive.CurrentLimit.SUPPLY_TRIGGER_TIME,
-        Constants.Drive.CurrentLimit.STATOR,
-        Constants.Drive.CurrentLimit.STATOR_LIMIT,
-        Constants.Drive.CurrentLimit.STATOR_TRIGGER,
-        Constants.Drive.CurrentLimit.STATOR_TRIGGER_TIME,
-        Constants.Autonomous.MAX_TEMP
-    );
+    private final DriveSubsystem drive = DriveSubsystem
+        .create()
+        .invert(Constants.Drive.LM_INVERSE, Constants.Drive.RM_INVERSE)
+        .setOffset(
+            Constants.Drive.LM_SPEED_OFFSET,
+            Constants.Drive.RM_SPEED_OFFSET
+        )
+        .setBrakeThreshold(Constants.Drive.BRAKE_THRESHOLD)
+        .setSupplyLimit(
+            Constants.Drive.CurrentLimit.SUPPLY,
+            Constants.Drive.CurrentLimit.SUPPLY_LIMIT,
+            Constants.Drive.CurrentLimit.SUPPLY_TRIGGER,
+            Constants.Drive.CurrentLimit.SUPPLY_TRIGGER_TIME
+        )
+        .setStatorLimit(
+            Constants.Drive.CurrentLimit.STATOR,
+            Constants.Drive.CurrentLimit.STATOR_LIMIT,
+            Constants.Drive.CurrentLimit.STATOR_TRIGGER,
+            Constants.Drive.CurrentLimit.STATOR_TRIGGER_TIME
+        )
+        .addLeftMotors(Constants.ID.LM1, Constants.ID.LM2)
+        .addRightMotors(Constants.ID.RM1, Constants.ID.RM2);
     private final Joystick controller = new Joystick(Constants.ID.JOYSTICK);
     private final SendableChooser<Command> autoChooser =
         new SendableChooser<>();

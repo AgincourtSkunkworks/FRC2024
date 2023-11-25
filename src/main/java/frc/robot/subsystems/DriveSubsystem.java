@@ -5,111 +5,155 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import java.util.ArrayList;
 
 public class DriveSubsystem extends SubsystemBase {
 
-    WPI_TalonFX leftMotor1, leftMotor2, rightMotor1, rightMotor2;
-    WPI_TalonFX[] leftMotors, rightMotors, motors;
-    double lCorrect, rCorrect, brakeThreshold, thermalWarning, maxTemp;
+    private final ArrayList<WPI_TalonFX> leftMotors, rightMotors, motors;
+    NeutralMode neutralMode;
+    SupplyCurrentLimitConfiguration supplyLimit;
+    StatorCurrentLimitConfiguration statorLimit;
+    boolean lInvert, rInvert;
+    double lCorrect, rCorrect, brakeThreshold;
 
-    /**
-     * Creates a new DriveSubsystem.
-     *
-     * @param l1ID     Left Motor Controller ID
-     * @param l2ID     Left Motor Controller ID
-     * @param r1ID     Right Motor Controller ID
-     * @param r2ID     Right Motor Controller ID
-     * @param lInvert  Whether or not to invert the left motors
-     * @param rInvert  Whether or not to invert the right motors
-     * @param lCorrect Percent of speed to add to left motors (0-1)
-     * @param rCorrect Percent of speed to add to right motors (0-1)
-     * @param brakeThreshold The speed at which it rounds down to 0 and brakes
-     * @param thermalWarning The motor temperature in which a warning is sent to the driver station
-     * @param currentSupply Whether to enable supply current limiting
-     * @param currentSupplyLimit The maximum supply current limit
-     * @param currentSupplyTrigger The limit at which the current limit is activated
-     * @param currentSupplyTriggerTime The amount of time over the current limit trigger before the limit is activated
-     * @param currentStator Whether to enable stator current limiting
-     * @param currentStatorLimit The maximum stator current limit
-     * @param currentStatorTrigger The limit at which the current limit is activated
-     * @param currentStatorTriggerTime The amount of time over the current limit trigger before the limit is activated
-     * @param maxTemp Max temperature for autonomous mode, after which the robot will stop
-     */
-    public DriveSubsystem(
-        int l1ID,
-        int l2ID,
-        int r1ID,
-        int r2ID,
-        boolean lInvert,
-        boolean rInvert,
-        double lCorrect,
-        double rCorrect,
-        double brakeThreshold,
-        double thermalWarning,
-        boolean currentSupply,
-        double currentSupplyLimit,
-        double currentSupplyTrigger,
-        double currentSupplyTriggerTime,
-        boolean currentStator,
-        double currentStatorLimit,
-        double currentStatorTrigger,
-        double currentStatorTriggerTime,
-        double maxTemp
-    ) {
-        leftMotor1 = new WPI_TalonFX(l1ID);
-        leftMotor2 = new WPI_TalonFX(l2ID);
-        rightMotor1 = new WPI_TalonFX(r1ID);
-        rightMotor2 = new WPI_TalonFX(r2ID);
-
-        leftMotors = new WPI_TalonFX[] { leftMotor1, leftMotor2 };
-        rightMotors = new WPI_TalonFX[] { rightMotor1, rightMotor2 };
-        motors =
-            new WPI_TalonFX[] {
-                leftMotor1,
-                leftMotor2,
-                rightMotor1,
-                rightMotor2,
-            };
-
-        this.lCorrect = 1 + lCorrect;
-        this.rCorrect = 1 + rCorrect;
-        this.brakeThreshold = brakeThreshold;
-        this.thermalWarning = thermalWarning;
-        this.maxTemp = maxTemp;
-
-        for (WPI_TalonFX motor : motors) {
-            motor.setNeutralMode(NeutralMode.Brake);
-            motor.configSupplyCurrentLimit(
-                new SupplyCurrentLimitConfiguration(
-                    currentSupply,
-                    currentSupplyLimit,
-                    currentSupplyTrigger,
-                    currentSupplyTriggerTime
-                )
-            );
-            motor.configStatorCurrentLimit(
-                new StatorCurrentLimitConfiguration(
-                    currentStator,
-                    currentStatorLimit,
-                    currentStatorTrigger,
-                    currentStatorTriggerTime
-                )
-            );
-        }
-
-        if (lInvert) for (WPI_TalonFX motor : leftMotors) motor.setInverted(
-            true
-        );
-        if (rInvert) for (WPI_TalonFX motor : rightMotors) motor.setInverted(
-            true
-        );
+    // Private constructor so people use .create() instead
+    private DriveSubsystem() {
+        this.leftMotors = new ArrayList<>();
+        this.rightMotors = new ArrayList<>();
+        this.motors = new ArrayList<>();
+        this.neutralMode = NeutralMode.Brake;
+        this.supplyLimit = new SupplyCurrentLimitConfiguration(false, 0, 0, 0);
+        this.statorLimit = new StatorCurrentLimitConfiguration(false, 0, 0, 0);
+        this.brakeThreshold = 0;
+        this.lCorrect = 1;
+        this.rCorrect = 1;
     }
 
     /**
-     * Set the speed of the left motors.
-     *
+     * Create a new DriveSubsystem.
+     */
+    public static DriveSubsystem create() {
+        return new DriveSubsystem();
+    }
+
+    /** Internal method to add motors, including to a specified array
+     * @param arr Additional array to add the motors to
+     * @param ids IDs of the motors to add
+     */
+    private void addMotors(
+        ArrayList<WPI_TalonFX> arr,
+        boolean invert,
+        int[] ids
+    ) {
+        for (int id : ids) {
+            WPI_TalonFX motor = new WPI_TalonFX(id);
+            motor.setNeutralMode(neutralMode);
+            motor.setInverted(invert);
+            motor.configSupplyCurrentLimit(supplyLimit, 5);
+            motor.configStatorCurrentLimit(statorLimit, 5);
+            arr.add(motor);
+            motors.add(motor);
+        }
+    }
+
+    /** Add left motors to the subsystem
+     * @param ids IDs of the motors to add
+     * @return The DriveSubsystem, for chaining
+     */
+    public DriveSubsystem addLeftMotors(int... ids) {
+        addMotors(leftMotors, lInvert, ids);
+        return this;
+    }
+
+    /** Add right motors to the subsystem
+     * @param ids IDs of the motors to add
+     * @return The DriveSubsystem, for chaining
+     */
+    public DriveSubsystem addRightMotors(int... ids) {
+        addMotors(rightMotors, rInvert, ids);
+        return this;
+    }
+
+    public DriveSubsystem invert(boolean left, boolean right) {
+        for (WPI_TalonFX motor : leftMotors) motor.setInverted(left);
+        for (WPI_TalonFX motor : rightMotors) motor.setInverted(right);
+        lInvert = left;
+        rInvert = right;
+        return this;
+    }
+
+    /** Set the percent speed offset for the motors
+     * @param lCorrect The percent speed offset for the left motors
+     * @param rCorrect The percent speed offset for the right motors
+     * @return The DriveSubsystem, for chaining
+     */
+    public DriveSubsystem setOffset(double lCorrect, double rCorrect) {
+        this.lCorrect = lCorrect;
+        this.rCorrect = rCorrect;
+        return this;
+    }
+
+    /** Set the neutral mode for all motors, past and future. Default: Brake
+     * @param mode The neutral mode to set the motors to
+     * @return The DriveSubsystem, for chaining
+     */
+    public DriveSubsystem setNeutralMode(NeutralMode mode) {
+        for (WPI_TalonFX motor : motors) motor.setNeutralMode(mode);
+        neutralMode = mode;
+        return this;
+    }
+
+    /** Configure the supply limit for all motors. Default: Disabled
+     * @param enable Whether to enable the current limit
+     * @param limit The "holding" current (amperes) to limit to when feature is activated.
+     * @param trigger Current must exceed this threshold (amperes) before limiting occurs. If this value is less than currentLimit, then currentLimit is used as the threshold.
+     * @param triggerTime How long current must exceed threshold (seconds) before limiting occurs.
+     * @return The DriveSubsystem, for chaining
+     */
+    public DriveSubsystem setSupplyLimit(
+        boolean enable,
+        double limit,
+        double trigger,
+        double triggerTime
+    ) {
+        this.supplyLimit.enable = enable;
+        this.supplyLimit.currentLimit = limit;
+        this.supplyLimit.triggerThresholdCurrent = trigger;
+        this.supplyLimit.triggerThresholdTime = triggerTime;
+        return this;
+    }
+
+    /** Configure the stator limit for all motors. Default: Disabled
+     * @param enable Whether to enable the current limit
+     * @param limit The "holding" current (amperes) to limit to when feature is activated.
+     * @param trigger Current must exceed this threshold (amperes) before limiting occurs. If this value is less than currentLimit, then currentLimit is used as the threshold.
+     * @param triggerTime How long current must exceed threshold (seconds) before limiting occurs.
+     * @return The DriveSubsystem, for chaining
+     */
+    public DriveSubsystem setStatorLimit(
+        boolean enable,
+        double limit,
+        double trigger,
+        double triggerTime
+    ) {
+        this.statorLimit.enable = enable;
+        this.statorLimit.currentLimit = limit;
+        this.statorLimit.triggerThresholdCurrent = trigger;
+        this.statorLimit.triggerThresholdTime = triggerTime;
+        return this;
+    }
+
+    /** Set the brake threshold. If the speed is below this threshold, the motors will be set to 0. Default: 0
+     * @param threshold The threshold to set
+     * @return The DriveSubsystem, for chaining
+     */
+    public DriveSubsystem setBrakeThreshold(double threshold) {
+        this.brakeThreshold = threshold;
+        return this;
+    }
+
+    /** Set the speed of the left motors.
      * @param speed Speed to set the motors to (-1 to 1)
      */
     public void setLeftMotors(double speed) {
@@ -149,60 +193,6 @@ public class DriveSubsystem extends SubsystemBase {
         setRightMotors(speed);
     }
 
-    /**
-     * Get the position of the left motor. This uses left 1 as a reference,
-     * both left motors should be very similar without hardware issues.
-     * ! Add a number after Left to get the position of a specific motor.
-     *
-     * @return The position of the left motors in raw encoder units.
-     */
-    public double getLeftPos() {
-        return leftMotor1.getSelectedSensorPosition();
-    }
-
-    /**
-     * Get the position of the right motor. This uses right 1 as a reference,
-     * both right motors should be very similar without hardware issues.
-     * ! Add a number after Right to get the position of a specific motor.
-     *
-     * @return The position of the right motors in raw encoder units.
-     */
-    public double getRightPos() {
-        return rightMotor1.getSelectedSensorPosition();
-    }
-
-    public double getLeft1Pos() {
-        return leftMotor1.getSelectedSensorPosition();
-    }
-
-    public double getLeft2Pos() {
-        return leftMotor2.getSelectedSensorPosition();
-    }
-
-    public double getRight1Pos() {
-        return rightMotor1.getSelectedSensorPosition();
-    }
-
-    public double getRight2Pos() {
-        return rightMotor2.getSelectedSensorPosition();
-    }
-
-    public double getLeft1Temp() {
-        return leftMotor1.getTemperature();
-    }
-
-    public double getLeft2Temp() {
-        return leftMotor2.getTemperature();
-    }
-
-    public double getRight1Temp() {
-        return rightMotor1.getTemperature();
-    }
-
-    public double getRight2Temp() {
-        return rightMotor2.getTemperature();
-    }
-
     /** Get the highest temperature from all drive motors
      * @return The highest temperature
      */
@@ -212,38 +202,5 @@ public class DriveSubsystem extends SubsystemBase {
             motor.getTemperature() > highest
         ) highest = motor.getTemperature();
         return highest;
-    }
-
-    /** Get the max temperature allowed for autonomous mode
-     * @return The max temperature
-     */
-    public double getMaxTemp() {
-        return this.maxTemp;
-    }
-
-    @Override
-    public void periodic() {
-        SmartDashboard.putNumber("LM1 Position", getLeft1Pos());
-        SmartDashboard.putNumber("LM2 Position", getLeft2Pos());
-        SmartDashboard.putNumber("RM1 Position", getRight1Pos());
-        SmartDashboard.putNumber("RM2 Position", getRight2Pos());
-        SmartDashboard.putNumber("LM1 Temp", getLeft1Temp());
-        SmartDashboard.putNumber("LM2 Temp", getLeft2Temp());
-        SmartDashboard.putNumber("RM1 Temp", getRight1Temp());
-        SmartDashboard.putNumber("RM2 Temp", getRight2Temp());
-        SmartDashboard.putNumber("LM1 Stator", leftMotor1.getStatorCurrent());
-        SmartDashboard.putNumber("LM2 Stator", leftMotor2.getStatorCurrent());
-        SmartDashboard.putNumber("RM1 Stator", rightMotor1.getStatorCurrent());
-        SmartDashboard.putNumber("RM2 Stator", rightMotor2.getStatorCurrent());
-        SmartDashboard.putNumber("LM1 Supply", leftMotor1.getSupplyCurrent());
-        SmartDashboard.putNumber("LM2 Supply", leftMotor2.getSupplyCurrent());
-        SmartDashboard.putNumber("RM1 Supply", rightMotor1.getSupplyCurrent());
-        SmartDashboard.putNumber("RM2 Supply", rightMotor2.getSupplyCurrent());
-
-        if (getHighestTemp() > thermalWarning) {
-            SmartDashboard.putString("WARNING", "MOTOR OVERHEAT - CAUTION");
-        } else {
-            SmartDashboard.putString("WARNING", "");
-        }
     }
 }
