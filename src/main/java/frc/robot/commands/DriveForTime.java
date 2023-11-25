@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class DriveForTime extends CommandBase {
+
     DriveSubsystem drive;
     double speed, time, startTime, maxTemp;
     boolean failsafe = false;
@@ -13,7 +14,7 @@ public class DriveForTime extends CommandBase {
     /**
      * Creates a DriveForTime Command. This command is used to drive at a certain
      * speed for a certain time.
-     * 
+     *
      * @param drive   The drive subsystem
      * @param speed   The speed to drive at
      * @param time    The time to drive for (in seconds)
@@ -38,7 +39,9 @@ public class DriveForTime extends CommandBase {
     public void execute() {
         if (drive.getHighestTemp() >= maxTemp) {
             failsafe = true;
-            System.out.println("[DriveForTime] Failsafe activated, high motor temperature!]");
+            System.out.println(
+                "[DriveForTime] Failsafe activated, high motor temperature!]"
+            );
             return;
         }
         drive.setMotors(speed);

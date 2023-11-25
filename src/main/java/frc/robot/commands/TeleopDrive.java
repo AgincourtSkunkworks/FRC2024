@@ -1,13 +1,13 @@
 package frc.robot.commands;
 
-import java.util.function.Supplier;
-
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
+import java.util.function.Supplier;
 
 public class TeleopDrive extends CommandBase {
+
     DriveSubsystem drive;
     Supplier<Double> lSpeedFunc, rSpeedFunc;
     SlewRateLimiter leftLimiter, rightLimiter;
@@ -15,15 +15,19 @@ public class TeleopDrive extends CommandBase {
     /**
      * Creates a TeleOpDrive Command. This command is used to control the drive in
      * teleop.
-     * 
+     *
      * @param drive      The drive subsystem
      * @param lSpeedFunc Function to get the speed to set the left motors to
      * @param rSpeedFunc Function to get the speed to set the right motors
      *                   to
      * @param rateLimit  Slew rate limit for motors
      */
-    public TeleopDrive(DriveSubsystem drive, Supplier<Double> lSpeedFunc, Supplier<Double> rSpeedFunc,
-            double rateLimit) {
+    public TeleopDrive(
+        DriveSubsystem drive,
+        Supplier<Double> lSpeedFunc,
+        Supplier<Double> rSpeedFunc,
+        double rateLimit
+    ) {
         addRequirements(drive);
         this.drive = drive;
         this.lSpeedFunc = lSpeedFunc;
