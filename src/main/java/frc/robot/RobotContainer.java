@@ -34,8 +34,16 @@ public class RobotContainer {
             Constants.Drive.CurrentLimit.STATOR_TRIGGER_TIME
         )
         .setMaxTemp(Constants.Autonomous.MAX_TEMP)
-        .addLeftMotors(Constants.ID.LM1, Constants.ID.LM2)
-        .addRightMotors(Constants.ID.RM1, Constants.ID.RM2);
+        .addLeftMotors(
+            Constants.Drive.MOTOR_TYPE,
+            Constants.ID.LM1,
+            Constants.ID.LM2
+        )
+        .addRightMotors(
+            Constants.Drive.MOTOR_TYPE,
+            Constants.ID.RM1,
+            Constants.ID.RM2
+        );
     private final GyroSubsystem gyro = new GyroSubsystem(
         Constants.Gyro.USE_ROLL,
         Constants.Gyro.UPSIDE_DOWN

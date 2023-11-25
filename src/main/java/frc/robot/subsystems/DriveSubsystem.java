@@ -1,22 +1,21 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
-import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.util.GenericController;
+import frc.robot.util.GenericController.BaseController;
+import frc.robot.util.GenericController.NeutralMode;
 import java.util.ArrayList;
 
 public class DriveSubsystem extends SubsystemBase {
 
-    final ArrayList<WPI_TalonFX> leftMotors = new ArrayList<>(), rightMotors =
-        new ArrayList<>(), motors = new ArrayList<>();
-    SupplyCurrentLimitConfiguration supplyLimit =
-        new SupplyCurrentLimitConfiguration(false, 0, 0, 0);
-    StatorCurrentLimitConfiguration statorLimit =
-        new StatorCurrentLimitConfiguration(false, 0, 0, 0);
+    final ArrayList<GenericController> leftMotors =
+        new ArrayList<>(), rightMotors = new ArrayList<>(), motors =
+        new ArrayList<>();
+    boolean supplyLimit = false, statorLimit = false;
+    double supplyCurrentLimit = 0, supplyTriggerCurrent = 0, supplyTriggerTime =
+        0, statorCurrentLimit = 0, statorTriggerCurrent = 0, statorTriggerTime =
+        0;
     NeutralMode neutralMode = NeutralMode.Brake;
     boolean lInvert = false, rInvert = false;
     double lCorrect = 1, rCorrect = 1, brakeThreshold = 0, maxTemp = 0;
@@ -36,16 +35,27 @@ public class DriveSubsystem extends SubsystemBase {
      * @param ids IDs of the motors to add
      */
     private void addMotors(
-        ArrayList<WPI_TalonFX> arr,
+        BaseController type,
+        ArrayList<GenericController> arr,
         boolean invert,
         int[] ids
     ) {
         for (int id : ids) {
-            WPI_TalonFX motor = new WPI_TalonFX(id);
+            GenericController motor = new GenericController(type, id);
             motor.setNeutralMode(neutralMode);
             motor.setInverted(invert);
-            motor.configSupplyCurrentLimit(supplyLimit, 5);
-            motor.configStatorCurrentLimit(statorLimit, 5);
+            motor.setSupplyCurrentLimit(
+                supplyLimit,
+                supplyCurrentLimit,
+                supplyTriggerCurrent,
+                supplyTriggerTime
+            );
+            motor.setStatorCurrentLimit(
+                statorLimit,
+                statorCurrentLimit,
+                statorTriggerCurrent,
+                statorTriggerTime
+            );
             arr.add(motor);
             motors.add(motor);
         }
@@ -55,8 +65,8 @@ public class DriveSubsystem extends SubsystemBase {
      * @param ids IDs of the motors to add
      * @return The DriveSubsystem, for chaining
      */
-    public DriveSubsystem addLeftMotors(int... ids) {
-        addMotors(leftMotors, lInvert, ids);
+    public DriveSubsystem addLeftMotors(BaseController type, int... ids) {
+        addMotors(type, leftMotors, lInvert, ids);
         return this;
     }
 
@@ -64,14 +74,14 @@ public class DriveSubsystem extends SubsystemBase {
      * @param ids IDs of the motors to add
      * @return The DriveSubsystem, for chaining
      */
-    public DriveSubsystem addRightMotors(int... ids) {
-        addMotors(rightMotors, rInvert, ids);
+    public DriveSubsystem addRightMotors(BaseController type, int... ids) {
+        addMotors(type, rightMotors, rInvert, ids);
         return this;
     }
 
     public DriveSubsystem invert(boolean left, boolean right) {
-        for (WPI_TalonFX motor : leftMotors) motor.setInverted(left);
-        for (WPI_TalonFX motor : rightMotors) motor.setInverted(right);
+        for (GenericController motor : leftMotors) motor.setInverted(left);
+        for (GenericController motor : rightMotors) motor.setInverted(right);
         lInvert = left;
         rInvert = right;
         return this;
@@ -93,12 +103,12 @@ public class DriveSubsystem extends SubsystemBase {
      * @return The DriveSubsystem, for chaining
      */
     public DriveSubsystem setNeutralMode(NeutralMode mode) {
-        for (WPI_TalonFX motor : motors) motor.setNeutralMode(mode);
+        for (GenericController motor : motors) motor.setNeutralMode(mode);
         neutralMode = mode;
         return this;
     }
 
-    /** Configure the supply limit for all motors. Default: Disabled
+    /** Configure the supply limit for all motors, past and future. Default: Disabled
      * @param enable Whether to enable the current limit
      * @param limit The "holding" current (amperes) to limit to when feature is activated.
      * @param trigger Current must exceed this threshold (amperes) before limiting occurs. If this value is less than currentLimit, then currentLimit is used as the threshold.
@@ -111,14 +121,20 @@ public class DriveSubsystem extends SubsystemBase {
         double trigger,
         double triggerTime
     ) {
-        this.supplyLimit.enable = enable;
-        this.supplyLimit.currentLimit = limit;
-        this.supplyLimit.triggerThresholdCurrent = trigger;
-        this.supplyLimit.triggerThresholdTime = triggerTime;
+        for (GenericController motor : motors) motor.setSupplyCurrentLimit(
+            enable,
+            limit,
+            trigger,
+            triggerTime
+        );
+        this.supplyLimit = enable;
+        this.supplyCurrentLimit = limit;
+        this.supplyTriggerCurrent = trigger;
+        this.supplyTriggerTime = triggerTime;
         return this;
     }
 
-    /** Configure the stator limit for all motors. Default: Disabled
+    /** Configure the stator limit for all motors, past and future. Default: Disabled
      * @param enable Whether to enable the current limit
      * @param limit The "holding" current (amperes) to limit to when feature is activated.
      * @param trigger Current must exceed this threshold (amperes) before limiting occurs. If this value is less than currentLimit, then currentLimit is used as the threshold.
@@ -131,10 +147,16 @@ public class DriveSubsystem extends SubsystemBase {
         double trigger,
         double triggerTime
     ) {
-        this.statorLimit.enable = enable;
-        this.statorLimit.currentLimit = limit;
-        this.statorLimit.triggerThresholdCurrent = trigger;
-        this.statorLimit.triggerThresholdTime = triggerTime;
+        for (GenericController motor : motors) motor.setStatorCurrentLimit(
+            enable,
+            limit,
+            trigger,
+            triggerTime
+        );
+        this.statorLimit = enable;
+        this.statorCurrentLimit = limit;
+        this.statorTriggerCurrent = trigger;
+        this.statorTriggerTime = triggerTime;
         return this;
     }
 
@@ -165,10 +187,7 @@ public class DriveSubsystem extends SubsystemBase {
             (speed > 0 && speed < brakeThreshold) ||
             (speed < 0 && speed > -brakeThreshold)
         ) speed = 0;
-        for (WPI_TalonFX motor : leftMotors) motor.set(
-            ControlMode.PercentOutput,
-            speed * lCorrect
-        );
+        for (GenericController motor : leftMotors) motor.set(speed * lCorrect);
     }
 
     /**
@@ -181,10 +200,7 @@ public class DriveSubsystem extends SubsystemBase {
             (speed > 0 && speed < brakeThreshold) ||
             (speed < 0 && speed > -brakeThreshold)
         ) speed = 0;
-        for (WPI_TalonFX motor : rightMotors) motor.set(
-            ControlMode.PercentOutput,
-            speed * rCorrect
-        );
+        for (GenericController motor : rightMotors) motor.set(speed * rCorrect);
     }
 
     /**
@@ -202,7 +218,7 @@ public class DriveSubsystem extends SubsystemBase {
      */
     public double getHighestTemp() {
         double highest = 0;
-        for (WPI_TalonFX motor : motors) if (
+        for (GenericController motor : motors) if (
             motor.getTemperature() > highest
         ) highest = motor.getTemperature();
         return highest;

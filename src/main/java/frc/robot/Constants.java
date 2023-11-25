@@ -1,8 +1,6 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot;
+
+import frc.robot.util.GenericController.BaseController;
 
 public final class Constants {
 
@@ -30,15 +28,16 @@ public final class Constants {
 
     public static final class ID { // Motor Name -> ID Mapping
 
-        public static final int LM1 = 14; // Left Motor 1 ID
-        public static final int LM2 = 15; // Left Motor 2 ID
-        public static final int RM1 = 12; // Right Motor 1 ID
-        public static final int RM2 = 13; // Right Motor 2 ID
+        public static final int LM1 = 14; // Left Motor 1 ID - Ensure Drive.MOTOR_TYPE is set to the correct type
+        public static final int LM2 = 15; // Left Motor 2 ID - Ensure Drive.MOTOR_TYPE is set to the correct type
+        public static final int RM1 = 12; // Right Motor 1 ID - Ensure Drive.MOTOR_TYPE is set to the correct type
+        public static final int RM2 = 13; // Right Motor 2 ID - Ensure Drive.MOTOR_TYPE is set to the correct type
         public static final int JOYSTICK = 0; // Joystick ID
     }
 
     public static final class Drive {
 
+        static final BaseController MOTOR_TYPE = BaseController.TALONFX; // Motor type
         static final double BRAKE_THRESHOLD = 0.005; // Speed threshold to round to 0 (and thus brake)
         static final double LM_SPEED_OFFSET = 0; // Percent offset (0-1) for left motor speed (to ensure that it can drive straight)
         static final double RM_SPEED_OFFSET = 0; // Percent offset (0-1) for right motor speed (to ensure that it can drive straight)

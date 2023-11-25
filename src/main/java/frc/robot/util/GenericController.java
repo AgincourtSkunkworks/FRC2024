@@ -10,8 +10,20 @@ import com.revrobotics.CANSparkMaxLowLevel;
  * This allows for the easy interchange of motor controllers, without modifying large amounts of code.
  */
 public class GenericController {
+
+    public enum BaseController {
+        TALONFX,
+        TALONSRX,
+        SPARKMAX,
+    }
+
+    public enum NeutralMode {
+        Brake,
+        Coast,
+    }
+
     // TODO: Test all methods with TalonFX, TalonSRX, and SparkMax
-    public final Base.Controller base;
+    public final BaseController base;
     public WPI_TalonFX talonFX;
     public WPI_TalonSRX talonSRX;
     public CANSparkMax sparkMax;
@@ -21,7 +33,7 @@ public class GenericController {
      * @param base The type of motor controller to use.
      * @param id The ID of the motor controller.
      */
-    public GenericController(Base.Controller base, int id) {
+    public GenericController(BaseController base, int id) {
         this.base = base;
         switch (base) {
             case TALONFX:
@@ -32,7 +44,11 @@ public class GenericController {
                 break;
             case SPARKMAX:
                 // Currently only supports brushless motors, as some implementations rely on brushless features
-                sparkMax = new CANSparkMax(id, CANSparkMaxLowLevel.MotorType.kBrushless);
+                sparkMax =
+                    new CANSparkMax(
+                        id,
+                        CANSparkMaxLowLevel.MotorType.kBrushless
+                    );
                 break;
         }
     }
@@ -43,10 +59,16 @@ public class GenericController {
     public void set(double speed) {
         switch (base) {
             case TALONFX:
-                talonFX.set(com.ctre.phoenix.motorcontrol.ControlMode.PercentOutput, speed);
+                talonFX.set(
+                    com.ctre.phoenix.motorcontrol.ControlMode.PercentOutput,
+                    speed
+                );
                 break;
             case TALONSRX:
-                talonSRX.set(com.ctre.phoenix.motorcontrol.ControlMode.PercentOutput, speed);
+                talonSRX.set(
+                    com.ctre.phoenix.motorcontrol.ControlMode.PercentOutput,
+                    speed
+                );
                 break;
             case SPARKMAX:
                 sparkMax.set(speed);
@@ -57,16 +79,28 @@ public class GenericController {
     /** Set the behaviour of the motors when idle or neutral (0 speed).
      * @param mode The mode to set the motor to.
      */
-    public void setNeutralMode(Base.NeutralMode mode) {
+    public void setNeutralMode(NeutralMode mode) {
         switch (base) {
             case TALONFX:
-                talonFX.setNeutralMode(mode == Base.NeutralMode.Brake ? com.ctre.phoenix.motorcontrol.NeutralMode.Brake : com.ctre.phoenix.motorcontrol.NeutralMode.Coast);
+                talonFX.setNeutralMode(
+                    mode == NeutralMode.Brake
+                        ? com.ctre.phoenix.motorcontrol.NeutralMode.Brake
+                        : com.ctre.phoenix.motorcontrol.NeutralMode.Coast
+                );
                 break;
             case TALONSRX:
-                talonSRX.setNeutralMode(mode == Base.NeutralMode.Brake ? com.ctre.phoenix.motorcontrol.NeutralMode.Brake : com.ctre.phoenix.motorcontrol.NeutralMode.Coast);
+                talonSRX.setNeutralMode(
+                    mode == NeutralMode.Brake
+                        ? com.ctre.phoenix.motorcontrol.NeutralMode.Brake
+                        : com.ctre.phoenix.motorcontrol.NeutralMode.Coast
+                );
                 break;
             case SPARKMAX:
-                sparkMax.setIdleMode(mode == Base.NeutralMode.Brake ? CANSparkMax.IdleMode.kBrake : CANSparkMax.IdleMode.kCoast);
+                sparkMax.setIdleMode(
+                    mode == NeutralMode.Brake
+                        ? CANSparkMax.IdleMode.kBrake
+                        : CANSparkMax.IdleMode.kCoast
+                );
                 break;
         }
     }
@@ -74,7 +108,7 @@ public class GenericController {
     /** Set the behaviour of the motors when idle or neutral (0 speed). Equivalent to setNeutralMode.
      * @param mode The mode to set the motor to.
      */
-    public void setIdleMode(Base.NeutralMode mode) {
+    public void setIdleMode(NeutralMode mode) {
         setNeutralMode(mode);
     }
 
@@ -97,45 +131,84 @@ public class GenericController {
 
     /** Configure the supply current limit for the motors. This is only partially supported on the SparkMax.
      * @param enabled Whether to enable the supply current limit.
-     * @param limit The "holding" current (amperes) to limit to when feature is activated.
+     * @param limit The "holding" current (amperes) to limit to when feature is activated. * ROUNDED TO NEAREST INTEGER ON SPARKMAX *
      * @param trigger Current must exceed this threshold (amperes) before limiting occurs. If this value is less than currentLimit, then currentLimit is used as the threshold. * NOT SUPPORTED ON SPARKMAX *
      * @param triggerTime How long current must exceed threshold (seconds) before limiting occurs. * NOT SUPPORTED ON SPARKMAX *
      */
-    public void setSupplyCurrentLimit(boolean enabled, int limit, int trigger, int triggerTime) {
+    public void setSupplyCurrentLimit(
+        boolean enabled,
+        double limit,
+        double trigger,
+        double triggerTime
+    ) {
         switch (base) {
             case TALONFX:
-                talonFX.configSupplyCurrentLimit(new com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration(enabled, limit, trigger, triggerTime));
+                talonFX.configSupplyCurrentLimit(
+                    new com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration(
+                        enabled,
+                        limit,
+                        trigger,
+                        triggerTime
+                    ),
+                    5
+                );
                 break;
             case TALONSRX:
-                talonSRX.configSupplyCurrentLimit(new com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration(enabled, limit, trigger, triggerTime));
+                talonSRX.configSupplyCurrentLimit(
+                    new com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration(
+                        enabled,
+                        limit,
+                        trigger,
+                        triggerTime
+                    ),
+                    5
+                );
                 break;
             case SPARKMAX:
-                System.out.println("WARNING: Supply current limiting does not have full feature parity on SparkMax");
-                if (enabled)
-                    sparkMax.setSmartCurrentLimit(limit);
-                else
-                    sparkMax.setSmartCurrentLimit(0);  // TODO: Check whether this is the correct way to disable current limiting
+                System.out.println(
+                    "WARNING: Supply current limiting does not have full feature parity on SparkMax"
+                );
+                if (enabled) sparkMax.setSmartCurrentLimit(
+                    (int) limit
+                ); else sparkMax.setSmartCurrentLimit(0); // TODO: Check whether this is the correct way to disable current limiting
                 break;
         }
     }
 
-    /** Configure the stator current limit for the motors. This is ONLY supported on the TalonFX. You should use .setSupplyCurrentLimit instead.
+    /** Configure the stator current limit for the motors. This is ONLY supported on the TalonFX.
      * @param enabled Whether to enable the stator current limit.
      * @param limit The "holding" current (amperes) to limit to when feature is activated.
      * @param trigger Current must exceed this threshold (amperes) before limiting occurs. If this value is less than currentLimit, then currentLimit is used as the threshold.
      * @param triggerTime How long current must exceed threshold (seconds) before limiting occurs.
      */
-    public void setStatorCurrentLimit(boolean enabled, int limit, int trigger, int triggerTime) {
+    public void setStatorCurrentLimit(
+        boolean enabled,
+        double limit,
+        double trigger,
+        double triggerTime
+    ) {
         switch (base) {
             case TALONFX:
-                talonFX.configStatorCurrentLimit(new com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration(enabled, limit, trigger, triggerTime));
+                talonFX.configStatorCurrentLimit(
+                    new com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration(
+                        enabled,
+                        limit,
+                        trigger,
+                        triggerTime
+                    ),
+                    5
+                );
                 break;
             case TALONSRX:
                 // Appears to only implement supply current limiting
-                System.out.println("ERROR: Stator current limiting is not supported on TalonSRX");
+                System.out.println(
+                    "ERROR: Stator current limiting is not supported on TalonSRX"
+                );
                 break;
             case SPARKMAX:
-                System.out.println("ERROR: Stator current limiting is not supported on SparkMax");
+                System.out.println(
+                    "ERROR: Stator current limiting is not supported on SparkMax"
+                );
                 break;
         }
     }
@@ -158,7 +231,7 @@ public class GenericController {
     /** Get the position of the motor.
      * @return The position in raw sensor units for Talon's, and rotations for SparkMax's.
      */
-    public double getPosition() {  // TODO: Create method that converts to standard units
+    public double getPosition() { // TODO: Create method that converts to standard units
         switch (base) {
             case TALONFX:
                 return talonFX.getSelectedSensorPosition();
@@ -173,7 +246,7 @@ public class GenericController {
     /** Get the velocity of the motor.
      * @return The velocity in raw sensor units per 100ms for Talon's, and RPM for SparkMax's.
      */
-    public double getVelocity() {  // TODO: Create method that converts to standard units
+    public double getVelocity() { // TODO: Create method that converts to standard units
         switch (base) {
             case TALONFX:
                 return talonFX.getSelectedSensorVelocity();
