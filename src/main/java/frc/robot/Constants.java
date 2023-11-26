@@ -41,12 +41,12 @@ public final class Constants {
         static final BaseController MOTOR_TYPE = BaseController.TALONFX; // Motor type
         static final DynamicValue<Double> LM_SPEED_OFFSET = new DynamicValue<>(
             "DriveLMOffset",
-            0.0
-        ); // Percent offset (0-1) for left motor speed
+            1.0
+        ); // Value to multiply left motor speed by, used in cases of motor speed mismatch
         static final DynamicValue<Double> RM_SPEED_OFFSET = new DynamicValue<>(
             "DriveRMOffset",
-            0.0
-        ); // Percent offset (0-1) for right motor speed
+            1.0
+        ); // Value to multiply right motor speed by, used in cases of motor speed mismatch
         static final double BRAKE_THRESHOLD = 0.005; // Speed threshold to round to 0 (and thus brake)
         static final boolean LM_INVERSE = false; // Whether the left motors are inverted
         static final boolean RM_INVERSE = true; // Whether the right motors are inverted

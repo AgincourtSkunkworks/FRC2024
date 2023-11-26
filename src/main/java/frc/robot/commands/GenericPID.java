@@ -10,8 +10,7 @@ import java.util.function.DoubleSupplier;
 /**
  * A generic PID command, that can be used directly for basic PID control, or subclassed for more complex control.
  * <p>
- * WPILib offers {@link edu.wpi.first.wpilibj2.command.PIDCommand}, which you may want to consider, but it's mostly
- * personal preference.
+ * WPILib offers {@link edu.wpi.first.wpilibj2.command.PIDCommand}, which you may want to consider as an alternative.
  */
 public class GenericPID extends CommandBase {
 

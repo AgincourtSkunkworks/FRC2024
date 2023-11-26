@@ -5,7 +5,8 @@ import edu.wpi.first.wpilibj.Preferences;
 /**
  * A class to represent values that can either be normal variables, or dynamic values through RobotPreferences.
  * This allows quick interchanges between directly using values, and using RobotPreferences keys, without needing
- * repetitive if statements, or a constants file to store the key.
+ * repetitive if statements, or a constants file to store the key. Additionally, this prevents needing to keep track of
+ * the key and type in multiple places, as it's all in the same object.
  * <p>
  * For example, a value we didn't think needed to be changed often, could be switched to a RobotPreferences key,
  * by simply adding a key to initial creation of the DynamicValue, instead of searching & replacing every variable use.
