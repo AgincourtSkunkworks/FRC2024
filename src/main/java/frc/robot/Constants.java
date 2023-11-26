@@ -1,5 +1,6 @@
 package frc.robot;
 
+import frc.robot.util.DynamicValue;
 import frc.robot.util.GenericController.BaseController;
 
 public final class Constants {
@@ -38,9 +39,15 @@ public final class Constants {
     public static final class Drive {
 
         static final BaseController MOTOR_TYPE = BaseController.TALONFX; // Motor type
+        static final DynamicValue<Double> LM_SPEED_OFFSET = new DynamicValue<>(
+            "DriveLMOffset",
+            0.0
+        ); // Percent offset (0-1) for left motor speed
+        static final DynamicValue<Double> RM_SPEED_OFFSET = new DynamicValue<>(
+            "DriveRMOffset",
+            0.0
+        ); // Percent offset (0-1) for right motor speed
         static final double BRAKE_THRESHOLD = 0.005; // Speed threshold to round to 0 (and thus brake)
-        static final double LM_SPEED_OFFSET = 0; // Percent offset (0-1) for left motor speed (to ensure that it can drive straight)
-        static final double RM_SPEED_OFFSET = 0; // Percent offset (0-1) for right motor speed (to ensure that it can drive straight)
         static final boolean LM_INVERSE = false; // Whether the left motors are inverted
         static final boolean RM_INVERSE = true; // Whether the right motors are inverted
 
