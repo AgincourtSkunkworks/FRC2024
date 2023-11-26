@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.Preferences;
 /**
  * A class to represent values that can either be normal variables, or dynamic values through RobotPreferences.
  * This allows quick interchanges between directly using values, and using RobotPreferences keys, without needing
- * repetitive if statements.
+ * repetitive if statements, or a constants file to store the key.
  * <p>
  * For example, a value we didn't think needed to be changed often, could be switched to a RobotPreferences key,
  * by simply adding a key to initial creation of the DynamicValue, instead of searching & replacing every variable use.
@@ -109,14 +109,6 @@ public class DynamicValue<T> {
         this.type = (Class<T>) defaultValue.getClass();
         this.key = key;
         initPrefValue(key, defaultValue);
-    }
-
-    /** Create a new DynamicValue from an existing variable or literal (equivalent to using the constructor with the value)
-     * @param value The value to use
-     * @return A new DynamicValue with a normal variable
-     */
-    public DynamicValue<T> from(T value) {
-        return new DynamicValue<T>(value);
     }
 
     /** Convert the DynamicValue to use a RobotPreferences key.

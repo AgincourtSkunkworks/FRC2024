@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.util.DynamicValue;
 import frc.robot.util.GenericController;
 import frc.robot.util.GenericController.BaseController;
 import frc.robot.util.GenericController.NeutralMode;
@@ -9,6 +10,9 @@ import java.util.ArrayList;
 
 public class DriveSubsystem extends SubsystemBase {
 
+    // The values that are initialized to a DynamicValue object are a result of the style of configuration used for this
+    // subsystem which doesn't require people to specify a default value. This shouldn't need to be done for most
+    // other subsystems.
     final ArrayList<GenericController> leftMotors =
         new ArrayList<>(), rightMotors = new ArrayList<>(), motors =
         new ArrayList<>();
@@ -17,8 +21,9 @@ public class DriveSubsystem extends SubsystemBase {
         0, statorCurrentLimit = 0, statorTriggerCurrent = 0, statorTriggerTime =
         0;
     NeutralMode neutralMode = NeutralMode.Brake;
+    DynamicValue<Double> lCorrect = new DynamicValue<>(1.0), rCorrect = new DynamicValue<>(1.0);
     boolean lInvert = false, rInvert = false;
-    double lCorrect = 1, rCorrect = 1, brakeThreshold = 0, maxTemp = 0;
+    double brakeThreshold = 0, maxTemp = 0;
 
     // Private constructor so people use .create() instead
     private DriveSubsystem() {}
@@ -93,6 +98,17 @@ public class DriveSubsystem extends SubsystemBase {
      * @return The DriveSubsystem, for chaining
      */
     public DriveSubsystem setOffset(double lCorrect, double rCorrect) {
+        this.lCorrect.set(lCorrect);
+        this.rCorrect.set(rCorrect);
+        return this;
+    }
+
+    /** Set the percent speed offset for the motors
+     * @param lCorrect A DynamicValue for the percent speed offset for the left motors
+     * @param rCorrect A DynamicValue for the percent speed offset for the right motors
+     * @return The DriveSubsystem, for chaining
+     */
+    public DriveSubsystem setOffset(DynamicValue<Double> lCorrect, DynamicValue<Double> rCorrect) {
         this.lCorrect = lCorrect;
         this.rCorrect = rCorrect;
         return this;
@@ -187,7 +203,7 @@ public class DriveSubsystem extends SubsystemBase {
             (speed > 0 && speed < brakeThreshold) ||
             (speed < 0 && speed > -brakeThreshold)
         ) speed = 0;
-        for (GenericController motor : leftMotors) motor.set(speed * lCorrect);
+        for (GenericController motor : leftMotors) motor.set(speed * lCorrect.get());
     }
 
     /**
@@ -200,7 +216,7 @@ public class DriveSubsystem extends SubsystemBase {
             (speed > 0 && speed < brakeThreshold) ||
             (speed < 0 && speed > -brakeThreshold)
         ) speed = 0;
-        for (GenericController motor : rightMotors) motor.set(speed * rCorrect);
+        for (GenericController motor : rightMotors) motor.set(speed * rCorrect.get());
     }
 
     /**

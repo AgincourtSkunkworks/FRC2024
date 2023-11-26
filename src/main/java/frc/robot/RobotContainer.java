@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import frc.robot.util.DynamicValue;
 
 public class RobotContainer {
 
@@ -17,8 +18,8 @@ public class RobotContainer {
         .create()
         .invert(Constants.Drive.LM_INVERSE, Constants.Drive.RM_INVERSE)
         .setOffset(
-            Constants.Drive.LM_SPEED_OFFSET,
-            Constants.Drive.RM_SPEED_OFFSET
+            new DynamicValue<>("DriveLMOffset", Constants.Drive.LM_SPEED_OFFSET),
+            new DynamicValue<>("DriveRMOffset", Constants.Drive.RM_SPEED_OFFSET)
         )
         .setBrakeThreshold(Constants.Drive.BRAKE_THRESHOLD)
         .setSupplyLimit(
