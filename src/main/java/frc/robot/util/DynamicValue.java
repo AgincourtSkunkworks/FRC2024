@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Preferences;
  * by simply adding a key to initial creation of the DynamicValue, instead of searching & replacing every variable use.
  */
 public class DynamicValue<T> {
+
     private String key;
     private T value;
     private final Class<T> type;
@@ -20,81 +21,91 @@ public class DynamicValue<T> {
      * @param value The default value to set it to
      */
     private void initPrefValue(String key, T value) {
-        if (value instanceof Boolean)
-            Preferences.initBoolean(key, (Boolean) value);
-        else if (value instanceof Double)
-            Preferences.initDouble(key, (Double) value);
-        else if (value instanceof Float)
-            Preferences.initFloat(key, (Float) value);
-        else if (value instanceof Integer)
-            Preferences.initInt(key, (Integer) value);
-        else if (value instanceof Long)
-            Preferences.initLong(key, (Long) value);
-        else if (value instanceof String)
-            Preferences.initString(key, (String) value);
-        else
-            throw new IllegalArgumentException(
-                    "DynamicValue does not support type " +
-                            value.getClass().getName() + " using RobotPreferences."
-            );
+        if (value instanceof Boolean) Preferences.initBoolean(
+            key,
+            (Boolean) value
+        ); else if (value instanceof Double) Preferences.initDouble(
+            key,
+            (Double) value
+        ); else if (value instanceof Float) Preferences.initFloat(
+            key,
+            (Float) value
+        ); else if (value instanceof Integer) Preferences.initInt(
+            key,
+            (Integer) value
+        ); else if (value instanceof Long) Preferences.initLong(
+            key,
+            (Long) value
+        ); else if (value instanceof String) Preferences.initString(
+            key,
+            (String) value
+        ); else throw new IllegalArgumentException(
+            "DynamicValue does not support type " +
+            value.getClass().getName() +
+            " using RobotPreferences."
+        );
     }
 
     /** Get the value of the RobotPreferences key associated with this DynamicValue
      * @return The value of the RobotPreferences key
      */
     private T getPrefValue() {
-        if (!Preferences.containsKey(key))
-            throw new IllegalStateException(
-                    "DynamicValue key " + key + " does not exist.");
-        else if (type.equals(Boolean.class))
-            return type.cast(Preferences.getBoolean(key, (Boolean) value));
-        else if (type.equals(Double.class))
-            return type.cast(Preferences.getDouble(key, (Double) value));
-        else if (type.equals(Float.class))
-            return type.cast(Preferences.getFloat(key, (Float) value));
-        else if (type.equals(Integer.class))
-            return type.cast(Preferences.getInt(key, (Integer) value));
-        else if (type.equals(Long.class))
-            return type.cast(Preferences.getLong(key, (Long) value));
-        else if (type.equals(String.class))
-            return type.cast(Preferences.getString(key, (String) value));
-        else
-            throw new IllegalArgumentException(
-                    "DynamicValue does not support type " +
-                            type.getName() + " using RobotPreferences."
-            );
+        if (!Preferences.containsKey(key)) throw new IllegalStateException(
+            "DynamicValue key " + key + " does not exist."
+        ); else if (type.equals(Boolean.class)) return type.cast(
+            Preferences.getBoolean(key, (Boolean) value)
+        ); else if (type.equals(Double.class)) return type.cast(
+            Preferences.getDouble(key, (Double) value)
+        ); else if (type.equals(Float.class)) return type.cast(
+            Preferences.getFloat(key, (Float) value)
+        ); else if (type.equals(Integer.class)) return type.cast(
+            Preferences.getInt(key, (Integer) value)
+        ); else if (type.equals(Long.class)) return type.cast(
+            Preferences.getLong(key, (Long) value)
+        ); else if (type.equals(String.class)) return type.cast(
+            Preferences.getString(key, (String) value)
+        ); else throw new IllegalArgumentException(
+            "DynamicValue does not support type " +
+            type.getName() +
+            " using RobotPreferences."
+        );
     }
 
     /** Set the value of the RobotPreferences key associated with this DynamicValue
      * @param value The value to set the RobotPreferences key to
      */
     private void setPrefValue(T value) {
-        if (!Preferences.containsKey(key))
-            throw new IllegalStateException(
-                    "DynamicValue key " + key + " does not exist.");
-        else if (type.equals(Boolean.class))
-            Preferences.setBoolean(key, (Boolean) value);
-        else if (type.equals(Double.class))
-            Preferences.setDouble(key, (Double) value);
-        else if (type.equals(Float.class))
-            Preferences.setFloat(key, (Float) value);
-        else if (type.equals(Integer.class))
-            Preferences.setInt(key, (Integer) value);
-        else if (type.equals(Long.class))
-            Preferences.setLong(key, (Long) value);
-        else if (type.equals(String.class))
-            Preferences.setString(key, (String) value);
-        else
-            throw new IllegalArgumentException(
-                    "DynamicValue does not support type " +
-                            type.getName() + " using RobotPreferences."
-            );
+        if (!Preferences.containsKey(key)) throw new IllegalStateException(
+            "DynamicValue key " + key + " does not exist."
+        ); else if (type.equals(Boolean.class)) Preferences.setBoolean(
+            key,
+            (Boolean) value
+        ); else if (type.equals(Double.class)) Preferences.setDouble(
+            key,
+            (Double) value
+        ); else if (type.equals(Float.class)) Preferences.setFloat(
+            key,
+            (Float) value
+        ); else if (type.equals(Integer.class)) Preferences.setInt(
+            key,
+            (Integer) value
+        ); else if (type.equals(Long.class)) Preferences.setLong(
+            key,
+            (Long) value
+        ); else if (type.equals(String.class)) Preferences.setString(
+            key,
+            (String) value
+        ); else throw new IllegalArgumentException(
+            "DynamicValue does not support type " +
+            type.getName() +
+            " using RobotPreferences."
+        );
     }
 
     /** Create a new DynamicValue with a normal variable
      * @param value The value to use
      */
-    @SuppressWarnings("unchecked")  // value.getClass() should always represent the T type, when used properly
+    @SuppressWarnings("unchecked") // value.getClass() should always represent the T type, when used properly
     public DynamicValue(T value) {
         this.type = (Class<T>) value.getClass();
         this.value = value;
@@ -104,7 +115,7 @@ public class DynamicValue<T> {
      * @param key The key to use in RobotPreferences
      * @param defaultValue The default value to set it to, if the key doesn't exist
      */
-    @SuppressWarnings("unchecked")  // defaultValue.getClass() should always represent the T type, when used properly
+    @SuppressWarnings("unchecked") // defaultValue.getClass() should always represent the T type, when used properly
     public DynamicValue(String key, T defaultValue) {
         this.type = (Class<T>) defaultValue.getClass();
         this.key = key;
@@ -119,7 +130,7 @@ public class DynamicValue<T> {
      */
     public void toPreferences(String key) {
         if (this.key != null) throw new IllegalStateException(
-                "DynamicValue is already using RobotPreferences."
+            "DynamicValue is already using RobotPreferences."
         );
         this.key = key;
         initPrefValue(key, value);
@@ -138,7 +149,7 @@ public class DynamicValue<T> {
     public void toPreferences(String key, boolean replace) {
         T oldValue = value;
         toPreferences(key);
-        if (replace) {  // We're replacing the value, so let's set everything back to the old value
+        if (replace) { // We're replacing the value, so let's set everything back to the old value
             setPrefValue(oldValue);
             this.value = oldValue;
         }
@@ -149,7 +160,7 @@ public class DynamicValue<T> {
      */
     public void toVariable() {
         if (key == null) throw new IllegalStateException(
-                "DynamicValue is already using a variable."
+            "DynamicValue is already using a variable."
         );
         value = getPrefValue();
         Preferences.remove(key);
@@ -160,15 +171,13 @@ public class DynamicValue<T> {
      * @return The value of the DynamicValue
      */
     public T get() {
-        if (key == null) return value;
-        else return getPrefValue();
+        if (key == null) return value; else return getPrefValue();
     }
 
     /** Set the value of the DynamicValue
      * @param value The value to set the DynamicValue to
      */
     public void set(T value) {
-        if (key == null) this.value = value;
-        else setPrefValue(value);
+        if (key == null) this.value = value; else setPrefValue(value);
     }
 }

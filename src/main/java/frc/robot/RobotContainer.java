@@ -18,7 +18,10 @@ public class RobotContainer {
         .create()
         .invert(Constants.Drive.LM_INVERSE, Constants.Drive.RM_INVERSE)
         .setOffset(
-            new DynamicValue<>("DriveLMOffset", Constants.Drive.LM_SPEED_OFFSET),
+            new DynamicValue<>(
+                "DriveLMOffset",
+                Constants.Drive.LM_SPEED_OFFSET
+            ),
             new DynamicValue<>("DriveRMOffset", Constants.Drive.RM_SPEED_OFFSET)
         )
         .setBrakeThreshold(Constants.Drive.BRAKE_THRESHOLD)

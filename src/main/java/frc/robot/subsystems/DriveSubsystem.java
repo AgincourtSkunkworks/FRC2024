@@ -21,7 +21,8 @@ public class DriveSubsystem extends SubsystemBase {
         0, statorCurrentLimit = 0, statorTriggerCurrent = 0, statorTriggerTime =
         0;
     NeutralMode neutralMode = NeutralMode.Brake;
-    DynamicValue<Double> lCorrect = new DynamicValue<>(1.0), rCorrect = new DynamicValue<>(1.0);
+    DynamicValue<Double> lCorrect = new DynamicValue<>(1.0), rCorrect =
+        new DynamicValue<>(1.0);
     boolean lInvert = false, rInvert = false;
     double brakeThreshold = 0, maxTemp = 0;
 
@@ -108,7 +109,10 @@ public class DriveSubsystem extends SubsystemBase {
      * @param rCorrect A DynamicValue for the percent speed offset for the right motors
      * @return The DriveSubsystem, for chaining
      */
-    public DriveSubsystem setOffset(DynamicValue<Double> lCorrect, DynamicValue<Double> rCorrect) {
+    public DriveSubsystem setOffset(
+        DynamicValue<Double> lCorrect,
+        DynamicValue<Double> rCorrect
+    ) {
         this.lCorrect = lCorrect;
         this.rCorrect = rCorrect;
         return this;
@@ -203,7 +207,9 @@ public class DriveSubsystem extends SubsystemBase {
             (speed > 0 && speed < brakeThreshold) ||
             (speed < 0 && speed > -brakeThreshold)
         ) speed = 0;
-        for (GenericController motor : leftMotors) motor.set(speed * lCorrect.get());
+        for (GenericController motor : leftMotors) motor.set(
+            speed * lCorrect.get()
+        );
     }
 
     /**
@@ -216,7 +222,9 @@ public class DriveSubsystem extends SubsystemBase {
             (speed > 0 && speed < brakeThreshold) ||
             (speed < 0 && speed > -brakeThreshold)
         ) speed = 0;
-        for (GenericController motor : rightMotors) motor.set(speed * rCorrect.get());
+        for (GenericController motor : rightMotors) motor.set(
+            speed * rCorrect.get()
+        );
     }
 
     /**
