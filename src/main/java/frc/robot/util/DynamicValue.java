@@ -172,7 +172,7 @@ public class DynamicValue<T> {
      * @return The value of the DynamicValue
      */
     public T get() {
-        if (key == null) return value; else return getPrefValue();
+        return key == null ? value : getPrefValue();
     }
 
     /** Set the value of the DynamicValue
