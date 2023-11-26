@@ -3,24 +3,24 @@ package frc.robot.util;
 import edu.wpi.first.wpilibj.Preferences;
 
 /**
- * A class to represent values that can either be normal variables, or dynamic values through RobotPreferences. This
- * simplifies the logic, preventing the need of repetitive if statements and Preferences.getX() calls.
+ * A class to represent values that can either be normal variables, or dynamic values through RobotPreferences.
+ * This allows quick interchanges between directly using values, and using RobotPreferences keys, without needing
+ * repetitive if statements.
+ * <p>
+ * For example, a value we didn't think needed to be changed often, could be switched to a RobotPreferences key,
+ * by simply adding a key to initial creation of the DynamicValue, instead of searching & replacing every variable use.
  */
 public class DynamicValue<T> {
-    private T value;
-    private Class<T> type;
     private String key;
+    private T value;
+    private final Class<T> type;
 
-    /** Initialize a new RobotPreferences key with any supported type
+    /** Initialize a new RobotPreferences key with any supported type, if it doesn't already exist
      * @param key  The key to use in RobotPreferences
      * @param value The default value to set it to
      */
     private void initPrefValue(String key, T value) {
-        if (Preferences.containsKey(key))
-            throw new IllegalArgumentException(
-                    "DynamicValue key " + key + " already exists."
-            );
-        else if (value instanceof Boolean)
+        if (value instanceof Boolean)
             Preferences.initBoolean(key, (Boolean) value);
         else if (value instanceof Double)
             Preferences.initDouble(key, (Double) value);
@@ -102,7 +102,7 @@ public class DynamicValue<T> {
 
     /** Create a new DynamicValue with a RobotPreferences key
      * @param key The key to use in RobotPreferences
-     * @param defaultValue The default value to set it to
+     * @param defaultValue The default value to set it to, if the key doesn't exist
      */
     @SuppressWarnings("unchecked")  // defaultValue.getClass() should always represent the T type, when used properly
     public DynamicValue(String key, T defaultValue) {
@@ -119,30 +119,64 @@ public class DynamicValue<T> {
         return new DynamicValue<T>(value);
     }
 
+    /** Convert the DynamicValue to use a RobotPreferences key.
+     * <p>
+     * If the key doesn't exist, the current value will be used as the default value.
+     * If the key does exist, the current value is ABANDONED and the value of the key is used.
+     * @param key The key to use in RobotPreferences
+     */
+    public void toPreferences(String key) {
+        if (this.key != null) throw new IllegalStateException(
+                "DynamicValue is already using RobotPreferences."
+        );
+        this.key = key;
+        initPrefValue(key, value);
+        // The variable is inaccessible when using RobotPreferences, and is overwritten when converting back to
+        // a variable, so we're overriding it here to prevent any confusion where they think the old value is safe.
+        this.value = getPrefValue();
+    }
+
+    /** Convert the DynamicValue to use a RobotPreferences key.
+     * <p>
+     * If the key doesn't exist, the current value will be used as the default value.
+     * If the key does exist, the behaviour depends on the replace parameter.
+     * @param key The key to use in RobotPreferences
+     * @param replace Whether to replace the RobotPreferences key with the current value if it already exists
+     */
+    public void toPreferences(String key, boolean replace) {
+        T oldValue = value;
+        toPreferences(key);
+        if (replace) {  // We're replacing the value, so let's set everything back to the old value
+            setPrefValue(oldValue);
+            this.value = oldValue;
+        }
+    }
+
+    /**
+     * Convert the DynamicValue to use a normal variable. The variable is set to the current value of the RobotPreferences key.
+     */
+    public void toVariable() {
+        if (key == null) throw new IllegalStateException(
+                "DynamicValue is already using a variable."
+        );
+        value = getPrefValue();
+        Preferences.remove(key);
+        key = null;
+    }
+
+    /** Get the value of the DynamicValue
+     * @return The value of the DynamicValue
+     */
     public T get() {
         if (key == null) return value;
         else return getPrefValue();
     }
 
+    /** Set the value of the DynamicValue
+     * @param value The value to set the DynamicValue to
+     */
     public void set(T value) {
         if (key == null) this.value = value;
         else setPrefValue(value);
-    }
-
-    public void toPreferences(String key) {
-        if (this.key != null) throw new IllegalStateException(
-            "DynamicValue is already using RobotPreferences."
-        );
-        this.key = key;
-        initPrefValue(key, value);
-    }
-
-    public void toVariable() {
-        if (key == null) throw new IllegalStateException(
-            "DynamicValue is already using a variable."
-        );
-        value = getPrefValue();
-        Preferences.remove(key);
-        key = null;
     }
 }
