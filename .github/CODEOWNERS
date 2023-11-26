@@ -2,6 +2,14 @@
 /src/main/java/frc/robot/ @TheodoreHua
 # Any GitHub configuration files
 /.github/ @TheodoreHua
-# License Files (sensitive)
+.gitignore @TheodoreHua
+# WPILib Configuration File
+/.wpilib/wpilib_preferences.json @TheodoreHua
+# License Files
 LICENSE @TheodoreHua
 WPILib-License.md @TheodoreHua
+# Auto-Generated Files (shouldn't be modified in most cases)
+build.gradle @TheodoreHua
+gradlew @TheodoreHua
+gradlew.bat @TheodoreHua
+settings.gradle @TheodoreHua
