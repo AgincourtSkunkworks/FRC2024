@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
@@ -27,7 +26,6 @@ public class DriveForTime extends CommandBase {
 
     @Override
     public void initialize() {
-        SmartDashboard.putString("Command", "DriveForTime");
         this.startTime = Timer.getFPGATimestamp();
         drive.setMotors(speed);
     }
@@ -40,7 +38,6 @@ public class DriveForTime extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         drive.setMotors(0);
-        SmartDashboard.putString("Command", "None");
     }
 
     @Override

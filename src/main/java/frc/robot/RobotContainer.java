@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
@@ -53,6 +54,8 @@ public class RobotContainer {
         new SendableChooser<>();
 
     public RobotContainer() {
+        SmartDashboard.putData(CommandScheduler.getInstance());
+        SmartDashboard.putData(drive);
         configureButtonBindings();
 
         drive.setDefaultCommand(

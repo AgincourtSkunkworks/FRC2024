@@ -36,11 +36,6 @@ public class TeleopDrive extends CommandBase {
     }
 
     @Override
-    public void initialize() {
-        SmartDashboard.putString("Command", "TeleOpDrive");
-    }
-
-    @Override
     public void execute() {
         final double stickLeft = lSpeedFunc.get();
         final double stickRight = rSpeedFunc.get();
@@ -53,6 +48,5 @@ public class TeleopDrive extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         drive.setMotors(0);
-        SmartDashboard.putString("Command", "None");
     }
 }

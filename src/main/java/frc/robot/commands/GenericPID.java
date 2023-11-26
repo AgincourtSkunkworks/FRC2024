@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.util.DynamicValue;
 import java.util.function.DoubleConsumer;
@@ -38,6 +37,7 @@ public class GenericPID extends CommandBase {
         DoubleSupplier getError,
         DoubleConsumer useOutput
     ) {
+        this.setName(this.getClass().getSimpleName() + " - " + name);
         this.name = name;
         this.p = new DynamicValue<>(name + "P", defaultP);
         this.i = new DynamicValue<>(name + "I", defaultI);
@@ -128,15 +128,11 @@ public class GenericPID extends CommandBase {
     }
 
     /**
-     * Called when the command is first scheduled. The default behaviour is to reset the "last" values, and indicate
-     * the command name in the SmartDashboard. This shouldn't need to be overridden in most cases.
+     * Called when the command is first scheduled. The default behaviour is to reset the "last" values.
+     * This shouldn't need to be overridden in most cases.
      */
     @Override
     public void initialize() {
-        SmartDashboard.putString(
-            "Command",
-            String.format("%s - %s", this.getClass().getSimpleName(), name)
-        );
         this.errorSum = 0;
         this.lastRunTime = 0;
         this.lastError = 0;
@@ -151,8 +147,7 @@ public class GenericPID extends CommandBase {
         useOutput.accept(calculate());
     }
 
-    /** Called when the command is finished. The default behaviour is to set the output to 0, and indicate that no
-     * command is running in the SmartDashboard.
+    /** Called when the command is finished. The default behaviour is to set the output to 0.
      * <p>
      * By default, the command will not end naturally, and must be cancelled; you can change this by overriding isFinished().
      * @param interrupted Whether the command was interrupted/cancelled
@@ -160,6 +155,5 @@ public class GenericPID extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         useOutput.accept(0);
-        SmartDashboard.putString("Command", "None");
     }
 }
