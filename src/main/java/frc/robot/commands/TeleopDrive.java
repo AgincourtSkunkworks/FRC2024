@@ -1,40 +1,38 @@
 package frc.robot.commands;
 
-import java.util.function.Supplier;
-
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
+import java.util.function.Supplier;
 
 public class TeleopDrive extends CommandBase {
+
     DriveSubsystem drive;
     Supplier<Double> lSpeedFunc, rSpeedFunc;
     SlewRateLimiter leftLimiter, rightLimiter;
 
     /**
-     * Creates a TeleOpDrive Command. This command is used to control the drive in
-     * teleop.
-     * 
+     * Creates a TeleopDrive Command. This command is used to control the drive in the teleop phase.
+     *
      * @param drive      The drive subsystem
      * @param lSpeedFunc Function to get the speed to set the left motors to
      * @param rSpeedFunc Function to get the speed to set the right motors
      *                   to
      * @param rateLimit  Slew rate limit for motors
      */
-    public TeleopDrive(DriveSubsystem drive, Supplier<Double> lSpeedFunc, Supplier<Double> rSpeedFunc,
-            double rateLimit) {
+    public TeleopDrive(
+        DriveSubsystem drive,
+        Supplier<Double> lSpeedFunc,
+        Supplier<Double> rSpeedFunc,
+        double rateLimit
+    ) {
         addRequirements(drive);
         this.drive = drive;
         this.lSpeedFunc = lSpeedFunc;
         this.rSpeedFunc = rSpeedFunc;
         this.leftLimiter = new SlewRateLimiter(rateLimit);
         this.rightLimiter = new SlewRateLimiter(rateLimit);
-    }
-
-    @Override
-    public void initialize() {
-        SmartDashboard.putString("Command", "TeleOpDrive");
     }
 
     @Override
@@ -50,11 +48,5 @@ public class TeleopDrive extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         drive.setMotors(0);
-        SmartDashboard.putString("Command", "None");
-    }
-
-    @Override
-    public boolean isFinished() {
-        return false;
     }
 }
