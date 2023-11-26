@@ -1,15 +1,15 @@
 # All robot code, to allow for required reviews
-/src/main/java/frc/robot/ @TheodoreHua
+/src/main/java/frc/robot/ @AgincourtSkunkworks/core
 # Any GitHub configuration files
-/.github/ @TheodoreHua
-.gitignore @TheodoreHua
+/.github/ @AgincourtSkunkworks/core
+.gitignore @AgincourtSkunkworks/core
 # WPILib Configuration File
-/.wpilib/wpilib_preferences.json @TheodoreHua
+/.wpilib/wpilib_preferences.json @AgincourtSkunkworks/core
 # License Files
-LICENSE @TheodoreHua
-WPILib-License.md @TheodoreHua
+LICENSE @AgincourtSkunkworks/core
+WPILib-License.md @AgincourtSkunkworks/core
 # Auto-Generated Files (shouldn't be modified in most cases)
-build.gradle @TheodoreHua
-gradlew @TheodoreHua
-gradlew.bat @TheodoreHua
-settings.gradle @TheodoreHua
+build.gradle @AgincourtSkunkworks/core
+gradlew @AgincourtSkunkworks/core
+gradlew.bat @AgincourtSkunkworks/core
+settings.gradle @AgincourtSkunkworks/core
