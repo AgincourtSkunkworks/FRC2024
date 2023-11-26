@@ -135,7 +135,7 @@ public class GenericController {
      * @param trigger Current must exceed this threshold (amperes) before limiting occurs. If this value is less than currentLimit, then currentLimit is used as the threshold. * NOT SUPPORTED ON SPARKMAX *
      * @param triggerTime How long current must exceed threshold (seconds) before limiting occurs. * NOT SUPPORTED ON SPARKMAX *
      */
-    public void setSupplyCurrentLimit(  // TODO: Figure out how to  better handle parity between controllers for current limiting
+    public void setSupplyCurrentLimit( // TODO: Figure out how to better handle parity between controllers for current limiting
         boolean enabled,
         double limit,
         double trigger,
@@ -181,7 +181,7 @@ public class GenericController {
      * @param trigger Current must exceed this threshold (amperes) before limiting occurs. If this value is less than currentLimit, then currentLimit is used as the threshold.
      * @param triggerTime How long current must exceed threshold (seconds) before limiting occurs.
      */
-    public void setStatorCurrentLimit(  // TODO: Figure out how to  better handle parity between controllers for current limiting
+    public void setStatorCurrentLimit( // TODO: Figure out how to better handle parity between controllers for current limiting
         boolean enabled,
         double limit,
         double trigger,
