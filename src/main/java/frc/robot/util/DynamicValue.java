@@ -47,24 +47,25 @@ public class DynamicValue<T> {
         );
     }
 
-    /** Get the value of the RobotPreferences key associated with this DynamicValue
+    /** Get the value of the RobotPreferences key associated with this DynamicValue.
+     * this.value is used as fallback if we fail to get the value.
      * @return The value of the RobotPreferences key
      */
     private T getPrefValue() {
         if (!Preferences.containsKey(key)) throw new IllegalStateException(
             "DynamicValue key " + key + " does not exist."
         ); else if (type.equals(Boolean.class)) return type.cast(
-            Preferences.getBoolean(key, (Boolean) value)
+            Preferences.getBoolean(key, (Boolean) this.value)
         ); else if (type.equals(Double.class)) return type.cast(
-            Preferences.getDouble(key, (Double) value)
+            Preferences.getDouble(key, (Double) this.value)
         ); else if (type.equals(Float.class)) return type.cast(
-            Preferences.getFloat(key, (Float) value)
+            Preferences.getFloat(key, (Float) this.value)
         ); else if (type.equals(Integer.class)) return type.cast(
-            Preferences.getInt(key, (Integer) value)
+            Preferences.getInt(key, (Integer) this.value)
         ); else if (type.equals(Long.class)) return type.cast(
-            Preferences.getLong(key, (Long) value)
+            Preferences.getLong(key, (Long) this.value)
         ); else if (type.equals(String.class)) return type.cast(
-            Preferences.getString(key, (String) value)
+            Preferences.getString(key, (String) this.value)
         ); else throw new IllegalArgumentException(
             "DynamicValue does not support type " +
             type.getName() +
@@ -114,12 +115,13 @@ public class DynamicValue<T> {
 
     /** Create a new DynamicValue with a RobotPreferences key
      * @param key The key to use in RobotPreferences
-     * @param defaultValue The default value to set it to, if the key doesn't exist
+     * @param defaultValue The default value if key doesn't exist, and fallback on failure to get value
      */
     @SuppressWarnings("unchecked") // defaultValue.getClass() should always represent the T type, when used properly
     public DynamicValue(String key, T defaultValue) {
         this.type = (Class<T>) defaultValue.getClass();
         this.key = key;
+        this.value = defaultValue; // Used when getX() fails as fallback
         initPrefValue(key, defaultValue);
     }
 
