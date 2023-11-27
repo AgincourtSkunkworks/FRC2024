@@ -115,6 +115,7 @@ public class GenericPID extends CommandBase {
      * @return The calculated output of the PID
      */
     protected double calculate() {
+        if (lastRunTime == 0) lastRunTime = Timer.getFPGATimestamp(); // Prevent large term as a result of first run
         final double curTime = Timer.getFPGATimestamp();
         final double dt = curTime - lastRunTime;
         final double error = getError.getAsDouble();
