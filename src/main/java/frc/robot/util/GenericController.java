@@ -9,7 +9,7 @@ import com.revrobotics.CANSparkMaxLowLevel;
  * A motor controller class that provides a basic generic implementation for common motor controllers used in FRC.
  * This allows for the easy interchange of motor controllers, without modifying large amounts of code.
  */
-public class GenericController {
+public class GenericController implements AutoCloseable {
 
     public enum BaseController {
         TALONFX,
@@ -271,5 +271,20 @@ public class GenericController {
                 return sparkMax;
         }
         return null;
+    }
+
+    @Override
+    public void close() {
+        switch (base) {
+            case TALONFX:
+                talonFX.close();
+                break;
+            case TALONSRX:
+                talonSRX.close();
+                break;
+            case SPARKMAX:
+                sparkMax.close();
+                break;
+        }
     }
 }

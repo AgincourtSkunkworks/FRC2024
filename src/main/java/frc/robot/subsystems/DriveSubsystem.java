@@ -8,7 +8,7 @@ import frc.robot.util.GenericController.BaseController;
 import frc.robot.util.GenericController.NeutralMode;
 import java.util.ArrayList;
 
-public class DriveSubsystem extends SubsystemBase {
+public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
 
     // The values that are initialized to a DynamicValue object are a result of the style of configuration used for this
     // subsystem which doesn't require people to specify a default value. This shouldn't need to be done for most
@@ -265,5 +265,10 @@ public class DriveSubsystem extends SubsystemBase {
                 );
             }
         }
+    }
+
+    @Override
+    public void close() {
+        for (GenericController motor : motors) motor.close();
     }
 }

@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class GyroSubsystem extends SubsystemBase {
+public class GyroSubsystem extends SubsystemBase implements AutoCloseable {
 
     public AHRS ahrs;
     private final boolean useRoll, upsideDown;
@@ -71,5 +71,10 @@ public class GyroSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Yaw", ahrs.getYaw());
         SmartDashboard.putNumber("Pitch", ahrs.getPitch());
         SmartDashboard.putNumber("Roll", ahrs.getRoll());
+    }
+
+    @Override
+    public void close() {
+        ahrs.close();
     }
 }
