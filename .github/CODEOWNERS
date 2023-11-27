@@ -1,5 +1,5 @@
-# All robot code, to allow for required reviews
-/src/main/java/frc/robot/ @AgincourtSkunkworks/core
+# All code in the src folder
+/src/ @AgincourtSkunkworks/core
 # Any GitHub configuration files
 /.github/ @AgincourtSkunkworks/core
 .gitignore @AgincourtSkunkworks/core
