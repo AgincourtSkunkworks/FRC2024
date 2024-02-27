@@ -50,8 +50,7 @@ public class RobotContainer {
         Constants.Gyro.UPSIDE_DOWN
     );
     private final Joystick controller = new Joystick(Constants.ID.JOYSTICK);
-    private final SendableChooser<Command> autoChooser =
-        new SendableChooser<>();
+    private final SendableChooser<Command> autoChooser = new SendableChooser<>();
 
     public RobotContainer() {
         SmartDashboard.putData(CommandScheduler.getInstance());
