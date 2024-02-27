@@ -1,7 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.util.DynamicValue;
 import java.util.function.DoubleConsumer;
 import java.util.function.DoubleSupplier;
@@ -11,7 +11,7 @@ import java.util.function.DoubleSupplier;
  * <p>
  * WPILib offers {@link edu.wpi.first.wpilibj2.command.PIDCommand}, which you may want to consider as an alternative.
  */
-public class GenericPID extends CommandBase {
+public class GenericPID extends Command {
 
     protected final DynamicValue<Double> p, i, d, iMax;
     protected final DoubleSupplier getError;

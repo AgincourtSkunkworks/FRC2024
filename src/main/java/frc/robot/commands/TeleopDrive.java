@@ -2,11 +2,11 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DriveSubsystem;
 import java.util.function.Supplier;
 
-public class TeleopDrive extends CommandBase {
+public class TeleopDrive extends Command {
 
     DriveSubsystem drive;
     Supplier<Double> lSpeedFunc, rSpeedFunc;
