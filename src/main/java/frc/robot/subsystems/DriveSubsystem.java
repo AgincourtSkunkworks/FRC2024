@@ -57,9 +57,7 @@ public class DriveSubsystem extends SubsystemBase {
             );
             motor.setStatorCurrentLimit(
                 statorLimit,
-                statorCurrentLimit,
-                statorTriggerCurrent,
-                statorTriggerTime
+                statorCurrentLimit
             );
             arr.add(motor);
             motors.add(motor);
@@ -168,9 +166,7 @@ public class DriveSubsystem extends SubsystemBase {
     ) {
         for (GenericController motor : motors) motor.setStatorCurrentLimit(
             enable,
-            limit,
-            trigger,
-            triggerTime
+            limit
         );
         this.statorLimit = enable;
         this.statorCurrentLimit = limit;
