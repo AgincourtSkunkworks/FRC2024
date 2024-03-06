@@ -69,18 +69,29 @@ public final class Constants {
 
     public static final class Intake {
 
+        public static int TRIGGER_BTN = Constants.Buttons.R1;
+        public static int OVERRIDE_FWD_BTN = Constants.Buttons.BACK;
+        public static int OVERRIDE_REV_BTN = Constants.Buttons.START;
+
         public static final class Rotation {
 
             static final BaseController MOTOR_TYPE = BaseController.TALONSRX; // Motor type
             static final boolean LM_INVERSE = false; // Whether the left motor is inverted
             static final boolean RM_INVERSE = true; // Whether the right motor is inverted
 
-            public static final class DefaultPID {
+            public static final class DefaultPID { // TODO: Tune
 
                 static final double P = 0.000035;
                 static final double I = 0.0;
                 static final double IMax = 0.0; // Maximum integral value
                 static final double D = 0.0;
+                static final double FINISH_TOLERANCE = 100; // # of ticks of difference from setpoint to end PID within
+            }
+
+            public static final class Setpoints {
+
+                static final double LOW = 0;
+                static final double HIGH = 0; // TODO: Measure
             }
 
             public static final class CurrentLimit {
@@ -98,6 +109,8 @@ public final class Constants {
 
             static final BaseController MOTOR_TYPE = BaseController.TALONSRX; // CIM motor type
             static final boolean INVERSE = false; // Whether the motor is inverted
+            static final double SPEED = 0.8; // Speed in which to run the intake feeder
+            static final double RELEASE_WAIT = 1; // Number of seconds to run feeder in reverse when releasing
         }
     }
 
@@ -107,6 +120,9 @@ public final class Constants {
             BaseController.TALONSRX; // CIM motor type
         static final boolean FLYWHEEL_LM_INVERSE = false; // Whether the flywheel left motor is inverted
         static final boolean FLYWHEEL_RM_INVERSE = true; // Whether the flywheel right motor is inverted
+        static final double SPEED = 1; // Speed in which to run the flywheels
+        static final int TRIGGER_BTN = Constants.Buttons.R2;
+        static final int OVERRIDE_BTN = Constants.Buttons.X;
     }
 
     public static final class Autonomous {

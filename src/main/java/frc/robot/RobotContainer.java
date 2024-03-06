@@ -7,10 +7,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.*;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import frc.robot.util.DynamicValue;
 
 public class RobotContainer {
 
@@ -76,6 +77,32 @@ public class RobotContainer {
     private final Joystick controller = new Joystick(Constants.ID.JOYSTICK);
     private final SendableChooser<Command> autoChooser = new SendableChooser<>();
 
+    private final RotationPID rotationLowPID = new RotationPID(
+        "IntakeLow",
+        intakeRotation,
+        Constants.Intake.Rotation.Setpoints.LOW,
+        new DynamicValue<>(
+            "IntakeLowTolerance",
+            Constants.Intake.Rotation.DefaultPID.FINISH_TOLERANCE
+        ),
+        Constants.Intake.Rotation.DefaultPID.P,
+        Constants.Intake.Rotation.DefaultPID.I,
+        Constants.Intake.Rotation.DefaultPID.D,
+        Constants.Intake.Rotation.DefaultPID.IMax
+    ), rotationHighPID = new RotationPID(
+        "IntakeHigh",
+        intakeRotation,
+        Constants.Intake.Rotation.Setpoints.HIGH,
+        new DynamicValue<>(
+            "IntakeHighTolerance",
+            Constants.Intake.Rotation.DefaultPID.FINISH_TOLERANCE
+        ),
+        Constants.Intake.Rotation.DefaultPID.P,
+        Constants.Intake.Rotation.DefaultPID.I,
+        Constants.Intake.Rotation.DefaultPID.D,
+        Constants.Intake.Rotation.DefaultPID.IMax
+    );
+
     public RobotContainer() {
         SmartDashboard.putData(CommandScheduler.getInstance());
         SmartDashboard.putData(drive);
@@ -90,13 +117,71 @@ public class RobotContainer {
                 Constants.TeleOp.SLEW_RATE_LIMIT
             )
         );
+        intakeRotation.setDefaultCommand(rotationLowPID);
 
         autoChooser.addOption("None", null);
         SmartDashboard.putData(autoChooser);
     }
 
     @SuppressWarnings("all") // false positives from use of config constants
-    private void configureButtonBindings() {}
+    private void configureButtonBindings() {
+        new JoystickButton(controller, Constants.Intake.TRIGGER_BTN)
+            .onTrue( // prime for intake of piece when pressed
+                new SequentialCommandGroup(
+                    rotationLowPID,
+                    Commands.runOnce(() ->
+                        intakeFeeder.setMotor(Constants.Intake.Feeder.SPEED)
+                    )
+                )
+            )
+            .onFalse( // intake piece when released
+                new SequentialCommandGroup(
+                    Commands.runOnce(() -> intakeFeeder.setMotor(0)),
+                    rotationHighPID
+                )
+            );
+        new JoystickButton(controller, Constants.Intake.OVERRIDE_FWD_BTN)
+            .whileTrue(
+                Commands.startEnd(
+                    () -> intakeFeeder.setMotor(Constants.Intake.Feeder.SPEED),
+                    () -> intakeFeeder.setMotor(0)
+                )
+            );
+        new JoystickButton(controller, Constants.Intake.OVERRIDE_REV_BTN)
+            .whileTrue(
+                Commands.startEnd(
+                    () -> intakeFeeder.setMotor(-Constants.Intake.Feeder.SPEED),
+                    () -> intakeFeeder.setMotor(0)
+                )
+            );
+        new JoystickButton(controller, Constants.Outtake.TRIGGER_BTN)
+            .onTrue(
+                new SequentialCommandGroup(
+                    rotationHighPID,
+                    Commands.runOnce(() ->
+                        intakeFeeder.setMotor(-Constants.Intake.Feeder.SPEED)
+                    ),
+                    Commands.waitSeconds(Constants.Intake.Feeder.RELEASE_WAIT),
+                    Commands.runOnce(() -> intakeFeeder.setMotor(0)),
+                    Commands.runOnce(() ->
+                        outtake.setMotors(Constants.Outtake.SPEED)
+                    )
+                )
+            )
+            .onFalse(
+                new SequentialCommandGroup(
+                    Commands.runOnce(() -> outtake.setMotors(0)),
+                    rotationLowPID
+                )
+            );
+        new JoystickButton(controller, Constants.Outtake.OVERRIDE_BTN)
+            .whileTrue(
+                Commands.startEnd(
+                    () -> outtake.setMotors(Constants.Outtake.SPEED),
+                    () -> outtake.setMotors(0)
+                )
+            );
+    }
 
     public Command getAutonomousCommand() {
         return autoChooser.getSelected();
