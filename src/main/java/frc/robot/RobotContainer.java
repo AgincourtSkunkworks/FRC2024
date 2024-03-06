@@ -30,9 +30,7 @@ public class RobotContainer {
         )
         .setStatorLimit(
             Constants.Drive.CurrentLimit.STATOR,
-            Constants.Drive.CurrentLimit.STATOR_LIMIT,
-            Constants.Drive.CurrentLimit.STATOR_TRIGGER,
-            Constants.Drive.CurrentLimit.STATOR_TRIGGER_TIME
+            Constants.Drive.CurrentLimit.STATOR_LIMIT
         )
         .setMaxTemp(Constants.Autonomous.MAX_TEMP)
         .addLeftMotors(
@@ -45,9 +43,35 @@ public class RobotContainer {
             Constants.ID.RM1,
             Constants.ID.RM2
         );
-    private final GyroSubsystem gyro = new GyroSubsystem(
-        Constants.Gyro.USE_ROLL,
-        Constants.Gyro.UPSIDE_DOWN
+    private final IntakeSubsystem.Rotation intakeRotation = IntakeSubsystem.Rotation
+        .create(
+            Constants.Intake.Rotation.MOTOR_TYPE,
+            Constants.ID.IRTLM,
+            Constants.Intake.Rotation.LM_INVERSE,
+            Constants.ID.IRTRM,
+            Constants.Intake.Rotation.RM_INVERSE
+        )
+        .setSupplyLimit(
+            Constants.Intake.Rotation.CurrentLimit.SUPPLY,
+            Constants.Intake.Rotation.CurrentLimit.SUPPLY_LIMIT,
+            Constants.Intake.Rotation.CurrentLimit.SUPPLY_TRIGGER,
+            Constants.Intake.Rotation.CurrentLimit.SUPPLY_TRIGGER_TIME
+        )
+        .setStatorLimit(
+            Constants.Intake.Rotation.CurrentLimit.STATOR,
+            Constants.Intake.Rotation.CurrentLimit.STATOR_LIMIT
+        );
+    private final IntakeSubsystem.Feeder intakeFeeder = new IntakeSubsystem.Feeder(
+        Constants.Intake.Feeder.MOTOR_TYPE,
+        Constants.ID.IF,
+        Constants.Intake.Feeder.INVERSE
+    );
+    private final OuttakeSubsystem outtake = new OuttakeSubsystem(
+        Constants.Outtake.FLYWHEEL_MOTOR_TYPE,
+        Constants.ID.OFLM,
+        Constants.Outtake.FLYWHEEL_LM_INVERSE,
+        Constants.ID.OFRM,
+        Constants.Outtake.FLYWHEEL_RM_INVERSE
     );
     private final Joystick controller = new Joystick(Constants.ID.JOYSTICK);
     private final SendableChooser<Command> autoChooser = new SendableChooser<>();
