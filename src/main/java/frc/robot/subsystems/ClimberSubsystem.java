@@ -35,6 +35,9 @@ public class ClimberSubsystem {
         public void setNeutralMode(neutralMode) {
             motor.setNeutralMode(neutralMode);
         }
-       
+
+        public double getPosition() {
+            return motor.getPosition();
+        }
     }
 }
