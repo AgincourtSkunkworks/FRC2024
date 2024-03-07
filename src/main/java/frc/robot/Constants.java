@@ -33,12 +33,17 @@ public final class Constants {
         public static final int LM2 = 15; // Left Motor 2 ID - Ensure Drive.MOTOR_TYPE is set to the correct type
         public static final int RM1 = 12; // Right Motor 1 ID - Ensure Drive.MOTOR_TYPE is set to the correct type
         public static final int RM2 = 13; // Right Motor 2 ID - Ensure Drive.MOTOR_TYPE is set to the correct type
+        public static final int IRTLM = -1; // Intake Rotation Left Motor ID - Ensure Intake.ROTATION_MOTOR_TYPE is set to the correct type
+        public static final int IRTRM = -1; // Intake Rotation Right Motor ID - Ensure Intake.ROTATION_MOTOR_TYPE is set to the correct type
+        public static final int IF = -1; // Intake CIM (Feeder) ID - Ensure Intake.CIM_MOTOR_TYPE is set to the correct type
+        public static final int OFLM = -1; // Outtake CIM (Flywheel) Left Motor ID - Ensure Outtake.CIM_MOTOR_TYPE is set to the correct type
+        public static final int OFRM = -1; // Outtake CIM (Flywheel) Right Motor ID - Ensure Outtake.CIM_MOTOR_TYPE is set to the correct type
         public static final int JOYSTICK = 0; // Joystick ID
     }
 
     public static final class Drive {
 
-        static final BaseController MOTOR_TYPE = BaseController.TALONFX; // Motor type
+        static final BaseController MOTOR_TYPE = BaseController.SPARKMAX; // Motor type
         static final DynamicValue<Double> LM_SPEED_OFFSET = new DynamicValue<>(
             "DriveLMOffset",
             1.0
@@ -59,15 +64,67 @@ public final class Constants {
             static final double SUPPLY_TRIGGER_TIME = 0.15; // Amount of time to go over SUPPLY_TRIGGER before triggering the limit
             static final boolean STATOR = true; // Whether to enable stator current limiting
             static final double STATOR_LIMIT = 100; // Stator current limit
-            static final double STATOR_TRIGGER = 100; // Current in which to trigger the stator limit (lower to STATOR_LIMIT)
-            static final double STATOR_TRIGGER_TIME = 0.15; // Amount of time to go over STATOR_TRIGGER before triggering the limit
         }
     }
 
-    public static final class Gyro {
+    public static final class Intake {
 
-        static final boolean USE_ROLL = true; // Whether to use roll instead of pitch for pitch related operations
-        static final boolean UPSIDE_DOWN = false; // Whether the gyro is upside down vertically (will reverse gyro logic for pitch)
+        public static int TRIGGER_BTN = Constants.Buttons.R1;
+
+        public static final class Rotation {
+
+            static final BaseController MOTOR_TYPE = BaseController.TALONSRX; // Motor type
+            static final boolean LM_INVERSE = false; // Whether the left motor is inverted
+            static final boolean RM_INVERSE = true; // Whether the right motor is inverted
+            static final int OVERRIDE_LOW_BTN = Constants.Buttons.A;
+            static final int OVERRIDE_HIGH_BTN = Constants.Buttons.B;
+
+            public static final class DefaultPID { // TODO: Tune
+
+                static final double P = 0.000035;
+                static final double I = 0.0;
+                static final double IMax = 0.0; // Maximum integral value
+                static final double D = 0.0;
+                static final double FINISH_TOLERANCE = 100; // # of ticks of difference from setpoint to end PID within
+            }
+
+            public static final class Setpoints {
+
+                static final double LOW = 0;
+                static final double HIGH = 0; // TODO: Measure
+            }
+
+            public static final class CurrentLimit {
+
+                static final boolean SUPPLY = true; // Whether to enable supply current limiting
+                static final double SUPPLY_LIMIT = 100; // Supply current limit
+                static final double SUPPLY_TRIGGER = 100; // Current in which to trigger the supply limit (lower to SUPPLY_LIMIT)
+                static final double SUPPLY_TRIGGER_TIME = 0.15; // Amount of time to go over SUPPLY_TRIGGER before triggering the limit
+                static final boolean STATOR = true; // Whether to enable stator current limiting
+                static final double STATOR_LIMIT = 100; // Stator current limit
+            }
+        }
+
+        public static final class Feeder {
+
+            static final BaseController MOTOR_TYPE = BaseController.TALONSRX; // CIM motor type
+            static final boolean INVERSE = false; // Whether the motor is inverted
+            static final double SPEED = 0.8; // Speed in which to run the intake feeder
+            static final double RELEASE_WAIT = 1; // Number of seconds to run feeder in reverse when releasing
+            public static int OVERRIDE_FWD_BTN = Constants.Buttons.BACK;
+            public static int OVERRIDE_REV_BTN = Constants.Buttons.START;
+        }
+    }
+
+    public static final class Outtake {
+
+        static final BaseController FLYWHEEL_MOTOR_TYPE =
+            BaseController.TALONSRX; // CIM motor type
+        static final boolean FLYWHEEL_LM_INVERSE = false; // Whether the flywheel left motor is inverted
+        static final boolean FLYWHEEL_RM_INVERSE = true; // Whether the flywheel right motor is inverted
+        static final double SPEED = 1; // Speed in which to run the flywheels
+        static final int TRIGGER_BTN = Constants.Buttons.R2;
+        static final int OVERRIDE_BTN = Constants.Buttons.X;
     }
 
     public static final class Autonomous {

@@ -16,8 +16,7 @@ public class DriveSubsystem extends SubsystemBase {
     final ArrayList<GenericController> leftMotors = new ArrayList<>(), rightMotors = new ArrayList<>(), motors = new ArrayList<>();
     boolean supplyLimit = false, statorLimit = false;
     double supplyCurrentLimit = 0, supplyTriggerCurrent = 0, supplyTriggerTime =
-        0, statorCurrentLimit = 0, statorTriggerCurrent = 0, statorTriggerTime =
-        0;
+        0, statorCurrentLimit = 0;
     NeutralMode neutralMode = NeutralMode.Brake;
     DynamicValue<Double> lCorrect = new DynamicValue<>(
         1.0
@@ -55,10 +54,7 @@ public class DriveSubsystem extends SubsystemBase {
                 supplyTriggerCurrent,
                 supplyTriggerTime
             );
-            motor.setStatorCurrentLimit(
-                statorLimit,
-                statorCurrentLimit
-            );
+            motor.setStatorCurrentLimit(statorLimit, statorCurrentLimit);
             arr.add(motor);
             motors.add(motor);
         }
@@ -154,24 +150,15 @@ public class DriveSubsystem extends SubsystemBase {
     /** Configure the stator limit for all motors, past and future. Default: Disabled
      * @param enable Whether to enable the current limit
      * @param limit The "holding" current (amperes) to limit to when feature is activated.
-     * @param trigger Current must exceed this threshold (amperes) before limiting occurs. If this value is less than currentLimit, then currentLimit is used as the threshold.
-     * @param triggerTime How long current must exceed threshold (seconds) before limiting occurs.
      * @return The DriveSubsystem, for chaining
      */
-    public DriveSubsystem setStatorLimit(
-        boolean enable,
-        double limit,
-        double trigger,
-        double triggerTime
-    ) {
+    public DriveSubsystem setStatorLimit(boolean enable, double limit) {
         for (GenericController motor : motors) motor.setStatorCurrentLimit(
             enable,
             limit
         );
         this.statorLimit = enable;
         this.statorCurrentLimit = limit;
-        this.statorTriggerCurrent = trigger;
-        this.statorTriggerTime = triggerTime;
         return this;
     }
 

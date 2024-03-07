@@ -178,10 +178,7 @@ public class GenericController {
      * @param enabled Whether to enable the stator current limit.
      * @param limit The "holding" current (amperes) to limit to when feature is activated.
      */
-    public void setStatorCurrentLimit(
-        boolean enabled,
-        double limit
-    ) {
+    public void setStatorCurrentLimit(boolean enabled, double limit) {
         switch (base) {
             case TALONFX: // TODO: Verify that this works as expected
                 talonFXConfig.CurrentLimits
@@ -223,6 +220,19 @@ public class GenericController {
             case TALONSRX -> talonSRX.getSelectedSensorPosition();
             case SPARKMAX -> sparkMax.getEncoder().getPosition();
         };
+    }
+
+    /** Set the position of the motor.
+     * @param newPosition The new position to set the motor to. This is truncated to the nearest integer for TalonSRXs.
+     */
+    public void setPosition(double newPosition) {
+        switch (base) {
+            case TALONFX -> talonFX.setPosition(newPosition);
+            case TALONSRX -> talonSRX.setSelectedSensorPosition(
+                (int) newPosition
+            );
+            case SPARKMAX -> sparkMax.getEncoder().setPosition(newPosition);
+        }
     }
 
     /** Get the velocity of the motor.
