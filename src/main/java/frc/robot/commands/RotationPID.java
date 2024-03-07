@@ -6,6 +6,7 @@ import frc.robot.util.DynamicValue;
 public class RotationPID extends GenericPID {
 
     DynamicValue<Double> tolerance;
+    boolean canEnd;
 
     public RotationPID(
         String name,
@@ -15,7 +16,8 @@ public class RotationPID extends GenericPID {
         double defaultP,
         double defaultI,
         double defaultD,
-        double defaultIMax
+        double defaultIMax,
+        boolean canEnd
     ) {
         super(
             name,
@@ -27,11 +29,12 @@ public class RotationPID extends GenericPID {
             rotation::setMotors
         );
         tolerance = targetTolerance;
+        this.canEnd = canEnd;
         addRequirements(rotation);
     }
 
     @Override
     public boolean isFinished() {
-        return Math.abs(getError.getAsDouble()) < tolerance.get();
+        return canEnd && Math.abs(getError.getAsDouble()) < tolerance.get();
     }
 }
