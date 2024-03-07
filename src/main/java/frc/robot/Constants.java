@@ -70,14 +70,14 @@ public final class Constants {
     public static final class Intake {
 
         public static int TRIGGER_BTN = Constants.Buttons.R1;
-        public static int OVERRIDE_FWD_BTN = Constants.Buttons.BACK;
-        public static int OVERRIDE_REV_BTN = Constants.Buttons.START;
 
         public static final class Rotation {
 
             static final BaseController MOTOR_TYPE = BaseController.TALONSRX; // Motor type
             static final boolean LM_INVERSE = false; // Whether the left motor is inverted
             static final boolean RM_INVERSE = true; // Whether the right motor is inverted
+            static final int OVERRIDE_LOW_BTN = Constants.Buttons.A;
+            static final int OVERRIDE_HIGH_BTN = Constants.Buttons.B;
 
             public static final class DefaultPID { // TODO: Tune
 
@@ -111,6 +111,8 @@ public final class Constants {
             static final boolean INVERSE = false; // Whether the motor is inverted
             static final double SPEED = 0.8; // Speed in which to run the intake feeder
             static final double RELEASE_WAIT = 1; // Number of seconds to run feeder in reverse when releasing
+            public static int OVERRIDE_FWD_BTN = Constants.Buttons.BACK;
+            public static int OVERRIDE_REV_BTN = Constants.Buttons.START;
         }
     }
 

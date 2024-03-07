@@ -117,14 +117,15 @@ public class RobotContainer {
                 Constants.TeleOp.SLEW_RATE_LIMIT
             )
         );
-        intakeRotation.setDefaultCommand(rotationLowPID);
 
+        rotationHighPID.schedule();
         autoChooser.addOption("None", null);
         SmartDashboard.putData(autoChooser);
     }
 
     @SuppressWarnings("all") // false positives from use of config constants
     private void configureButtonBindings() {
+        // * AUTOMATED SEQUENCES
         new JoystickButton(controller, Constants.Intake.TRIGGER_BTN)
             .onTrue( // prime for intake of piece when pressed
                 new SequentialCommandGroup(
@@ -138,20 +139,6 @@ public class RobotContainer {
                 new SequentialCommandGroup(
                     Commands.runOnce(() -> intakeFeeder.setMotor(0)),
                     rotationHighPID
-                )
-            );
-        new JoystickButton(controller, Constants.Intake.OVERRIDE_FWD_BTN)
-            .whileTrue(
-                Commands.startEnd(
-                    () -> intakeFeeder.setMotor(Constants.Intake.Feeder.SPEED),
-                    () -> intakeFeeder.setMotor(0)
-                )
-            );
-        new JoystickButton(controller, Constants.Intake.OVERRIDE_REV_BTN)
-            .whileTrue(
-                Commands.startEnd(
-                    () -> intakeFeeder.setMotor(-Constants.Intake.Feeder.SPEED),
-                    () -> intakeFeeder.setMotor(0)
                 )
             );
         new JoystickButton(controller, Constants.Outtake.TRIGGER_BTN)
@@ -168,10 +155,32 @@ public class RobotContainer {
                     )
                 )
             )
-            .onFalse(
-                new SequentialCommandGroup(
-                    Commands.runOnce(() -> outtake.setMotors(0)),
-                    rotationLowPID
+            .onFalse(Commands.runOnce(() -> outtake.setMotors(0)));
+
+        // * MANUAL OVERRIDES
+
+        new JoystickButton(
+            controller,
+            Constants.Intake.Rotation.OVERRIDE_LOW_BTN
+        )
+            .onTrue(rotationLowPID);
+        new JoystickButton(
+            controller,
+            Constants.Intake.Rotation.OVERRIDE_HIGH_BTN
+        )
+            .onTrue(rotationHighPID);
+        new JoystickButton(controller, Constants.Intake.Feeder.OVERRIDE_FWD_BTN)
+            .whileTrue(
+                Commands.startEnd(
+                    () -> intakeFeeder.setMotor(Constants.Intake.Feeder.SPEED),
+                    () -> intakeFeeder.setMotor(0)
+                )
+            );
+        new JoystickButton(controller, Constants.Intake.Feeder.OVERRIDE_REV_BTN)
+            .whileTrue(
+                Commands.startEnd(
+                    () -> intakeFeeder.setMotor(-Constants.Intake.Feeder.SPEED),
+                    () -> intakeFeeder.setMotor(0)
                 )
             );
         new JoystickButton(controller, Constants.Outtake.OVERRIDE_BTN)
