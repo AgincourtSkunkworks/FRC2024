@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.Climbersubsystem;
 
 public class ExtendClimber extends Command {
 
@@ -17,7 +18,7 @@ public class ExtendClimber extends Command {
     @Override
     public void initialize() {
         //calculate the endPosition assuming climber is at the end, either the top or base
-        //find what a TALONFX unit is
+        //find what a TALONFX unit is or research into soft limits
         endPosition = climber.getPosition() + 66.8; //TODO: determine how many TALONFX units 66.8 cm is
     }
 
@@ -33,6 +34,6 @@ public class ExtendClimber extends Command {
 
     @Override
     public boolean isFinished() {
-        return climber.getPosition() >= endPosition;
+        return climber.getPosition() >= endPosition; //change depending on how raw sensor units work 
     }
 }
