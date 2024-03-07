@@ -105,7 +105,8 @@ public class RobotContainer {
         Constants.Intake.Rotation.DefaultPID.P,
         Constants.Intake.Rotation.DefaultPID.I,
         Constants.Intake.Rotation.DefaultPID.D,
-        Constants.Intake.Rotation.DefaultPID.IMax
+        Constants.Intake.Rotation.DefaultPID.IMax,
+        true
     ), rotationHighPID = new RotationPID(
         "IntakeHigh",
         intakeRotation,
@@ -117,7 +118,8 @@ public class RobotContainer {
         Constants.Intake.Rotation.DefaultPID.P,
         Constants.Intake.Rotation.DefaultPID.I,
         Constants.Intake.Rotation.DefaultPID.D,
-        Constants.Intake.Rotation.DefaultPID.IMax
+        Constants.Intake.Rotation.DefaultPID.IMax,
+        true
     );
     private final ClimberPID climberLowPID = new ClimberPID(
         "ClimberLow",
@@ -157,6 +159,22 @@ public class RobotContainer {
                 () ->
                     -controller.getRawAxis(Constants.TeleOp.RIGHT_DRIVE_STICK),
                 Constants.TeleOp.SLEW_RATE_LIMIT
+            )
+        );
+        intakeRotation.setDefaultCommand( // TODO: Check whether this is needed
+            new RotationPID(
+                "IntakeHigh",
+                intakeRotation,
+                Constants.Intake.Rotation.Setpoints.HIGH,
+                new DynamicValue<>(
+                    "IntakeHighTolerance",
+                    Constants.Intake.Rotation.DefaultPID.FINISH_TOLERANCE
+                ),
+                Constants.Intake.Rotation.DefaultPID.P,
+                Constants.Intake.Rotation.DefaultPID.I,
+                Constants.Intake.Rotation.DefaultPID.D,
+                Constants.Intake.Rotation.DefaultPID.IMax,
+                false
             )
         );
         climber.setDefaultCommand(climberLowPID);
