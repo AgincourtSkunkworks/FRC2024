@@ -105,8 +105,7 @@ public class RobotContainer {
         Constants.Intake.Rotation.DefaultPID.P,
         Constants.Intake.Rotation.DefaultPID.I,
         Constants.Intake.Rotation.DefaultPID.D,
-        Constants.Intake.Rotation.DefaultPID.IMax,
-        true
+        Constants.Intake.Rotation.DefaultPID.IMax
     ), rotationHighPID = new RotationPID(
         "IntakeHigh",
         intakeRotation,
@@ -118,17 +117,17 @@ public class RobotContainer {
         Constants.Intake.Rotation.DefaultPID.P,
         Constants.Intake.Rotation.DefaultPID.I,
         Constants.Intake.Rotation.DefaultPID.D,
-        Constants.Intake.Rotation.DefaultPID.IMax,
-        true
+        Constants.Intake.Rotation.DefaultPID.IMax
     );
     private final ClimberPID climberLowPID = new ClimberPID(
         "ClimberLow",
         climber,
         Constants.Climber.Setpoints.LOW,
-        new DynamicValue<>(
-            "ClimberLowTolerance",
-            Constants.Climber.DefaultPID.FINISH_TOLERANCE
-        ),
+        // TODO: Check whether this can end
+        //        new DynamicValue<>(
+        //            "ClimberLowTolerance",
+        //            Constants.Climber.DefaultPID.FINISH_TOLERANCE
+        //        ),
         Constants.Climber.DefaultPID.P,
         Constants.Climber.DefaultPID.I,
         Constants.Climber.DefaultPID.D,
@@ -137,10 +136,11 @@ public class RobotContainer {
         "ClimberHigh",
         climber,
         Constants.Climber.Setpoints.HIGH,
-        new DynamicValue<>(
-            "ClimberHighTolerance",
-            Constants.Climber.DefaultPID.FINISH_TOLERANCE
-        ),
+        // TODO: Check whether this can end
+        //        new DynamicValue<>(
+        //            "ClimberHighTolerance",
+        //            Constants.Climber.DefaultPID.FINISH_TOLERANCE
+        //        ),
         Constants.Climber.DefaultPID.P,
         Constants.Climber.DefaultPID.I,
         Constants.Climber.DefaultPID.D,
@@ -166,15 +166,10 @@ public class RobotContainer {
                 "IntakeHigh",
                 intakeRotation,
                 Constants.Intake.Rotation.Setpoints.HIGH,
-                new DynamicValue<>(
-                    "IntakeHighTolerance",
-                    Constants.Intake.Rotation.DefaultPID.FINISH_TOLERANCE
-                ),
                 Constants.Intake.Rotation.DefaultPID.P,
                 Constants.Intake.Rotation.DefaultPID.I,
                 Constants.Intake.Rotation.DefaultPID.D,
-                Constants.Intake.Rotation.DefaultPID.IMax,
-                false
+                Constants.Intake.Rotation.DefaultPID.IMax
             )
         );
         climber.setDefaultCommand(climberLowPID);
