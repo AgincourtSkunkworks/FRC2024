@@ -5,39 +5,33 @@ import frc.robot.util.GenericController;
 import frc.robot.util.GenericController.BaseController;
 import frc.robot.util.GenericController.NeutralMode;
 
-public class ClimberSubsystem {
+public class ClimberSubsystem extends SubsystemBase {
 
-    public static class Climber extends SubsystemBase {
+    final GenericController motor;
 
-        private GenericController motor;
+    private ClimberSubsystem(BaseController type, int mID, boolean invert) {
+        motor = new GenericController(type, mID);
+        motor.setInverted(invert);
+    }
 
-        private Climber(
-            BaseController type,
-            int motorID,
-            boolean invert
-        ) {
-            motor = new GenericController(type, mID);
-            motor.setInverted(invert);
-        }
-        
-        public static Climber create(
-            BaseController type, 
-            int mID, 
-            boolean invert
-        ) {
-            return new Climber(type, int motorID, boolean invert);
-        }
- 
-        public void setMotor(double speed) {
-            motor.set(speed);
-        }
+    public static ClimberSubsystem create(
+        BaseController type,
+        int mID,
+        boolean invert
+    ) {
+        return new ClimberSubsystem(type, mID, invert);
+    }
 
-        public void setNeutralMode(neutralMode) {
-            motor.setNeutralMode(neutralMode);
-        }
+    public ClimberSubsystem setNeutralMode(NeutralMode neutralMode) {
+        motor.setNeutralMode(neutralMode);
+        return this;
+    }
 
-        public double getPosition() {
-            return motor.getPosition();
-        }
+    public void setMotor(double speed) {
+        motor.set(speed);
+    }
+
+    public double getPosition() {
+        return motor.getPosition();
     }
 }
