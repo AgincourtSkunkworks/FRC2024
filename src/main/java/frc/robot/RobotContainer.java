@@ -180,6 +180,14 @@ public class RobotContainer {
         climber.setDefaultCommand(climberLowPID);
 
         rotationHighPID.schedule();
+        autoChooser.addOption(
+            "Leave (Straight)",
+            new DriveForTime(
+                drive,
+                Constants.Autonomous.MOVE_SPEED,
+                Constants.Autonomous.COMM_LEAVE_TIME
+            )
+        );
         autoChooser.addOption("None", null);
         SmartDashboard.putData(autoChooser);
     }
