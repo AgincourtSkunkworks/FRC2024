@@ -74,6 +74,23 @@ public class RobotContainer {
         Constants.ID.OFRM,
         Constants.Outtake.FLYWHEEL_RM_INVERSE
     );
+    private final ClimberSubsystem climber = ClimberSubsystem
+        .create(
+            Constants.Climber.MOTOR_TYPE,
+            Constants.ID.CL,
+            Constants.Climber.INVERSE
+        )
+        .setSupplyLimit(
+            Constants.Climber.CurrentLimit.SUPPLY,
+            Constants.Climber.CurrentLimit.SUPPLY_LIMIT,
+            Constants.Climber.CurrentLimit.SUPPLY_TRIGGER,
+            Constants.Climber.CurrentLimit.SUPPLY_TRIGGER_TIME
+        )
+        .setStatorLimit(
+            Constants.Climber.CurrentLimit.STATOR,
+            Constants.Climber.CurrentLimit.STATOR_LIMIT
+        )
+        .setNeutralMode(Constants.Climber.NEUTRAL_MODE);
     private final Joystick controller = new Joystick(Constants.ID.JOYSTICK);
     private final SendableChooser<Command> autoChooser = new SendableChooser<>();
 
@@ -102,6 +119,31 @@ public class RobotContainer {
         Constants.Intake.Rotation.DefaultPID.D,
         Constants.Intake.Rotation.DefaultPID.IMax
     );
+    private final ClimberPID climberLowPID = new ClimberPID(
+        "ClimberLow",
+        climber,
+        Constants.Climber.Setpoints.LOW,
+        new DynamicValue<>(
+            "ClimberLowTolerance",
+            Constants.Climber.DefaultPID.FINISH_TOLERANCE
+        ),
+        Constants.Climber.DefaultPID.P,
+        Constants.Climber.DefaultPID.I,
+        Constants.Climber.DefaultPID.D,
+        Constants.Climber.DefaultPID.IMax
+    ), climberHighPID = new ClimberPID(
+        "ClimberHigh",
+        climber,
+        Constants.Climber.Setpoints.HIGH,
+        new DynamicValue<>(
+            "ClimberHighTolerance",
+            Constants.Climber.DefaultPID.FINISH_TOLERANCE
+        ),
+        Constants.Climber.DefaultPID.P,
+        Constants.Climber.DefaultPID.I,
+        Constants.Climber.DefaultPID.D,
+        Constants.Climber.DefaultPID.IMax
+    );
 
     public RobotContainer() {
         SmartDashboard.putData(CommandScheduler.getInstance());
@@ -117,6 +159,7 @@ public class RobotContainer {
                 Constants.TeleOp.SLEW_RATE_LIMIT
             )
         );
+        climber.setDefaultCommand(climberLowPID);
 
         rotationHighPID.schedule();
         autoChooser.addOption("None", null);
@@ -125,6 +168,7 @@ public class RobotContainer {
 
     @SuppressWarnings("all") // false positives from use of config constants
     private void configureButtonBindings() {
+        // ! Intake/Outtake
         // * AUTOMATED SEQUENCES
         new JoystickButton(controller, Constants.Intake.TRIGGER_BTN)
             .onTrue( // prime for intake of piece when pressed
@@ -190,6 +234,12 @@ public class RobotContainer {
                     () -> outtake.setMotors(0)
                 )
             );
+
+        // ! Climber
+        new JoystickButton(controller, Constants.Climber.LOW_BTN)
+            .onTrue(climberLowPID);
+        new JoystickButton(controller, Constants.Climber.HIGH_BTN)
+            .onTrue(climberHighPID);
     }
 
     public Command getAutonomousCommand() {

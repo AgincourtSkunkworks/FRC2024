@@ -22,6 +22,26 @@ public class ClimberSubsystem extends SubsystemBase {
         return new ClimberSubsystem(type, mID, invert);
     }
 
+    public ClimberSubsystem setSupplyLimit(
+        boolean limit,
+        double currentLimit,
+        double triggerCurrent,
+        double triggerTime
+    ) {
+        motor.setSupplyCurrentLimit(
+            limit,
+            currentLimit,
+            triggerCurrent,
+            triggerTime
+        );
+        return this;
+    }
+
+    public ClimberSubsystem setStatorLimit(boolean limit, double currentLimit) {
+        motor.setStatorCurrentLimit(limit, currentLimit);
+        return this;
+    }
+
     public ClimberSubsystem setNeutralMode(NeutralMode neutralMode) {
         motor.setNeutralMode(neutralMode);
         return this;

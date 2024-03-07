@@ -29,9 +29,9 @@ public class ClimberPID extends GenericPID {
         addRequirements(climber);
         tolerance = targetTolerance;
     }
-
-    @Override
-    public boolean isFinished() {
-        return Math.abs(getError.getAsDouble()) < tolerance.get();
-    }
+    // TODO: Check whether Climber can be ended
+    //    @Override
+    //    public boolean isFinished() {
+    //        return Math.abs(getError.getAsDouble()) < tolerance.get();
+    //    }
 }

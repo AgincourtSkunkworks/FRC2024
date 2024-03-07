@@ -1,6 +1,7 @@
 package frc.robot;
 
 import frc.robot.util.DynamicValue;
+import frc.robot.util.GenericController;
 import frc.robot.util.GenericController.BaseController;
 
 public final class Constants {
@@ -38,6 +39,7 @@ public final class Constants {
         public static final int IF = -1; // Intake CIM (Feeder) ID - Ensure Intake.CIM_MOTOR_TYPE is set to the correct type
         public static final int OFLM = -1; // Outtake CIM (Flywheel) Left Motor ID - Ensure Outtake.CIM_MOTOR_TYPE is set to the correct type
         public static final int OFRM = -1; // Outtake CIM (Flywheel) Right Motor ID - Ensure Outtake.CIM_MOTOR_TYPE is set to the correct type
+        public static final int CL = -1; // Climber ID - Ensure Climber.MOTOR_TYPE is set to the correct type
         public static final int JOYSTICK = 0; // Joystick ID
     }
 
@@ -125,6 +127,41 @@ public final class Constants {
         static final double SPEED = 1; // Speed in which to run the flywheels
         static final int TRIGGER_BTN = Constants.Buttons.R2;
         static final int OVERRIDE_BTN = Constants.Buttons.X;
+    }
+
+    public static final class Climber {
+
+        static final BaseController MOTOR_TYPE = BaseController.TALONFX;
+        static final GenericController.NeutralMode NEUTRAL_MODE =
+            GenericController.NeutralMode.Brake;
+        static final boolean INVERSE = false; // Whether the motor is inverted
+        static final int LOW_BTN = Constants.Buttons.L1; // FIXME: Switch button or get a controller with a working L1
+        static final int HIGH_BTN = Constants.Buttons.L2;
+
+        public static final class CurrentLimit {
+
+            static final boolean SUPPLY = true; // Whether to enable supply current limiting
+            static final double SUPPLY_LIMIT = 100; // Supply current limit
+            static final double SUPPLY_TRIGGER = 100; // Current in which to trigger the supply limit (lower to SUPPLY_LIMIT)
+            static final double SUPPLY_TRIGGER_TIME = 0.15; // Amount of time to go over SUPPLY_TRIGGER before triggering the limit
+            static final boolean STATOR = true; // Whether to enable stator current limiting
+            static final double STATOR_LIMIT = 100; // Stator current limit
+        }
+
+        public static final class DefaultPID { // TODO: Tune
+
+            static final double P = 0.000035;
+            static final double I = 0.0;
+            static final double IMax = 0.0; // Maximum integral value
+            static final double D = 0.0;
+            static final double FINISH_TOLERANCE = 100; // # of ticks of difference from setpoint to end PID within
+        }
+
+        public static final class Setpoints {
+
+            static final double LOW = 0;
+            static final double HIGH = 0; // TODO: Measure
+        }
     }
 
     public static final class Autonomous {
