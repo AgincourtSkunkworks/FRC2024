@@ -193,7 +193,7 @@ public class RobotContainer {
         // ! Intake/Outtake
         // * AUTOMATED SEQUENCES
         new JoystickButton(controller, Constants.Intake.TRIGGER_BTN)
-            .onTrue( // prime for intake of piece when pressed
+            .whileTrue( // prime for intake of piece when pressed
                 new SequentialCommandGroup(
                     rotationLowPID,
                     Commands.runOnce(() ->
@@ -201,14 +201,14 @@ public class RobotContainer {
                     )
                 )
             )
-            .onFalse( // intake piece when released
+            .whileFalse( // intake piece when released
                 new SequentialCommandGroup(
                     Commands.runOnce(() -> intakeFeeder.setMotor(0)),
                     rotationHighPID
                 )
             );
         new JoystickButton(controller, Constants.Outtake.TRIGGER_BTN)
-            .onTrue(
+            .whileTrue(
                 new SequentialCommandGroup(
                     rotationHighPID,
                     Commands.runOnce(() ->
@@ -221,7 +221,7 @@ public class RobotContainer {
                     )
                 )
             )
-            .onFalse(Commands.runOnce(() -> outtake.setMotors(0)));
+            .whileFalse(Commands.runOnce(() -> outtake.setMotors(0)));
 
         // * MANUAL OVERRIDES
 
