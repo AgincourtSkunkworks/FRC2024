@@ -32,7 +32,7 @@ public final class Constants {
 
         public static final int LM1 = 3; // Left Motor 1 ID - Ensure Drive.MOTOR_TYPE is set to the correct type
         public static final int LM2 = 2; // Left Motor 2 ID - Ensure Drive.MOTOR_TYPE is set to the correct type
-        public static final int RM1 = 0; // Right Motor 1 ID - Ensure Drive.MOTOR_TYPE is set to the correct type
+        public static final int RM1 = 20; // Right Motor 1 ID - Ensure Drive.MOTOR_TYPE is set to the correct type
         public static final int RM2 = 1; // Right Motor 2 ID - Ensure Drive.MOTOR_TYPE is set to the correct type
         public static final int IRTLM = 12; // Intake Rotation Left Motor ID - Ensure Intake.ROTATION_MOTOR_TYPE is set to the correct type
         public static final int IRTRM = 13; // Intake Rotation Right Motor ID - Ensure Intake.ROTATION_MOTOR_TYPE is set to the correct type
