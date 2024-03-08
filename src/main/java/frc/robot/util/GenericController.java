@@ -189,12 +189,12 @@ public class GenericController {
             case TALONSRX:
                 // Appears to only implement supply current limiting
                 System.out.println(
-                    "ERROR: Stator current limiting is not supported on TalonSRX"
+                    "WARNING: Stator current limiting is not supported on TalonSRX"
                 );
                 break;
             case SPARKMAX:
                 System.out.println(
-                    "ERROR: Stator current limiting is not supported on SparkMax"
+                    "WARNING: Stator current limiting is not supported on SparkMax"
                 );
                 break;
         }

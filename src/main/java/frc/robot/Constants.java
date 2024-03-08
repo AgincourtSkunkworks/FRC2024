@@ -126,7 +126,7 @@ public final class Constants {
 
             static final BaseController MOTOR_TYPE = BaseController.TALONSRX; // CIM motor type
             static final boolean INVERSE = false; // Whether the motor is inverted
-            static final double SPEED = 0.8; // Speed in which to run the intake feeder
+            static final double SPEED = 1; // Speed in which to run the intake feeder
             static final double RELEASE_WAIT = 1; // Number of seconds to run feeder in reverse when releasing
             public static int OVERRIDE_FWD_BTN = Constants.Buttons.BACK;
             public static int OVERRIDE_REV_BTN = Constants.Buttons.START;

@@ -7,3 +7,4 @@ bin/
 # Robot Simulation Files
 networktables.json
 simgui*.json
+ctre_sim/
