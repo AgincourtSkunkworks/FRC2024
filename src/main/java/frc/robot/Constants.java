@@ -20,6 +20,18 @@ public final class Constants {
         public static final int R2 = 8;
     }
 
+    public static final class POV {
+
+        public static final int N = 0;
+        public static final int NE = 45;
+        public static final int E = 90;
+        public static final int SE = 135;
+        public static final int S = 180;
+        public static final int SW = 225;
+        public static final int W = 270;
+        public static final int NW = 315;
+    }
+
     public static final class Joystick { // Joystick Name -> ID Mapping
 
         public static final int LX = 0;
@@ -80,6 +92,9 @@ public final class Constants {
             static final boolean RM_INVERSE = true; // Whether the right motor is inverted
             static final int OVERRIDE_LOW_BTN = Constants.Buttons.A;
             static final int OVERRIDE_HIGH_BTN = Constants.Buttons.B;
+            static final int OVERRIDE_FWD_POV = Constants.POV.E;
+            static final int OVERRIDE_REV_POV = Constants.POV.W;
+            static final double OVERRIDE_SPEED = 0.5; // Speed in which to run the intake on fwd/rev override
 
             public static final class DefaultPID { // TODO: Tune
 
@@ -137,6 +152,9 @@ public final class Constants {
         static final boolean INVERSE = false; // Whether the motor is inverted
         static final int LOW_BTN = Constants.Buttons.L1; // FIXME: Switch button or get a controller with a working L1
         static final int HIGH_BTN = Constants.Buttons.L2;
+        static final int OVERRIDE_UP_POV = Constants.POV.N;
+        static final int OVERRIDE_DOWN_POV = Constants.POV.S;
+        static final double OVERRIDE_SPEED = 0.5; // Speed in which to run the climber on override
 
         public static final class CurrentLimit {
 

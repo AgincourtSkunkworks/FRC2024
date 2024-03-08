@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.*;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import frc.robot.util.DynamicValue;
@@ -234,6 +235,26 @@ public class RobotContainer {
             Constants.Intake.Rotation.OVERRIDE_HIGH_BTN
         )
             .onTrue(rotationHighPID);
+        new POVButton(controller, Constants.Intake.Rotation.OVERRIDE_FWD_POV)
+            .whileTrue(
+                Commands.startEnd(
+                    () ->
+                        intakeRotation.setMotors(
+                            Constants.Intake.Rotation.OVERRIDE_SPEED
+                        ),
+                    () -> intakeRotation.setMotors(0)
+                )
+            );
+        new POVButton(controller, Constants.Intake.Rotation.OVERRIDE_REV_POV)
+            .whileTrue(
+                Commands.startEnd(
+                    () ->
+                        intakeRotation.setMotors(
+                            -Constants.Intake.Rotation.OVERRIDE_SPEED
+                        ),
+                    () -> intakeRotation.setMotors(0)
+                )
+            );
         new JoystickButton(controller, Constants.Intake.Feeder.OVERRIDE_FWD_BTN)
             .whileTrue(
                 Commands.startEnd(
@@ -253,6 +274,20 @@ public class RobotContainer {
                 Commands.startEnd(
                     () -> outtake.setMotors(Constants.Outtake.SPEED),
                     () -> outtake.setMotors(0)
+                )
+            );
+        new POVButton(controller, Constants.Climber.OVERRIDE_UP_POV)
+            .whileTrue(
+                Commands.startEnd(
+                    () -> climber.setMotor(Constants.Climber.OVERRIDE_SPEED),
+                    () -> climber.setMotor(0)
+                )
+            );
+        new POVButton(controller, Constants.Climber.OVERRIDE_DOWN_POV)
+            .whileTrue(
+                Commands.startEnd(
+                    () -> climber.setMotor(-Constants.Climber.OVERRIDE_SPEED),
+                    () -> climber.setMotor(0)
                 )
             );
 
