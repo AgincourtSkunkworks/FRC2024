@@ -1,0 +1,9 @@
+build/
+bin/
+.idea/
+.vscode/
+.gradle/
+
+# Robot Simulation Files
+networktables.json
+simgui*.json
