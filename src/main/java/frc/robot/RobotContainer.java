@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.*;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.*;
+import frc.robot.factories.*;
 import frc.robot.subsystems.*;
 import frc.robot.util.DynamicValue;
 
@@ -45,29 +46,31 @@ public class RobotContainer {
             Constants.ID.RM1,
             Constants.ID.RM2
         );
-    private final IntakeSubsystem.Rotation intakeRotation = IntakeSubsystem.Rotation
-        .create(
-            Constants.Intake.Rotation.MOTOR_TYPE,
-            Constants.ID.IRTLM,
-            Constants.Intake.Rotation.LM_INVERSE,
-            Constants.ID.IRTRM,
-            Constants.Intake.Rotation.RM_INVERSE
-        )
-        .setSupplyLimit(
-            Constants.Intake.Rotation.CurrentLimit.SUPPLY,
-            Constants.Intake.Rotation.CurrentLimit.SUPPLY_LIMIT,
-            Constants.Intake.Rotation.CurrentLimit.SUPPLY_TRIGGER,
-            Constants.Intake.Rotation.CurrentLimit.SUPPLY_TRIGGER_TIME
-        )
-        .setStatorLimit(
-            Constants.Intake.Rotation.CurrentLimit.STATOR,
-            Constants.Intake.Rotation.CurrentLimit.STATOR_LIMIT
+    private final IntakeSubsystem.Rotation intakeRotation =
+        IntakeSubsystem.Rotation
+            .create(
+                Constants.Intake.Rotation.MOTOR_TYPE,
+                Constants.ID.IRTLM,
+                Constants.Intake.Rotation.LM_INVERSE,
+                Constants.ID.IRTRM,
+                Constants.Intake.Rotation.RM_INVERSE
+            )
+            .setSupplyLimit(
+                Constants.Intake.Rotation.CurrentLimit.SUPPLY,
+                Constants.Intake.Rotation.CurrentLimit.SUPPLY_LIMIT,
+                Constants.Intake.Rotation.CurrentLimit.SUPPLY_TRIGGER,
+                Constants.Intake.Rotation.CurrentLimit.SUPPLY_TRIGGER_TIME
+            )
+            .setStatorLimit(
+                Constants.Intake.Rotation.CurrentLimit.STATOR,
+                Constants.Intake.Rotation.CurrentLimit.STATOR_LIMIT
+            );
+    private final IntakeSubsystem.Feeder intakeFeeder =
+        new IntakeSubsystem.Feeder(
+            Constants.Intake.Feeder.MOTOR_TYPE,
+            Constants.ID.IF,
+            Constants.Intake.Feeder.INVERSE
         );
-    private final IntakeSubsystem.Feeder intakeFeeder = new IntakeSubsystem.Feeder(
-        Constants.Intake.Feeder.MOTOR_TYPE,
-        Constants.ID.IF,
-        Constants.Intake.Feeder.INVERSE
-    );
     private final OuttakeSubsystem outtake = new OuttakeSubsystem(
         Constants.Outtake.FLYWHEEL_MOTOR_TYPE,
         Constants.ID.OFLM,
@@ -93,35 +96,34 @@ public class RobotContainer {
         )
         .setNeutralMode(Constants.Climber.NEUTRAL_MODE);
     private final Joystick controller = new Joystick(Constants.ID.JOYSTICK);
-    private final SendableChooser<Command> autoChooser = new SendableChooser<>();
+    private final SendableChooser<Command> autoChooser =
+        new SendableChooser<>();
 
-    // FIXME: Find out why using rotationLowPID/rotationHighPID as commands in SequentialCommandGroups causes confusing
-    //  crash.
-//    private final RotationPID rotationLowPID = new RotationPID(
-//        "IntakeLow",
-//        intakeRotation,
-//        Constants.Intake.Rotation.Setpoints.LOW,
-//        new DynamicValue<>(
-//            "IntakeLowTolerance",
-//            Constants.Intake.Rotation.DefaultPID.FINISH_TOLERANCE
-//        ),
-//        Constants.Intake.Rotation.DefaultPID.P,
-//        Constants.Intake.Rotation.DefaultPID.I,
-//        Constants.Intake.Rotation.DefaultPID.D,
-//        Constants.Intake.Rotation.DefaultPID.IMax
-//    ), rotationHighPID = new RotationPID(
-//        "IntakeHigh",
-//        intakeRotation,
-//        Constants.Intake.Rotation.Setpoints.HIGH,
-//        new DynamicValue<>(
-//            "IntakeHighTolerance",
-//            Constants.Intake.Rotation.DefaultPID.FINISH_TOLERANCE
-//        ),
-//        Constants.Intake.Rotation.DefaultPID.P,
-//        Constants.Intake.Rotation.DefaultPID.I,
-//        Constants.Intake.Rotation.DefaultPID.D,
-//        Constants.Intake.Rotation.DefaultPID.IMax
-//    );
+    private final RotationPIDFactory rotationLowPID = new RotationPIDFactory(
+        "IntakeLow",
+        intakeRotation,
+        Constants.Intake.Rotation.Setpoints.LOW,
+        new DynamicValue<>(
+            "IntakeLowTolerance",
+            Constants.Intake.Rotation.DefaultPID.FINISH_TOLERANCE
+        ),
+        Constants.Intake.Rotation.DefaultPID.P,
+        Constants.Intake.Rotation.DefaultPID.I,
+        Constants.Intake.Rotation.DefaultPID.D,
+        Constants.Intake.Rotation.DefaultPID.IMax
+    ), rotationHighPID = new RotationPIDFactory(
+        "IntakeHigh",
+        intakeRotation,
+        Constants.Intake.Rotation.Setpoints.HIGH,
+        new DynamicValue<>(
+            "IntakeHighTolerance",
+            Constants.Intake.Rotation.DefaultPID.FINISH_TOLERANCE
+        ),
+        Constants.Intake.Rotation.DefaultPID.P,
+        Constants.Intake.Rotation.DefaultPID.I,
+        Constants.Intake.Rotation.DefaultPID.D,
+        Constants.Intake.Rotation.DefaultPID.IMax
+    );
     private final ClimberPID climberLowPID = new ClimberPID(
         "ClimberLow",
         climber,
@@ -164,32 +166,8 @@ public class RobotContainer {
                 Constants.TeleOp.SLEW_RATE_LIMIT
             )
         );
-//        intakeRotation.setDefaultCommand( // TODO: Check whether this is needed
-//            new RotationPID(
-//                "IntakeHigh",
-//                intakeRotation,
-//                Constants.Intake.Rotation.Setpoints.HIGH,
-//                Constants.Intake.Rotation.DefaultPID.P,
-//                Constants.Intake.Rotation.DefaultPID.I,
-//                Constants.Intake.Rotation.DefaultPID.D,
-//                Constants.Intake.Rotation.DefaultPID.IMax
-//            )
-//        );
         climber.setDefaultCommand(climberLowPID);
 
-//        new RotationPID( // TODO: Replace me when we figure out why variables don't work
-//                "IntakeHigh",
-//                intakeRotation,
-//                Constants.Intake.Rotation.Setpoints.HIGH,
-//                new DynamicValue<>(
-//                        "IntakeHighTolerance",
-//                        Constants.Intake.Rotation.DefaultPID.FINISH_TOLERANCE
-//                ),
-//                Constants.Intake.Rotation.DefaultPID.P,
-//                Constants.Intake.Rotation.DefaultPID.I,
-//                Constants.Intake.Rotation.DefaultPID.D,
-//                Constants.Intake.Rotation.DefaultPID.IMax
-//        ).schedule();
         autoChooser.addOption(
             "Leave (Straight)",
             new DriveForTime(
@@ -208,20 +186,8 @@ public class RobotContainer {
         // * AUTOMATED SEQUENCES
         new JoystickButton(controller, Constants.Intake.TRIGGER_BTN)
             .whileTrue( // prime for intake of piece when pressed
-                new SequentialCommandGroup( // TODO: Replace me when we figure out why variables don't work
-                        new RotationPID(
-                                "IntakeLow",
-                                intakeRotation,
-                                Constants.Intake.Rotation.Setpoints.LOW,
-                                new DynamicValue<>(
-                                        "IntakeLowTolerance",
-                                        Constants.Intake.Rotation.DefaultPID.FINISH_TOLERANCE
-                                ),
-                                Constants.Intake.Rotation.DefaultPID.P,
-                                Constants.Intake.Rotation.DefaultPID.I,
-                                Constants.Intake.Rotation.DefaultPID.D,
-                                Constants.Intake.Rotation.DefaultPID.IMax
-                        ),
+                new SequentialCommandGroup(
+                    rotationLowPID.create(),
                     Commands.runOnce(() ->
                         intakeFeeder.setMotor(Constants.Intake.Feeder.SPEED)
                     )
@@ -230,37 +196,13 @@ public class RobotContainer {
             .whileFalse( // intake piece when released
                 new SequentialCommandGroup(
                     Commands.runOnce(() -> intakeFeeder.setMotor(0)),
-                        new RotationPID( // TODO: Replace me when we figure out why variables don't work
-                                "IntakeHigh",
-                                intakeRotation,
-                                Constants.Intake.Rotation.Setpoints.HIGH,
-                                new DynamicValue<>(
-                                        "IntakeHighTolerance",
-                                        Constants.Intake.Rotation.DefaultPID.FINISH_TOLERANCE
-                                ),
-                                Constants.Intake.Rotation.DefaultPID.P,
-                                Constants.Intake.Rotation.DefaultPID.I,
-                                Constants.Intake.Rotation.DefaultPID.D,
-                                Constants.Intake.Rotation.DefaultPID.IMax
-                        )
+                    rotationHighPID.create()
                 )
             );
         new JoystickButton(controller, Constants.Outtake.TRIGGER_BTN)
             .whileTrue(
                 new SequentialCommandGroup(
-                        new RotationPID( // TODO: Replace me when we figure out why variables don't work
-                                "IntakeHigh",
-                                intakeRotation,
-                                Constants.Intake.Rotation.Setpoints.HIGH,
-                                new DynamicValue<>(
-                                        "IntakeHighTolerance",
-                                        Constants.Intake.Rotation.DefaultPID.FINISH_TOLERANCE
-                                ),
-                                Constants.Intake.Rotation.DefaultPID.P,
-                                Constants.Intake.Rotation.DefaultPID.I,
-                                Constants.Intake.Rotation.DefaultPID.D,
-                                Constants.Intake.Rotation.DefaultPID.IMax
-                        ),
+                    rotationHighPID.create(),
                     Commands.runOnce(() ->
                         intakeFeeder.setMotor(-Constants.Intake.Feeder.SPEED)
                     ),
@@ -279,36 +221,12 @@ public class RobotContainer {
             controller,
             Constants.Intake.Rotation.OVERRIDE_LOW_BTN
         )
-            .onTrue(new RotationPID( // TODO: Replace me when we figure out why variables don't work
-                    "IntakeLow",
-                    intakeRotation,
-                    Constants.Intake.Rotation.Setpoints.LOW,
-                    new DynamicValue<>(
-                            "IntakeLowTolerance",
-                            Constants.Intake.Rotation.DefaultPID.FINISH_TOLERANCE
-                    ),
-                    Constants.Intake.Rotation.DefaultPID.P,
-                    Constants.Intake.Rotation.DefaultPID.I,
-                    Constants.Intake.Rotation.DefaultPID.D,
-                    Constants.Intake.Rotation.DefaultPID.IMax
-            ));
+            .onTrue(rotationLowPID.create());
         new JoystickButton(
             controller,
             Constants.Intake.Rotation.OVERRIDE_HIGH_BTN
         )
-            .onTrue(new RotationPID( // TODO: Replace me when we figure out why variables don't work
-                    "IntakeHigh",
-                    intakeRotation,
-                    Constants.Intake.Rotation.Setpoints.HIGH,
-                    new DynamicValue<>(
-                            "IntakeHighTolerance",
-                            Constants.Intake.Rotation.DefaultPID.FINISH_TOLERANCE
-                    ),
-                    Constants.Intake.Rotation.DefaultPID.P,
-                    Constants.Intake.Rotation.DefaultPID.I,
-                    Constants.Intake.Rotation.DefaultPID.D,
-                    Constants.Intake.Rotation.DefaultPID.IMax
-            ));
+            .onTrue(rotationHighPID.create());
         new POVButton(controller, Constants.Intake.Rotation.OVERRIDE_FWD_POV)
             .whileTrue(
                 Commands.startEnd(

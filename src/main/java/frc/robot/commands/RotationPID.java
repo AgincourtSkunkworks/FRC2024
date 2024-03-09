@@ -6,11 +6,13 @@ import frc.robot.util.DynamicValue;
 public class RotationPID extends GenericPID {
 
     DynamicValue<Double> tolerance;
-    boolean canEnd;
+    boolean canEnd = false;
 
     /** Create a new RotationPID command.
-     * ! This command will not end, use {@link #RotationPID(String, IntakeSubsystem.Rotation, double, DynamicValue, double, double, double, double)} if you want the command to end.
-     * @param name The name of the PID command, used for RobotPreferences values
+     * <p>
+     *     ! This command will not end, use {@link #RotationPID(String, IntakeSubsystem.Rotation, double, DynamicValue, double, double, double, double)} if you want the command to end.
+     * </p>
+     * @param name The name of the PID command, used for RobotPreferences values. Use the same name for all commands that should share the same preferences.
      * @param rotation The rotation subsystem
      * @param target The target position
      * @param defaultP The default P value
@@ -37,11 +39,11 @@ public class RotationPID extends GenericPID {
             rotation::setMotors
         );
         addRequirements(rotation);
-        canEnd = false;
     }
 
-    /** Create a new RotationPID command. This command will end once the error is within the targetTolerance.
-     * @param name The name of the PID command, used for RobotPreferences values
+    /** Create a new RotationPID command.
+     * <p>This command will end once the error is within the targetTolerance.</p>
+     * @param name The name of the PID command, used for RobotPreferences values. Use the same name for all commands that should share the same preferences.
      * @param rotation The rotation subsystem
      * @param target The target position
      * @param targetTolerance The tolerance for the target position
@@ -60,16 +62,7 @@ public class RotationPID extends GenericPID {
         double defaultD,
         double defaultIMax
     ) {
-        super(
-            name,
-            defaultP,
-            defaultI,
-            defaultD,
-            defaultIMax,
-            () -> target - rotation.getAveragePosition(),
-            rotation::setMotors
-        );
-        addRequirements(rotation);
+        this(name, rotation, target, defaultP, defaultI, defaultD, defaultIMax);
         tolerance = targetTolerance;
         canEnd = true;
     }

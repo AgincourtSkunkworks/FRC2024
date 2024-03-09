@@ -9,8 +9,10 @@ public class ClimberPID extends GenericPID {
     boolean canEnd;
 
     /** Create a new ClimberPID command.
-     * ! This command will not end, use {@link #ClimberPID(String, ClimberSubsystem, double, DynamicValue, double, double, double, double)} if you want the command to end.
-     * @param name The name of the PID command, used for RobotPreferences values
+     * <p>
+     *     ! This command will not end, use {@link #ClimberPID(String, ClimberSubsystem, double, DynamicValue, double, double, double, double)} if you want the command to end.
+     * </p>
+     * @param name The name of the PID command, used for RobotPreferences values. Use the same name for all commands that should share the same preferences.
      * @param climber The climber subsystem
      * @param target The target position
      * @param defaultP The default P value
@@ -41,8 +43,8 @@ public class ClimberPID extends GenericPID {
     }
 
     /** Create a new ClimberPID command. This command will end once the error is within the targetTolerance.
-     * This command does not end.
-     * @param name The name of the PID command, used for RobotPreferences values
+     * <p>This command will end once the error is within the targetTolerance.</p>
+     * @param name The name of the PID command, used for RobotPreferences values. Use the same name for all commands that should share the same preferences.
      * @param climber The climber subsystem
      * @param target The target position
      * @param targetTolerance The tolerance for the target position

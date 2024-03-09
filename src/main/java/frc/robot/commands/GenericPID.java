@@ -20,7 +20,7 @@ public class GenericPID extends Command {
     protected double errorSum, lastRunTime, lastError;
 
     /** Create a new GenericPID command.
-     * @param name The name of the PID command, used for RobotPreferences values
+     * @param name The name of the PID command, used for RobotPreferences values. Use the same name for all commands that should share the same preferences.
      * @param defaultP The default P value
      * @param defaultI The default I value
      * @param defaultD The default D value
@@ -48,7 +48,7 @@ public class GenericPID extends Command {
     }
 
     /** Create a new GenericPID command. The error is calculated by subtracting the measurement from the setpoint.
-     * @param name The name of the PID command, used for RobotPreferences values
+     * @param name The name of the PID command, used for RobotPreferences values. Use the same name for all commands that should share the same preferences.
      * @param defaultP The default P value
      * @param defaultI The default I value
      * @param defaultD The default D value
@@ -79,7 +79,7 @@ public class GenericPID extends Command {
     }
 
     /** Create a new GenericPID command. The error is calculated by subtracting the measurement from the setpoint. The setpoint can be configured in RobotPreferences.
-     * @param name The name of the PID command, used for RobotPreferences values
+     * @param name The name of the PID command, used for RobotPreferences values. Use the same name for all commands that should share the same preferences.
      * @param defaultP The default P value
      * @param defaultI The default I value
      * @param defaultD The default D value
