@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
 
@@ -61,9 +62,8 @@ public class GenericController {
      */
     public void set(double speed) {
         switch (base) {
-            case TALONFX: // TODO: Verify that this works as expected
-                talonFXOut.Output = speed;
-                talonFX.setControl(talonFXOut);
+            case TALONFX:
+                talonFX.setControl(talonFXOut.withOutput(speed));
                 break;
             case TALONSRX:
                 talonSRX.set(
@@ -119,7 +119,10 @@ public class GenericController {
     public void setInverted(boolean inverted) {
         switch (base) {
             case TALONFX:
-                talonFX.setInverted(inverted);
+                talonFXConfig.MotorOutput.Inverted =
+                    inverted
+                        ? InvertedValue.CounterClockwise_Positive
+                        : InvertedValue.Clockwise_Positive;
                 break;
             case TALONSRX:
                 talonSRX.setInverted(inverted);
