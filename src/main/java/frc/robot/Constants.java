@@ -96,19 +96,19 @@ public final class Constants {
             static final int OVERRIDE_REV_POV = Constants.POV.W;
             static final double OVERRIDE_SPEED = 0.5; // Speed in which to run the intake on fwd/rev override
 
-            public static final class DefaultPID { // TODO: Tune
+            public static final class DefaultPID {
 
-                static final double P = 0.000035;
+                static final double P = 0.0395;
                 static final double I = 0.0;
                 static final double IMax = 0.0; // Maximum integral value
-                static final double D = 0.0;
-                static final double FINISH_TOLERANCE = 100; // # of ticks of difference from setpoint to end PID within
+                static final double D = 0.0; // TODO: Tune
+                static final double FINISH_TOLERANCE = 0.4; // # of ticks of difference from setpoint to end PID within
             }
 
             public static final class Setpoints {
 
-                static final double LOW = 0;
-                static final double HIGH = 0; // TODO: Measure
+                static final double LOW = -5;
+                static final double HIGH = 0;
             }
 
             public static final class CurrentLimit {
