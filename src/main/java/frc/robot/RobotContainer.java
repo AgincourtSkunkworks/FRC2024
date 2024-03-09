@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.*;
@@ -157,14 +158,20 @@ public class RobotContainer {
     );
 
     public RobotContainer() {
+        // ! DEBUG TOOLS (DANGEROUS)
+        if (Constants.Debug.ENABLE) handleDebug();
+
+        // ! SMART DASHBOARD DATA
         SmartDashboard.putData(CommandScheduler.getInstance());
         SmartDashboard.putData(drive);
         SmartDashboard.putData(intakeRotation);
         SmartDashboard.putData(intakeFeeder);
         SmartDashboard.putData(outtake);
         SmartDashboard.putData(climber);
+        // ! BUTTONS
         configureButtonBindings();
 
+        // ! DEFAULT COMMANDS
         drive.setDefaultCommand(
             new TeleopDrive(
                 drive,
@@ -176,6 +183,7 @@ public class RobotContainer {
         );
         climber.setDefaultCommand(climberLowPID.create());
 
+        // ! AUTONOMOUS
         autoChooser.addOption(
             "Leave (Straight)",
             new DriveForTime(
@@ -188,7 +196,9 @@ public class RobotContainer {
         SmartDashboard.putData(autoChooser);
     }
 
-    @SuppressWarnings("all") // false positives from use of config constants
+    /**
+     * Creates the expected controller bindings.
+     */
     private void configureButtonBindings() {
         // ! Intake/Outtake
         // * AUTOMATED SEQUENCES
@@ -296,6 +306,16 @@ public class RobotContainer {
             .onTrue(climberLowPID.create());
         new JoystickButton(controller, Constants.Climber.HIGH_BTN)
             .onTrue(climberHighPID.create());
+    }
+
+    /**
+     * Handles debug tools. Ensure you are only calling this when you mean to.
+     * ! Most of this code is dangerous & destructive -- make sure you know what you're doing!
+     */
+    private void handleDebug() {
+        if (Constants.Debug.WIPE_PREFERENCES) {
+            Preferences.removeAll();
+        }
     }
 
     public Command getAutonomousCommand() {

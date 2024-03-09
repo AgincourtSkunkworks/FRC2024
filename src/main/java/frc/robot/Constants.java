@@ -195,4 +195,13 @@ public final class Constants {
         static final int RIGHT_DRIVE_STICK = Joystick.RY; // Joystick to use for right motor control
         static final double SLEW_RATE_LIMIT = 0.985; // Slew rate limit for joystick input
     }
+
+    /*
+        ! Make sure you know what you're doing before changing these values.
+        ! ALWAYS reset them to their original values before committing or running in a competition.
+     */
+    public static final class Debug {
+        static final boolean ENABLE = false; // Needs to be enabled to use any debug features (other constants are ignored if this is false)
+        static final boolean WIPE_PREFERENCES = false; // Whether to wipe the RobotPreferences on startup
+    }
 }
