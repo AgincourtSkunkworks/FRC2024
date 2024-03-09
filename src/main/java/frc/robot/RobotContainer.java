@@ -19,143 +19,170 @@ import frc.robot.util.DynamicValue;
 public class RobotContainer {
 
     // ! SUBSYSTEMS
-    private final DriveSubsystem drive = DriveSubsystem
-        .create()
-        .invert(Constants.Drive.LM_INVERSE, Constants.Drive.RM_INVERSE)
-        .setOffset(
-            Constants.Drive.LM_SPEED_OFFSET,
-            Constants.Drive.RM_SPEED_OFFSET
-        )
-        .setBrakeThreshold(Constants.Drive.BRAKE_THRESHOLD)
-        .setSupplyLimit(
-            Constants.Drive.CurrentLimit.SUPPLY,
-            Constants.Drive.CurrentLimit.SUPPLY_LIMIT,
-            Constants.Drive.CurrentLimit.SUPPLY_TRIGGER,
-            Constants.Drive.CurrentLimit.SUPPLY_TRIGGER_TIME
-        )
-        .setStatorLimit(
-            Constants.Drive.CurrentLimit.STATOR,
-            Constants.Drive.CurrentLimit.STATOR_LIMIT
-        )
-        .setMaxTemp(Constants.Autonomous.MAX_TEMP)
-        .addLeftMotors(
-            Constants.Drive.MOTOR_TYPE,
-            Constants.ID.LM1,
-            Constants.ID.LM2
-        )
-        .addRightMotors(
-            Constants.Drive.MOTOR_TYPE,
-            Constants.ID.RM1,
-            Constants.ID.RM2
-        );
-    private final IntakeSubsystems.RotationSubsystem intakeRotation =
-        IntakeSubsystems.RotationSubsystem
-            .create(
-                Constants.Intake.Rotation.MOTOR_TYPE,
-                Constants.ID.IRTLM,
-                Constants.Intake.Rotation.LM_INVERSE,
-                Constants.ID.IRTRM,
-                Constants.Intake.Rotation.RM_INVERSE
-            )
-            .setSupplyLimit(
-                Constants.Intake.Rotation.CurrentLimit.SUPPLY,
-                Constants.Intake.Rotation.CurrentLimit.SUPPLY_LIMIT,
-                Constants.Intake.Rotation.CurrentLimit.SUPPLY_TRIGGER,
-                Constants.Intake.Rotation.CurrentLimit.SUPPLY_TRIGGER_TIME
-            )
-            .setStatorLimit(
-                Constants.Intake.Rotation.CurrentLimit.STATOR,
-                Constants.Intake.Rotation.CurrentLimit.STATOR_LIMIT
+    private final DriveSubsystem drive;
+    private final IntakeSubsystems.RotationSubsystem intakeRotation;
+    private final IntakeSubsystems.FeederSubsystem intakeFeeder;
+    private final OuttakeSubsystem outtake;
+    private final ClimberSubsystem climber;
+
+    {
+        drive =
+            DriveSubsystem
+                .create()
+                .invert(Constants.Drive.LM_INVERSE, Constants.Drive.RM_INVERSE)
+                .setOffset(
+                    Constants.Drive.LM_SPEED_OFFSET,
+                    Constants.Drive.RM_SPEED_OFFSET
+                )
+                .setBrakeThreshold(Constants.Drive.BRAKE_THRESHOLD)
+                .setSupplyLimit(
+                    Constants.Drive.CurrentLimit.SUPPLY,
+                    Constants.Drive.CurrentLimit.SUPPLY_LIMIT,
+                    Constants.Drive.CurrentLimit.SUPPLY_TRIGGER,
+                    Constants.Drive.CurrentLimit.SUPPLY_TRIGGER_TIME
+                )
+                .setStatorLimit(
+                    Constants.Drive.CurrentLimit.STATOR,
+                    Constants.Drive.CurrentLimit.STATOR_LIMIT
+                )
+                .setMaxTemp(Constants.Autonomous.MAX_TEMP)
+                .addLeftMotors(
+                    Constants.Drive.MOTOR_TYPE,
+                    Constants.ID.LM1,
+                    Constants.ID.LM2
+                )
+                .addRightMotors(
+                    Constants.Drive.MOTOR_TYPE,
+                    Constants.ID.RM1,
+                    Constants.ID.RM2
+                );
+        intakeRotation =
+            IntakeSubsystems.RotationSubsystem
+                .create(
+                    Constants.Intake.Rotation.MOTOR_TYPE,
+                    Constants.ID.IRTLM,
+                    Constants.Intake.Rotation.LM_INVERSE,
+                    Constants.ID.IRTRM,
+                    Constants.Intake.Rotation.RM_INVERSE
+                )
+                .setSupplyLimit(
+                    Constants.Intake.Rotation.CurrentLimit.SUPPLY,
+                    Constants.Intake.Rotation.CurrentLimit.SUPPLY_LIMIT,
+                    Constants.Intake.Rotation.CurrentLimit.SUPPLY_TRIGGER,
+                    Constants.Intake.Rotation.CurrentLimit.SUPPLY_TRIGGER_TIME
+                )
+                .setStatorLimit(
+                    Constants.Intake.Rotation.CurrentLimit.STATOR,
+                    Constants.Intake.Rotation.CurrentLimit.STATOR_LIMIT
+                );
+        intakeFeeder =
+            new IntakeSubsystems.FeederSubsystem(
+                Constants.Intake.Feeder.MOTOR_TYPE,
+                Constants.ID.IF,
+                Constants.Intake.Feeder.INVERSE
             );
-    private final IntakeSubsystems.FeederSubsystem intakeFeeder =
-        new IntakeSubsystems.FeederSubsystem(
-            Constants.Intake.Feeder.MOTOR_TYPE,
-            Constants.ID.IF,
-            Constants.Intake.Feeder.INVERSE
-        );
-    private final OuttakeSubsystem outtake = new OuttakeSubsystem(
-        Constants.Outtake.FLYWHEEL_MOTOR_TYPE,
-        Constants.ID.OFLM,
-        Constants.Outtake.FLYWHEEL_LM_INVERSE,
-        Constants.ID.OFRM,
-        Constants.Outtake.FLYWHEEL_RM_INVERSE
-    );
-    private final ClimberSubsystem climber = ClimberSubsystem
-        .create(
-            Constants.Climber.MOTOR_TYPE,
-            Constants.ID.CL,
-            Constants.Climber.INVERSE
-        )
-        .setSupplyLimit(
-            Constants.Climber.CurrentLimit.SUPPLY,
-            Constants.Climber.CurrentLimit.SUPPLY_LIMIT,
-            Constants.Climber.CurrentLimit.SUPPLY_TRIGGER,
-            Constants.Climber.CurrentLimit.SUPPLY_TRIGGER_TIME
-        )
-        .setStatorLimit(
-            Constants.Climber.CurrentLimit.STATOR,
-            Constants.Climber.CurrentLimit.STATOR_LIMIT
-        )
-        .setNeutralMode(Constants.Climber.NEUTRAL_MODE);
+        outtake =
+            new OuttakeSubsystem(
+                Constants.Outtake.FLYWHEEL_MOTOR_TYPE,
+                Constants.ID.OFLM,
+                Constants.Outtake.FLYWHEEL_LM_INVERSE,
+                Constants.ID.OFRM,
+                Constants.Outtake.FLYWHEEL_RM_INVERSE
+            );
+        climber =
+            ClimberSubsystem
+                .create(
+                    Constants.Climber.MOTOR_TYPE,
+                    Constants.ID.CL,
+                    Constants.Climber.INVERSE
+                )
+                .setSupplyLimit(
+                    Constants.Climber.CurrentLimit.SUPPLY,
+                    Constants.Climber.CurrentLimit.SUPPLY_LIMIT,
+                    Constants.Climber.CurrentLimit.SUPPLY_TRIGGER,
+                    Constants.Climber.CurrentLimit.SUPPLY_TRIGGER_TIME
+                )
+                .setStatorLimit(
+                    Constants.Climber.CurrentLimit.STATOR,
+                    Constants.Climber.CurrentLimit.STATOR_LIMIT
+                )
+                .setNeutralMode(Constants.Climber.NEUTRAL_MODE);
+    }
 
     // ! CONTROLS
-    private final Joystick controller = new Joystick(Constants.ID.JOYSTICK);
-    private final SendableChooser<Command> autoChooser =
-        new SendableChooser<>();
+    private final Joystick controller;
+    private final SendableChooser<Command> autoChooser;
+
+    {
+        controller = new Joystick(Constants.ID.JOYSTICK);
+        autoChooser = new SendableChooser<>();
+    }
 
     // ! COMMAND FACTORIES
-    private final RotationPIDFactory rotationLowPID = new RotationPIDFactory(
-        "IntakeLow",
-        intakeRotation,
-        Constants.Intake.Rotation.Setpoints.LOW,
-        new DynamicValue<>(
-            "IntakeLowTolerance",
-            Constants.Intake.Rotation.DefaultPID.FINISH_TOLERANCE
-        ),
-        Constants.Intake.Rotation.DefaultPID.P,
-        Constants.Intake.Rotation.DefaultPID.I,
-        Constants.Intake.Rotation.DefaultPID.D,
-        Constants.Intake.Rotation.DefaultPID.IMax
-    ), rotationHighPID = new RotationPIDFactory(
-        "IntakeHigh",
-        intakeRotation,
-        Constants.Intake.Rotation.Setpoints.HIGH,
-        new DynamicValue<>(
-            "IntakeHighTolerance",
-            Constants.Intake.Rotation.DefaultPID.FINISH_TOLERANCE
-        ),
-        Constants.Intake.Rotation.DefaultPID.P,
-        Constants.Intake.Rotation.DefaultPID.I,
-        Constants.Intake.Rotation.DefaultPID.D,
-        Constants.Intake.Rotation.DefaultPID.IMax
-    );
-    private final ClimberPIDFactory climberLowPID = new ClimberPIDFactory(
-        "ClimberLow",
-        climber,
-        Constants.Climber.Setpoints.LOW,
-        // TODO: Check whether this can end
-        //        new DynamicValue<>(
-        //            "ClimberLowTolerance",
-        //            Constants.Climber.DefaultPID.FINISH_TOLERANCE
-        //        ),
-        Constants.Climber.DefaultPID.P,
-        Constants.Climber.DefaultPID.I,
-        Constants.Climber.DefaultPID.D,
-        Constants.Climber.DefaultPID.IMax
-    ), climberHighPID = new ClimberPIDFactory(
-        "ClimberHigh",
-        climber,
-        Constants.Climber.Setpoints.HIGH,
-        // TODO: Check whether this can end
-        //        new DynamicValue<>(
-        //            "ClimberHighTolerance",
-        //            Constants.Climber.DefaultPID.FINISH_TOLERANCE
-        //        ),
-        Constants.Climber.DefaultPID.P,
-        Constants.Climber.DefaultPID.I,
-        Constants.Climber.DefaultPID.D,
-        Constants.Climber.DefaultPID.IMax
-    );
+    private final RotationPIDFactory rotationLowPID, rotationHighPID;
+    private final ClimberPIDFactory climberLowPID, climberHighPID;
+
+    {
+        rotationLowPID =
+            new RotationPIDFactory(
+                "IntakeLow",
+                intakeRotation,
+                Constants.Intake.Rotation.Setpoints.LOW,
+                new DynamicValue<>(
+                    "IntakeLowTolerance",
+                    Constants.Intake.Rotation.DefaultPID.FINISH_TOLERANCE
+                ),
+                Constants.Intake.Rotation.DefaultPID.P,
+                Constants.Intake.Rotation.DefaultPID.I,
+                Constants.Intake.Rotation.DefaultPID.D,
+                Constants.Intake.Rotation.DefaultPID.IMax
+            );
+        rotationHighPID =
+            new RotationPIDFactory(
+                "IntakeHigh",
+                intakeRotation,
+                Constants.Intake.Rotation.Setpoints.HIGH,
+                new DynamicValue<>(
+                    "IntakeHighTolerance",
+                    Constants.Intake.Rotation.DefaultPID.FINISH_TOLERANCE
+                ),
+                Constants.Intake.Rotation.DefaultPID.P,
+                Constants.Intake.Rotation.DefaultPID.I,
+                Constants.Intake.Rotation.DefaultPID.D,
+                Constants.Intake.Rotation.DefaultPID.IMax
+            );
+        climberLowPID =
+            new ClimberPIDFactory(
+                "ClimberLow",
+                climber,
+                Constants.Climber.Setpoints.LOW,
+                // TODO: Check whether this can end
+                //        new DynamicValue<>(
+                //            "ClimberLowTolerance",
+                //            Constants.Climber.DefaultPID.FINISH_TOLERANCE
+                //        ),
+                Constants.Climber.DefaultPID.P,
+                Constants.Climber.DefaultPID.I,
+                Constants.Climber.DefaultPID.D,
+                Constants.Climber.DefaultPID.IMax
+            );
+
+        climberHighPID =
+            new ClimberPIDFactory(
+                "ClimberHigh",
+                climber,
+                Constants.Climber.Setpoints.HIGH,
+                // TODO: Check whether this can end
+                //        new DynamicValue<>(
+                //            "ClimberHighTolerance",
+                //            Constants.Climber.DefaultPID.FINISH_TOLERANCE
+                //        ),
+                Constants.Climber.DefaultPID.P,
+                Constants.Climber.DefaultPID.I,
+                Constants.Climber.DefaultPID.D,
+                Constants.Climber.DefaultPID.IMax
+            );
+    }
 
     public RobotContainer() {
         // ! DEBUG TOOLS (DANGEROUS)
