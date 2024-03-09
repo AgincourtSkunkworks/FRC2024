@@ -3,8 +3,8 @@ package frc.robot;
 import frc.robot.util.DynamicValue;
 import frc.robot.util.GenericController.BaseController;
 import frc.robot.util.GenericController.NeutralMode;
-import frc.robot.util.GenericJoystick.BaseJoystick;
 import frc.robot.util.GenericJoystick.Axis;
+import frc.robot.util.GenericJoystick.BaseJoystick;
 import frc.robot.util.GenericJoystick.Button;
 import frc.robot.util.GenericJoystick.POV;
 
@@ -24,8 +24,9 @@ public final class Constants {
         public static final int CL = 14; // Climber ID - Ensure Climber.MOTOR_TYPE is set to the correct type
         public static final int JOYSTICK = 0; // Joystick ID
     }
-    
+
     public static final class Joystick {
+
         public static final BaseJoystick TYPE = BaseJoystick.DIRECT; // Joystick type
     }
 

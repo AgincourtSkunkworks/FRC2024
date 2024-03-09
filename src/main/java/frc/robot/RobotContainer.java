@@ -112,7 +112,8 @@ public class RobotContainer {
     private final SendableChooser<Command> autoChooser;
 
     {
-        controller = new GenericJoystick(Constants.Joystick.TYPE, Constants.ID.JOYSTICK);
+        controller =
+            new GenericJoystick(Constants.Joystick.TYPE, Constants.ID.JOYSTICK);
         autoChooser = new SendableChooser<>();
     }
 
@@ -230,7 +231,8 @@ public class RobotContainer {
     private void configureButtonBindings() {
         // ! Intake/Outtake
         // * AUTOMATED SEQUENCES
-        controller.getButton(Constants.Intake.TRIGGER_BTN)
+        controller
+            .getButton(Constants.Intake.TRIGGER_BTN)
             .whileTrue( // prime for intake of piece when pressed
                 new SequentialCommandGroup(
                     rotationLowPID.create(),
@@ -245,7 +247,8 @@ public class RobotContainer {
                     rotationHighPID.create()
                 )
             );
-        controller.getButton(Constants.Outtake.TRIGGER_BTN)
+        controller
+            .getButton(Constants.Outtake.TRIGGER_BTN)
             .whileTrue(
                 new SequentialCommandGroup(
                     rotationHighPID.create(),
@@ -263,15 +266,14 @@ public class RobotContainer {
 
         // * MANUAL OVERRIDES
 
-        controller.getButton(
-            Constants.Intake.Rotation.OVERRIDE_LOW_BTN
-        )
+        controller
+            .getButton(Constants.Intake.Rotation.OVERRIDE_LOW_BTN)
             .onTrue(rotationLowPID.create());
-        controller.getButton(
-            Constants.Intake.Rotation.OVERRIDE_HIGH_BTN
-        )
+        controller
+            .getButton(Constants.Intake.Rotation.OVERRIDE_HIGH_BTN)
             .onTrue(rotationHighPID.create());
-        controller.getPOVButton(Constants.Intake.Rotation.OVERRIDE_FWD_POV)
+        controller
+            .getPOVButton(Constants.Intake.Rotation.OVERRIDE_FWD_POV)
             .whileTrue(
                 Commands.startEnd(
                     () ->
@@ -281,7 +283,8 @@ public class RobotContainer {
                     () -> intakeRotation.setMotors(0)
                 )
             );
-        controller.getPOVButton(Constants.Intake.Rotation.OVERRIDE_REV_POV)
+        controller
+            .getPOVButton(Constants.Intake.Rotation.OVERRIDE_REV_POV)
             .whileTrue(
                 Commands.startEnd(
                     () ->
@@ -291,37 +294,43 @@ public class RobotContainer {
                     () -> intakeRotation.setMotors(0)
                 )
             );
-        controller.getPOVButton(Constants.Intake.Rotation.OVERRIDE_ZERO_POS_POV)
+        controller
+            .getPOVButton(Constants.Intake.Rotation.OVERRIDE_ZERO_POS_POV)
             .onTrue(Commands.runOnce(() -> intakeRotation.setPositions(0)));
-        controller.getButton(Constants.Intake.Feeder.OVERRIDE_FWD_BTN)
+        controller
+            .getButton(Constants.Intake.Feeder.OVERRIDE_FWD_BTN)
             .whileTrue(
                 Commands.startEnd(
                     () -> intakeFeeder.setMotor(Constants.Intake.Feeder.SPEED),
                     () -> intakeFeeder.setMotor(0)
                 )
             );
-        controller.getButton(Constants.Intake.Feeder.OVERRIDE_REV_BTN)
+        controller
+            .getButton(Constants.Intake.Feeder.OVERRIDE_REV_BTN)
             .whileTrue(
                 Commands.startEnd(
                     () -> intakeFeeder.setMotor(-Constants.Intake.Feeder.SPEED),
                     () -> intakeFeeder.setMotor(0)
                 )
             );
-        controller.getButton(Constants.Outtake.OVERRIDE_BTN)
+        controller
+            .getButton(Constants.Outtake.OVERRIDE_BTN)
             .whileTrue(
                 Commands.startEnd(
                     () -> outtake.setMotors(Constants.Outtake.SPEED),
                     () -> outtake.setMotors(0)
                 )
             );
-        controller.getPOVButton(Constants.Climber.OVERRIDE_UP_POV)
+        controller
+            .getPOVButton(Constants.Climber.OVERRIDE_UP_POV)
             .whileTrue(
                 Commands.startEnd(
                     () -> climber.setMotor(Constants.Climber.OVERRIDE_SPEED),
                     () -> climber.setMotor(0)
                 )
             );
-        controller.getPOVButton(Constants.Climber.OVERRIDE_DOWN_POV)
+        controller
+            .getPOVButton(Constants.Climber.OVERRIDE_DOWN_POV)
             .whileTrue(
                 Commands.startEnd(
                     () -> climber.setMotor(-Constants.Climber.OVERRIDE_SPEED),
@@ -330,9 +339,11 @@ public class RobotContainer {
             );
 
         // ! Climber
-        controller.getButton(Constants.Climber.LOW_BTN)
+        controller
+            .getButton(Constants.Climber.LOW_BTN)
             .onTrue(climberLowPID.create());
-        controller.getButton(Constants.Climber.HIGH_BTN)
+        controller
+            .getButton(Constants.Climber.HIGH_BTN)
             .onTrue(climberHighPID.create());
     }
 
