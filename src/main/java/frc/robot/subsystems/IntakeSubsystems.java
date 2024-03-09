@@ -5,14 +5,14 @@ import frc.robot.util.GenericController;
 import frc.robot.util.GenericController.BaseController;
 import java.util.ArrayList;
 
-public class IntakeSubsystem {
+public class IntakeSubsystems {
 
-    public static class Rotation extends SubsystemBase {
+    public static class RotationSubsystem extends SubsystemBase {
 
         final ArrayList<GenericController> motors = new ArrayList<>();
 
         // Private constructor so people use .create() instead
-        private Rotation(
+        private RotationSubsystem(
             BaseController type,
             int m1ID,
             boolean m1Invert,
@@ -27,22 +27,22 @@ public class IntakeSubsystem {
             motors.add(motor2);
         }
 
-        /** Create a new Rotation subsystem.
+        /** Create a new RotationSubsystem.
          * @param type The type of motor controller
          * @param m1ID The ID of the first motor
          * @param m1Invert Whether the first motor is inverted
          * @param m2ID The ID of the second motor
          * @param m2Invert Whether the second motor is inverted
-         * @return A new Rotation subsystem
+         * @return A new RotationSubsystem subsystem
          */
-        public static Rotation create(
+        public static RotationSubsystem create(
             BaseController type,
             int m1ID,
             boolean m1Invert,
             int m2ID,
             boolean m2Invert
         ) {
-            return new Rotation(type, m1ID, m1Invert, m2ID, m2Invert);
+            return new RotationSubsystem(type, m1ID, m1Invert, m2ID, m2Invert);
         }
 
         /** Set the supply current limit
@@ -50,9 +50,9 @@ public class IntakeSubsystem {
          * @param currentLimit The current limit to set
          * @param triggerCurrent The current at which to trigger the limit
          * @param triggerTime The time to trigger the limit
-         * @return The Rotation subsystem, for chaining
+         * @return The RotationSubsystem subsystem, for chaining
          */
-        public Rotation setSupplyLimit(
+        public RotationSubsystem setSupplyLimit(
             boolean limit,
             double currentLimit,
             double triggerCurrent,
@@ -72,9 +72,9 @@ public class IntakeSubsystem {
         /** Set the stator current limit
          * @param limit Whether to enable the stator current limit
          * @param currentLimit The current limit to set
-         * @return The Rotation subsystem, for chaining
+         * @return The RotationSubsystem subsystem, for chaining
          */
-        public Rotation setStatorLimit(boolean limit, double currentLimit) {
+        public RotationSubsystem setStatorLimit(boolean limit, double currentLimit) {
             for (GenericController motor : motors) {
                 motor.setStatorCurrentLimit(limit, currentLimit);
             }
@@ -118,16 +118,16 @@ public class IntakeSubsystem {
         }
     }
 
-    public static class Feeder extends SubsystemBase {
+    public static class FeederSubsystem extends SubsystemBase {
 
         final GenericController motor;
 
-        /** Create a new Feeder subsystem.
+        /** Create a new FeederSubsystem.
          * @param type The type of motor controller
          * @param mID The ID of the motor
          * @param invert Whether the motor is inverted
          */
-        public Feeder(BaseController type, int mID, boolean invert) {
+        public FeederSubsystem(BaseController type, int mID, boolean invert) {
             motor = new GenericController(type, mID);
             motor.setInverted(invert);
         }

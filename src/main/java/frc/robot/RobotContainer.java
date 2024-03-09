@@ -47,8 +47,8 @@ public class RobotContainer {
             Constants.ID.RM1,
             Constants.ID.RM2
         );
-    private final IntakeSubsystem.Rotation intakeRotation =
-        IntakeSubsystem.Rotation
+    private final IntakeSubsystems.RotationSubsystem intakeRotation =
+        IntakeSubsystems.RotationSubsystem
             .create(
                 Constants.Intake.Rotation.MOTOR_TYPE,
                 Constants.ID.IRTLM,
@@ -66,8 +66,8 @@ public class RobotContainer {
                 Constants.Intake.Rotation.CurrentLimit.STATOR,
                 Constants.Intake.Rotation.CurrentLimit.STATOR_LIMIT
             );
-    private final IntakeSubsystem.Feeder intakeFeeder =
-        new IntakeSubsystem.Feeder(
+    private final IntakeSubsystems.FeederSubsystem intakeFeeder =
+        new IntakeSubsystems.FeederSubsystem(
             Constants.Intake.Feeder.MOTOR_TYPE,
             Constants.ID.IF,
             Constants.Intake.Feeder.INVERSE

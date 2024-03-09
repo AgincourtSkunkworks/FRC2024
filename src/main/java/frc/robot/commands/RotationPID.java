@@ -1,6 +1,6 @@
 package frc.robot.commands;
 
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.IntakeSubsystems;
 import frc.robot.util.DynamicValue;
 
 public class RotationPID extends GenericPID {
@@ -10,7 +10,7 @@ public class RotationPID extends GenericPID {
 
     /** Create a new RotationPID command.
      * <p>
-     *     ! This command will not end, use {@link #RotationPID(String, IntakeSubsystem.Rotation, double, DynamicValue, double, double, double, double)} if you want the command to end.
+     *     ! This command will not end, use {@link #RotationPID(String, IntakeSubsystems.RotationSubsystem, double, DynamicValue, double, double, double, double)} if you want the command to end.
      * </p>
      * @param name The name of the PID command, used for RobotPreferences values. Use the same name for all commands that should share the same preferences.
      * @param rotation The rotation subsystem
@@ -22,7 +22,7 @@ public class RotationPID extends GenericPID {
      */
     public RotationPID(
         String name,
-        IntakeSubsystem.Rotation rotation,
+        IntakeSubsystems.RotationSubsystem rotation,
         double target,
         double defaultP,
         double defaultI,
@@ -54,7 +54,7 @@ public class RotationPID extends GenericPID {
      */
     public RotationPID(
         String name,
-        IntakeSubsystem.Rotation rotation,
+        IntakeSubsystems.RotationSubsystem rotation,
         double target,
         DynamicValue<Double> targetTolerance,
         double defaultP,
