@@ -5,6 +5,6 @@ bin/
 .gradle/
 
 # Robot Simulation Files
-networktables.json
+networktables.json*
 simgui*.json
 ctre_sim/
