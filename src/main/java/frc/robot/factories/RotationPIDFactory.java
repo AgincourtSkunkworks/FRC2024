@@ -5,6 +5,7 @@ import frc.robot.subsystems.IntakeSubsystems;
 import frc.robot.util.DynamicValue;
 
 public class RotationPIDFactory {
+
     String name;
     IntakeSubsystems.RotationSubsystem rotation;
     DynamicValue<Double> targetTolerance;
@@ -23,7 +24,15 @@ public class RotationPIDFactory {
      * @param defaultD The default D value
      * @param defaultIMax The default I max value (the maximum value of the integral term)
      */
-    public RotationPIDFactory(String name, IntakeSubsystems.RotationSubsystem rotation, double target, double defaultP, double defaultI, double defaultD, double defaultIMax) {
+    public RotationPIDFactory(
+        String name,
+        IntakeSubsystems.RotationSubsystem rotation,
+        double target,
+        double defaultP,
+        double defaultI,
+        double defaultD,
+        double defaultIMax
+    ) {
         this.name = name;
         this.rotation = rotation;
         this.target = target;
@@ -44,7 +53,16 @@ public class RotationPIDFactory {
      * @param defaultD The default D value
      * @param defaultIMax The default I max value (the maximum value of the integral term)
      */
-    public RotationPIDFactory(String name, IntakeSubsystems.RotationSubsystem rotation, double target, DynamicValue<Double> targetTolerance, double defaultP, double defaultI, double defaultD, double defaultIMax) {
+    public RotationPIDFactory(
+        String name,
+        IntakeSubsystems.RotationSubsystem rotation,
+        double target,
+        DynamicValue<Double> targetTolerance,
+        double defaultP,
+        double defaultI,
+        double defaultD,
+        double defaultIMax
+    ) {
         this(name, rotation, target, defaultP, defaultI, defaultD, defaultIMax);
         this.targetTolerance = targetTolerance;
         this.canEnd = true;
@@ -55,9 +73,26 @@ public class RotationPIDFactory {
      */
     public RotationPID create() {
         if (canEnd) {
-            return new RotationPID(name, rotation, target, targetTolerance, defaultP, defaultI, defaultD, defaultIMax);
+            return new RotationPID(
+                name,
+                rotation,
+                target,
+                targetTolerance,
+                defaultP,
+                defaultI,
+                defaultD,
+                defaultIMax
+            );
         } else {
-            return new RotationPID(name, rotation, target, defaultP, defaultI, defaultD, defaultIMax);
+            return new RotationPID(
+                name,
+                rotation,
+                target,
+                defaultP,
+                defaultI,
+                defaultD,
+                defaultIMax
+            );
         }
     }
 }

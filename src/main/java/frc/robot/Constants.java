@@ -201,6 +201,7 @@ public final class Constants {
         ! ALWAYS reset them to their original values before committing or running in a competition.
      */
     public static final class Debug {
+
         static final boolean ENABLE = false; // Needs to be enabled to use any debug features (other constants are ignored if this is false)
         static final boolean WIPE_PREFERENCES = false; // Whether to wipe the RobotPreferences on startup
     }

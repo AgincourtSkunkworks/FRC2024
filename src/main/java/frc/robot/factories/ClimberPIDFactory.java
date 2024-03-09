@@ -5,6 +5,7 @@ import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.util.DynamicValue;
 
 public class ClimberPIDFactory {
+
     String name;
     ClimberSubsystem climber;
     DynamicValue<Double> targetTolerance;
@@ -23,7 +24,15 @@ public class ClimberPIDFactory {
      * @param defaultD The default D value
      * @param defaultIMax The default I max value (the maximum value of the integral term)
      */
-    public ClimberPIDFactory(String name, ClimberSubsystem climber, double target, double defaultP, double defaultI, double defaultD, double defaultIMax) {
+    public ClimberPIDFactory(
+        String name,
+        ClimberSubsystem climber,
+        double target,
+        double defaultP,
+        double defaultI,
+        double defaultD,
+        double defaultIMax
+    ) {
         this.name = name;
         this.climber = climber;
         this.target = target;
@@ -44,7 +53,16 @@ public class ClimberPIDFactory {
      * @param defaultD The default D value
      * @param defaultIMax The default I max value (the maximum value of the integral term)
      */
-    public ClimberPIDFactory(String name, ClimberSubsystem climber, double target, DynamicValue<Double> targetTolerance, double defaultP, double defaultI, double defaultD, double defaultIMax) {
+    public ClimberPIDFactory(
+        String name,
+        ClimberSubsystem climber,
+        double target,
+        DynamicValue<Double> targetTolerance,
+        double defaultP,
+        double defaultI,
+        double defaultD,
+        double defaultIMax
+    ) {
         this(name, climber, target, defaultP, defaultI, defaultD, defaultIMax);
         this.targetTolerance = targetTolerance;
         this.canEnd = true;
@@ -52,9 +70,26 @@ public class ClimberPIDFactory {
 
     public ClimberPID create() {
         if (canEnd) {
-            return new ClimberPID(name, climber, target, targetTolerance, defaultP, defaultI, defaultD, defaultIMax);
+            return new ClimberPID(
+                name,
+                climber,
+                target,
+                targetTolerance,
+                defaultP,
+                defaultI,
+                defaultD,
+                defaultIMax
+            );
         } else {
-            return new ClimberPID(name, climber, target, defaultP, defaultI, defaultD, defaultIMax);
+            return new ClimberPID(
+                name,
+                climber,
+                target,
+                defaultP,
+                defaultI,
+                defaultD,
+                defaultIMax
+            );
         }
     }
 }

@@ -13,14 +13,15 @@ public class DriveSubsystem extends SubsystemBase {
     // The values that are initialized to a DynamicValue object are a result of the style of configuration used for this
     // subsystem which doesn't require people to specify a default value. This shouldn't need to be done for most
     // other subsystems.
-    final ArrayList<GenericController> leftMotors = new ArrayList<>(), rightMotors = new ArrayList<>(), motors = new ArrayList<>();
+    final ArrayList<GenericController> leftMotors =
+        new ArrayList<>(), rightMotors = new ArrayList<>(), motors =
+        new ArrayList<>();
     boolean supplyLimit = false, statorLimit = false;
     double supplyCurrentLimit = 0, supplyTriggerCurrent = 0, supplyTriggerTime =
         0, statorCurrentLimit = 0;
     NeutralMode neutralMode = NeutralMode.Brake;
-    DynamicValue<Double> lCorrect = new DynamicValue<>(
-        1.0
-    ), rCorrect = new DynamicValue<>(1.0);
+    DynamicValue<Double> lCorrect = new DynamicValue<>(1.0), rCorrect =
+        new DynamicValue<>(1.0);
     boolean lInvert = false, rInvert = false;
     double brakeThreshold = 0, maxTemp = 0;
 

@@ -74,7 +74,10 @@ public class IntakeSubsystems {
          * @param currentLimit The current limit to set
          * @return The RotationSubsystem subsystem, for chaining
          */
-        public RotationSubsystem setStatorLimit(boolean limit, double currentLimit) {
+        public RotationSubsystem setStatorLimit(
+            boolean limit,
+            double currentLimit
+        ) {
             for (GenericController motor : motors) {
                 motor.setStatorCurrentLimit(limit, currentLimit);
             }
