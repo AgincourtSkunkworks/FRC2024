@@ -63,6 +63,7 @@ public final class Constants {
         public static final class Rotation {
 
             static final BaseController MOTOR_TYPE = BaseController.TALONFX; // Motor type
+            static final NeutralMode NEUTRAL_MODE = NeutralMode.Brake;
             static final Button OVERRIDE_LOW_BTN = Button.S;
             static final Button OVERRIDE_HIGH_BTN = Button.E;
             static final POV OVERRIDE_FWD_POV = POV.E;

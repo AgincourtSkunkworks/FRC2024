@@ -63,6 +63,7 @@ public class RobotContainer {
                     Constants.ID.IRTRM,
                     Constants.Intake.Rotation.RM_INVERSE
                 )
+                .setNeutralMode(Constants.Intake.Rotation.NEUTRAL_MODE)
                 .setSupplyLimit(
                     Constants.Intake.Rotation.CurrentLimit.SUPPLY,
                     Constants.Intake.Rotation.CurrentLimit.SUPPLY_LIMIT,

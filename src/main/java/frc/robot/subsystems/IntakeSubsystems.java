@@ -45,6 +45,19 @@ public class IntakeSubsystems {
             return new RotationSubsystem(type, m1ID, m1Invert, m2ID, m2Invert);
         }
 
+        /** Set the neutral mode
+         * @param mode The neutral mode to set the motors to
+         * @return The RotationSubsystem subsystem, for chaining
+         */
+        public RotationSubsystem setNeutralMode(
+            GenericController.NeutralMode mode
+        ) {
+            for (GenericController motor : motors) {
+                motor.setNeutralMode(mode);
+            }
+            return this;
+        }
+
         /** Set the supply current limit
          * @param limit Whether to enable the supply current limit
          * @param currentLimit The current limit to set
