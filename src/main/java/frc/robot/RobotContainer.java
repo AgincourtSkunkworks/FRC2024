@@ -275,14 +275,17 @@ public class RobotContainer {
                     Commands.runOnce(() ->
                         intakeFeeder.setMotor(-Constants.Intake.Feeder.SPEED)
                     ),
-                    Commands.waitSeconds(Constants.Intake.Feeder.RELEASE_WAIT),
-                    Commands.runOnce(() -> intakeFeeder.setMotor(0)),
                     Commands.runOnce(() ->
                         outtake.setMotors(Constants.Outtake.SPEED)
                     )
                 )
             )
-            .whileFalse(Commands.runOnce(() -> outtake.setMotors(0)));
+            .whileFalse(
+                new SequentialCommandGroup(
+                    Commands.runOnce(() -> intakeFeeder.setMotor(0)),
+                    Commands.runOnce(() -> outtake.setMotors(0))
+                )
+            );
 
         // * MANUAL OVERRIDES
 

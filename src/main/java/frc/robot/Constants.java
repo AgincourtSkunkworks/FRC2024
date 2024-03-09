@@ -106,7 +106,6 @@ public final class Constants {
             public static Button OVERRIDE_REV_BTN = Button.OPT_L;
             static final boolean INVERSE = false; // Whether the motor is inverted
             static final double SPEED = 1; // Speed in which to run the intake feeder
-            static final double RELEASE_WAIT = 1; // Number of seconds to run feeder in reverse when releasing
         }
     }
 
