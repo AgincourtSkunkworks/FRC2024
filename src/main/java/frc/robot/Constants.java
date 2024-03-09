@@ -1,44 +1,14 @@
 package frc.robot;
 
 import frc.robot.util.DynamicValue;
-import frc.robot.util.GenericController;
 import frc.robot.util.GenericController.BaseController;
+import frc.robot.util.GenericController.NeutralMode;
+import frc.robot.util.GenericJoystick.BaseJoystick;
+import frc.robot.util.GenericJoystick.Axis;
+import frc.robot.util.GenericJoystick.Button;
+import frc.robot.util.GenericJoystick.POV;
 
 public final class Constants {
-
-    public static final class Buttons { // Button Name -> ID Mapping
-
-        public static final int A = 2;
-        public static final int B = 3;
-        public static final int X = 1;
-        public static final int Y = 4;
-        public static final int BACK = 9;
-        public static final int START = 10;
-        public static final int L1 = 5; // ! Currently broken on the controller (not the code)
-        public static final int L2 = 7;
-        public static final int R1 = 6;
-        public static final int R2 = 8;
-    }
-
-    public static final class POV {
-
-        public static final int N = 0;
-        public static final int NE = 45;
-        public static final int E = 90;
-        public static final int SE = 135;
-        public static final int S = 180;
-        public static final int SW = 225;
-        public static final int W = 270;
-        public static final int NW = 315;
-    }
-
-    public static final class Joystick { // Joystick Name -> ID Mapping
-
-        public static final int LX = 0;
-        public static final int LY = 1;
-        public static final int RX = 2;
-        public static final int RY = 3;
-    }
 
     public static final class ID { // Motor Name -> ID Mapping
 
@@ -53,6 +23,10 @@ public final class Constants {
         public static final int OFRM = 9; // Outtake CIM (Flywheel) Right Motor ID - Ensure Outtake.CIM_MOTOR_TYPE is set to the correct type
         public static final int CL = 14; // Climber ID - Ensure Climber.MOTOR_TYPE is set to the correct type
         public static final int JOYSTICK = 0; // Joystick ID
+    }
+    
+    public static final class Joystick {
+        public static final BaseJoystick TYPE = BaseJoystick.DIRECT; // Joystick type
     }
 
     public static final class Drive {
@@ -83,18 +57,18 @@ public final class Constants {
 
     public static final class Intake {
 
-        public static int TRIGGER_BTN = Constants.Buttons.R1;
+        public static Button TRIGGER_BTN = Button.R1;
 
         public static final class Rotation {
 
             static final BaseController MOTOR_TYPE = BaseController.TALONFX; // Motor type
+            static final Button OVERRIDE_LOW_BTN = Button.S;
+            static final Button OVERRIDE_HIGH_BTN = Button.E;
+            static final POV OVERRIDE_FWD_POV = POV.E;
+            static final POV OVERRIDE_REV_POV = POV.W;
+            static final POV OVERRIDE_ZERO_POS_POV = POV.N;
             static final boolean LM_INVERSE = false; // Whether the left motor is inverted
             static final boolean RM_INVERSE = true; // Whether the right motor is inverted
-            static final int OVERRIDE_LOW_BTN = Constants.Buttons.A;
-            static final int OVERRIDE_HIGH_BTN = Constants.Buttons.B;
-            static final int OVERRIDE_FWD_POV = Constants.POV.E;
-            static final int OVERRIDE_REV_POV = Constants.POV.W;
-            static final int OVERRIDE_ZERO_POS = Constants.POV.N;
             static final double OVERRIDE_SPEED = 0.5; // Speed in which to run the intake on fwd/rev override
 
             public static final class DefaultPID {
@@ -126,11 +100,11 @@ public final class Constants {
         public static final class Feeder {
 
             static final BaseController MOTOR_TYPE = BaseController.TALONSRX; // CIM motor type
+            public static Button OVERRIDE_FWD_BTN = Button.OPT_R;
+            public static Button OVERRIDE_REV_BTN = Button.OPT_L;
             static final boolean INVERSE = false; // Whether the motor is inverted
             static final double SPEED = 1; // Speed in which to run the intake feeder
             static final double RELEASE_WAIT = 1; // Number of seconds to run feeder in reverse when releasing
-            public static int OVERRIDE_FWD_BTN = Constants.Buttons.START;
-            public static int OVERRIDE_REV_BTN = Constants.Buttons.BACK;
         }
     }
 
@@ -138,23 +112,22 @@ public final class Constants {
 
         static final BaseController FLYWHEEL_MOTOR_TYPE =
             BaseController.TALONSRX; // CIM motor type
+        static final Button TRIGGER_BTN = Button.R2;
+        static final Button OVERRIDE_BTN = Button.W;
         static final boolean FLYWHEEL_LM_INVERSE = false; // Whether the flywheel left motor is inverted
         static final boolean FLYWHEEL_RM_INVERSE = true; // Whether the flywheel right motor is inverted
         static final double SPEED = 1; // Speed in which to run the flywheels
-        static final int TRIGGER_BTN = Constants.Buttons.R2;
-        static final int OVERRIDE_BTN = Constants.Buttons.X;
     }
 
     public static final class Climber {
 
         static final BaseController MOTOR_TYPE = BaseController.TALONFX;
-        static final GenericController.NeutralMode NEUTRAL_MODE =
-            GenericController.NeutralMode.Brake;
+        static final NeutralMode NEUTRAL_MODE = NeutralMode.Brake;
+        static final Button LOW_BTN = Button.L1; // FIXME: Switch button or get a controller with a working L1
+        static final Button HIGH_BTN = Button.L2;
+        static final POV OVERRIDE_UP_POV = POV.N;
+        static final POV OVERRIDE_DOWN_POV = POV.S;
         static final boolean INVERSE = false; // Whether the motor is inverted
-        static final int LOW_BTN = Constants.Buttons.L1; // FIXME: Switch button or get a controller with a working L1
-        static final int HIGH_BTN = Constants.Buttons.L2;
-        static final int OVERRIDE_UP_POV = Constants.POV.N;
-        static final int OVERRIDE_DOWN_POV = Constants.POV.S;
         static final double OVERRIDE_SPEED = 0.5; // Speed in which to run the climber on override
 
         public static final class CurrentLimit {
@@ -192,8 +165,8 @@ public final class Constants {
 
     public static final class TeleOp {
 
-        static final int LEFT_DRIVE_STICK = Joystick.LY; // Joystick to use for left motor control
-        static final int RIGHT_DRIVE_STICK = Joystick.RY; // Joystick to use for right motor control
+        static final Axis LEFT_DRIVE_STICK = Axis.LY; // Joystick to use for left motor control
+        static final Axis RIGHT_DRIVE_STICK = Axis.RY; // Joystick to use for right motor control
         static final double SLEW_RATE_LIMIT = 0.985; // Slew rate limit for joystick input
     }
 

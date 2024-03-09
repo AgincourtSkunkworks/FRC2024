@@ -79,7 +79,7 @@ public class GenericJoystick {
             put(Axis.RX, 2);
             put(Axis.RY, 5);
             /* Unused:
-            - L2/R2 (Triggers) as axis 3/4
+            - L2/R2 (Triggers) as axis 3/4 - not supported on Direct Input
              */
         }};
         ps4ButtonMap = new HashMap<>() {{
@@ -96,8 +96,8 @@ public class GenericJoystick {
             put(Button.STK_L, 11);
             put(Button.STK_R, 12);
             /* Unused:
-            - PS4 Button as 13
-            - Touchpad as 14
+            - PS4 Button as 13 - not supported on Direct Input
+            - Touchpad as 14 - not supported on Direct Input
              */
         }};
         ps4POVMap = new HashMap<>() {{
@@ -120,7 +120,7 @@ public class GenericJoystick {
             put(Axis.RX, 2);
             put(Axis.RY, 5);
             /* Unused:
-            - L2/R2 (Triggers) as axis 3/4
+            - L2/R2 (Triggers) as axis 3/4 - not supported on Direct Input
              */
         }};
         ps5ButtonMap = new HashMap<>() {{
@@ -137,8 +137,8 @@ public class GenericJoystick {
             put(Button.STK_L, 11);
             put(Button.STK_R, 12);
             /* Unused:
-            - PS4 Button as 13
-            - Touchpad as 14
+            - PS4 Button as 13 - not supported on Direct Input
+            - Touchpad as 14 - not supported on Direct Input
              */
         }};
         ps5POVMap = new HashMap<>() {{
