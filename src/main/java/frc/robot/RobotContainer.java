@@ -164,32 +164,32 @@ public class RobotContainer {
                 Constants.TeleOp.SLEW_RATE_LIMIT
             )
         );
-        intakeRotation.setDefaultCommand( // TODO: Check whether this is needed
-            new RotationPID(
-                "IntakeHigh",
-                intakeRotation,
-                Constants.Intake.Rotation.Setpoints.HIGH,
-                Constants.Intake.Rotation.DefaultPID.P,
-                Constants.Intake.Rotation.DefaultPID.I,
-                Constants.Intake.Rotation.DefaultPID.D,
-                Constants.Intake.Rotation.DefaultPID.IMax
-            )
-        );
+//        intakeRotation.setDefaultCommand( // TODO: Check whether this is needed
+//            new RotationPID(
+//                "IntakeHigh",
+//                intakeRotation,
+//                Constants.Intake.Rotation.Setpoints.HIGH,
+//                Constants.Intake.Rotation.DefaultPID.P,
+//                Constants.Intake.Rotation.DefaultPID.I,
+//                Constants.Intake.Rotation.DefaultPID.D,
+//                Constants.Intake.Rotation.DefaultPID.IMax
+//            )
+//        );
         climber.setDefaultCommand(climberLowPID);
 
-        new RotationPID( // TODO: Replace me when we figure out why variables don't work
-                "IntakeHigh",
-                intakeRotation,
-                Constants.Intake.Rotation.Setpoints.HIGH,
-                new DynamicValue<>(
-                        "IntakeHighTolerance",
-                        Constants.Intake.Rotation.DefaultPID.FINISH_TOLERANCE
-                ),
-                Constants.Intake.Rotation.DefaultPID.P,
-                Constants.Intake.Rotation.DefaultPID.I,
-                Constants.Intake.Rotation.DefaultPID.D,
-                Constants.Intake.Rotation.DefaultPID.IMax
-        ).schedule();
+//        new RotationPID( // TODO: Replace me when we figure out why variables don't work
+//                "IntakeHigh",
+//                intakeRotation,
+//                Constants.Intake.Rotation.Setpoints.HIGH,
+//                new DynamicValue<>(
+//                        "IntakeHighTolerance",
+//                        Constants.Intake.Rotation.DefaultPID.FINISH_TOLERANCE
+//                ),
+//                Constants.Intake.Rotation.DefaultPID.P,
+//                Constants.Intake.Rotation.DefaultPID.I,
+//                Constants.Intake.Rotation.DefaultPID.D,
+//                Constants.Intake.Rotation.DefaultPID.IMax
+//        ).schedule();
         autoChooser.addOption(
             "Leave (Straight)",
             new DriveForTime(

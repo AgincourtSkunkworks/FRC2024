@@ -87,7 +87,7 @@ public final class Constants {
 
         public static final class Rotation {
 
-            static final BaseController MOTOR_TYPE = BaseController.TALONSRX; // Motor type
+            static final BaseController MOTOR_TYPE = BaseController.TALONFX; // Motor type
             static final boolean LM_INVERSE = false; // Whether the left motor is inverted
             static final boolean RM_INVERSE = true; // Whether the right motor is inverted
             static final int OVERRIDE_LOW_BTN = Constants.Buttons.A;
