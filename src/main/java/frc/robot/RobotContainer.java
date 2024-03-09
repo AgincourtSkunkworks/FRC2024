@@ -159,6 +159,10 @@ public class RobotContainer {
     public RobotContainer() {
         SmartDashboard.putData(CommandScheduler.getInstance());
         SmartDashboard.putData(drive);
+        SmartDashboard.putData(intakeRotation);
+        SmartDashboard.putData(intakeFeeder);
+        SmartDashboard.putData(outtake);
+        SmartDashboard.putData(climber);
         configureButtonBindings();
 
         drive.setDefaultCommand(
