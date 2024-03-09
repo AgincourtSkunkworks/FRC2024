@@ -123,6 +123,7 @@ public class GenericController {
                     inverted
                         ? InvertedValue.CounterClockwise_Positive
                         : InvertedValue.Clockwise_Positive;
+                talonFX.getConfigurator().apply(talonFXConfig);
                 break;
             case TALONSRX:
                 talonSRX.setInverted(inverted);
