@@ -94,6 +94,7 @@ public final class Constants {
             static final int OVERRIDE_HIGH_BTN = Constants.Buttons.B;
             static final int OVERRIDE_FWD_POV = Constants.POV.E;
             static final int OVERRIDE_REV_POV = Constants.POV.W;
+            static final int OVERRIDE_ZERO_POS = Constants.POV.N;
             static final double OVERRIDE_SPEED = 0.5; // Speed in which to run the intake on fwd/rev override
 
             public static final class DefaultPID {

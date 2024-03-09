@@ -210,6 +210,9 @@ public class RobotContainer {
         );
         climber.setDefaultCommand(climberLowPID.create());
 
+        // ! CONFIGURATION
+        intakeRotation.setPositions(0); // ! INTAKE IS EXPECTED TO BE IN HIGH AT STARTUP
+
         // ! AUTONOMOUS
         autoChooser.addOption(
             "Leave (Straight)",
@@ -292,6 +295,8 @@ public class RobotContainer {
                     () -> intakeRotation.setMotors(0)
                 )
             );
+        new POVButton(controller, Constants.Intake.Rotation.OVERRIDE_ZERO_POS)
+            .onTrue(Commands.runOnce(() -> intakeRotation.setPositions(0)));
         new JoystickButton(controller, Constants.Intake.Feeder.OVERRIDE_FWD_BTN)
             .whileTrue(
                 Commands.startEnd(
