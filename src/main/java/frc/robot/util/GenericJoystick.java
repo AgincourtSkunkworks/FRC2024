@@ -154,7 +154,7 @@ public class GenericJoystick {
     }
 
     // ! PS5
-    { // TODO: Verify with actual controller, using PS4 as base
+    { // FIXME: Verify with actual controller, currently using PS4 as base
         ps5AxisMap =
             new HashMap<>() {
                 {

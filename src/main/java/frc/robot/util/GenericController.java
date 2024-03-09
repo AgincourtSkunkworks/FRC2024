@@ -25,7 +25,6 @@ public class GenericController {
         Coast,
     }
 
-    // TODO: Test all methods with TalonFX, TalonSRX, and SparkMax
     public final BaseController base;
     public TalonFX talonFX;
     public DutyCycleOut talonFXOut;
