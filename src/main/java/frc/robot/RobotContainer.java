@@ -17,6 +17,7 @@ import frc.robot.util.DynamicValue;
 
 public class RobotContainer {
 
+    // ! SUBSYSTEMS
     private final DriveSubsystem drive = DriveSubsystem
         .create()
         .invert(Constants.Drive.LM_INVERSE, Constants.Drive.RM_INVERSE)
@@ -95,10 +96,13 @@ public class RobotContainer {
             Constants.Climber.CurrentLimit.STATOR_LIMIT
         )
         .setNeutralMode(Constants.Climber.NEUTRAL_MODE);
+
+    // ! CONTROLS
     private final Joystick controller = new Joystick(Constants.ID.JOYSTICK);
     private final SendableChooser<Command> autoChooser =
         new SendableChooser<>();
 
+    // ! COMMAND FACTORIES
     private final RotationPIDFactory rotationLowPID = new RotationPIDFactory(
         "IntakeLow",
         intakeRotation,
@@ -124,7 +128,7 @@ public class RobotContainer {
         Constants.Intake.Rotation.DefaultPID.D,
         Constants.Intake.Rotation.DefaultPID.IMax
     );
-    private final ClimberPID climberLowPID = new ClimberPID(
+    private final ClimberPIDFactory climberLowPID = new ClimberPIDFactory(
         "ClimberLow",
         climber,
         Constants.Climber.Setpoints.LOW,
@@ -137,7 +141,7 @@ public class RobotContainer {
         Constants.Climber.DefaultPID.I,
         Constants.Climber.DefaultPID.D,
         Constants.Climber.DefaultPID.IMax
-    ), climberHighPID = new ClimberPID(
+    ), climberHighPID = new ClimberPIDFactory(
         "ClimberHigh",
         climber,
         Constants.Climber.Setpoints.HIGH,
@@ -166,7 +170,7 @@ public class RobotContainer {
                 Constants.TeleOp.SLEW_RATE_LIMIT
             )
         );
-        climber.setDefaultCommand(climberLowPID);
+        climber.setDefaultCommand(climberLowPID.create());
 
         autoChooser.addOption(
             "Leave (Straight)",
@@ -285,9 +289,9 @@ public class RobotContainer {
 
         // ! Climber
         new JoystickButton(controller, Constants.Climber.LOW_BTN)
-            .onTrue(climberLowPID);
+            .onTrue(climberLowPID.create());
         new JoystickButton(controller, Constants.Climber.HIGH_BTN)
-            .onTrue(climberHighPID);
+            .onTrue(climberHighPID.create());
     }
 
     public Command getAutonomousCommand() {
