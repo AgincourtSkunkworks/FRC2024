@@ -222,6 +222,25 @@ public class RobotContainer {
                 Constants.Autonomous.COMM_LEAVE_TIME
             )
         );
+        autoChooser.addOption(
+            "Shoot & Leave (Straight)",
+            new SequentialCommandGroup(
+                Commands.runOnce(() ->
+                    intakeFeeder.setMotor(-Constants.Intake.Feeder.SPEED)
+                ),
+                Commands.runOnce(() ->
+                    outtake.setMotors(Constants.Outtake.SPEED)
+                ),
+                Commands.waitSeconds(Constants.Autonomous.SHOOT_TIME),
+                Commands.runOnce(() -> intakeFeeder.setMotor(0)),
+                Commands.runOnce(() -> outtake.setMotors(0)),
+                new DriveForTime(
+                    drive,
+                    Constants.Autonomous.MOVE_SPEED,
+                    Constants.Autonomous.COMM_LEAVE_TIME
+                )
+            )
+        );
         autoChooser.addOption("None", null);
         SmartDashboard.putData(autoChooser);
     }

@@ -163,6 +163,7 @@ public final class Constants {
         static final double MAX_TEMP = 60; // Maximum temperature (in degrees C) before autonomous stops (-1 to disable)
         static final double MOVE_SPEED = 0.5; // Percent speed (0-1) for moving the robot
         static final double COMM_LEAVE_TIME = 1.78; // Time in seconds that are needed to leave the community area
+        static final double SHOOT_TIME = 3; // Seconds to run the flywheels for
     }
 
     public static final class TeleOp {
