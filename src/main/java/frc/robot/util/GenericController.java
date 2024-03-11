@@ -138,7 +138,8 @@ public class GenericController {
      */
     public boolean getInverted() {
         return switch (base) {
-            case TALONFX -> talonFXConfig.MotorOutput.Inverted == InvertedValue.CounterClockwise_Positive;
+            case TALONFX -> talonFXConfig.MotorOutput.Inverted ==
+            InvertedValue.CounterClockwise_Positive;
             case TALONSRX -> talonSRX.getInverted();
             case SPARKMAX -> sparkMax.getInverted();
         };
