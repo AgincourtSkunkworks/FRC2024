@@ -1,4 +1,4 @@
-package frc.robot.factories;
+package frc.robot.commands.factories;
 
 import frc.robot.commands.RotationPID;
 import frc.robot.subsystems.IntakeSubsystems;

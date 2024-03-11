@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.commands.*;
-import frc.robot.factories.*;
+import frc.robot.commands.factories.*;
 import frc.robot.subsystems.*;
 import frc.robot.util.DynamicValue;
 import frc.robot.util.GenericJoystick;
@@ -195,6 +195,7 @@ public class RobotContainer {
         SmartDashboard.putData(intakeFeeder);
         SmartDashboard.putData(outtake);
         SmartDashboard.putData(climber);
+
         // ! BUTTONS
         configureButtonBindings();
 
