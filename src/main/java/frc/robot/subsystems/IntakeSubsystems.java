@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.util.GenericController;
 import frc.robot.util.GenericController.BaseController;
 import java.util.ArrayList;
@@ -123,6 +125,21 @@ public class IntakeSubsystems {
                 motor.setPosition(position);
             }
         }
+
+        @Override
+        public void periodic() {
+            SmartDashboard.putNumber("Rotation Primary Position", getPosition());
+            if (Constants.Debug.ENABLE && Constants.Debug.DETAILED_SMART_DASHBOARD) {
+                SmartDashboard.putNumber("Rotation Left Motor Position", motors.get(0).getPosition());
+                SmartDashboard.putNumber("Rotation Right Motor Position", motors.get(1).getPosition());
+                SmartDashboard.putNumber("Rotation Left Motor Temperature", motors.get(0).getTemperature());
+                SmartDashboard.putNumber("Rotation Right Motor Temperature", motors.get(1).getTemperature());
+                SmartDashboard.putNumber("Rotation Left Motor Supply Current", motors.get(0).getSupplyCurrent());
+                SmartDashboard.putNumber("Rotation Right Motor Supply Current", motors.get(1).getSupplyCurrent());
+                SmartDashboard.putNumber("Rotation Left Motor Stator Current", motors.get(0).getStatorCurrent());
+                SmartDashboard.putNumber("Rotation Right Motor Stator Current", motors.get(1).getStatorCurrent());
+            }
+        }
     }
 
     public static class FeederSubsystem extends SubsystemBase {
@@ -144,6 +161,13 @@ public class IntakeSubsystems {
          */
         public void setMotor(double speed) {
             motor.set(speed);
+        }
+
+        @Override
+        public void periodic() {
+            if (Constants.Debug.ENABLE && Constants.Debug.DETAILED_SMART_DASHBOARD) {
+                SmartDashboard.putNumber("Feeder Motor Speed", motor.get());
+            }
         }
     }
 }

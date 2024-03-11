@@ -178,7 +178,8 @@ public final class Constants {
      */
     public static final class Debug {
 
-        static final boolean ENABLE = false; // Needs to be enabled to use any debug features (other constants are ignored if this is false)
+        public static final boolean ENABLE = false; // Needs to be enabled to use any debug features (other constants are ignored if this is false)
         static final boolean WIPE_PREFERENCES = false; // Whether to wipe the RobotPreferences on startup
+        public static final boolean DETAILED_SMART_DASHBOARD = false; // Whether to put detailed information on the SmartDashboard (this is performance intensive)
     }
 }

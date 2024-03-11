@@ -56,7 +56,7 @@ public class GenericController {
         }
     }
 
-    /** Set the motors to a specific speed.
+    /** Set the motor to a specific speed.
      * @param speed The speed to set the motor to, between -1 and 1.
      */
     public void set(double speed) {
@@ -215,6 +215,30 @@ public class GenericController {
         }
     }
 
+    /** Set the position of the motor.
+     * @param newPosition The new position to set the motor to. This is truncated to the nearest integer for TalonSRXs.
+     */
+    public void setPosition(double newPosition) {
+        switch (base) {
+            case TALONFX -> talonFX.setPosition(newPosition);
+            case TALONSRX -> talonSRX.setSelectedSensorPosition(
+                    (int) newPosition
+            );
+            case SPARKMAX -> sparkMax.getEncoder().setPosition(newPosition);
+        }
+    }
+
+    /** Get the speed of the motor.
+     * @return The speed of the motor, between -1 and 1.
+     */
+    public double get() {
+        return switch (base) {
+            case TALONFX -> talonFXOut.Output;
+            case TALONSRX -> talonSRX.get();
+            case SPARKMAX -> sparkMax.get();
+        };
+    }
+
     /** Get the temperature of the motor in degrees Celsius.
      * @return The temperature of the motor in degrees Celsius.
      */
@@ -237,19 +261,6 @@ public class GenericController {
         };
     }
 
-    /** Set the position of the motor.
-     * @param newPosition The new position to set the motor to. This is truncated to the nearest integer for TalonSRXs.
-     */
-    public void setPosition(double newPosition) {
-        switch (base) {
-            case TALONFX -> talonFX.setPosition(newPosition);
-            case TALONSRX -> talonSRX.setSelectedSensorPosition(
-                (int) newPosition
-            );
-            case SPARKMAX -> sparkMax.getEncoder().setPosition(newPosition);
-        }
-    }
-
     /** Get the velocity of the motor.
      * @return The velocity in raw sensor units per 100ms for Talon's, and RPM for SparkMax's.
      */
@@ -258,6 +269,39 @@ public class GenericController {
             case TALONFX -> talonFX.getVelocity().getValue();
             case TALONSRX -> talonSRX.getSelectedSensorVelocity();
             case SPARKMAX -> sparkMax.getEncoder().getVelocity();
+        };
+    }
+
+    /** Get the supply current of the motor controller. This is NOT SUPPORTED ON THE SPARKMAX.
+     * @return The supply current of the motor controller
+     */
+    public double getSupplyCurrent() {
+        return switch (base) {
+            case TALONFX -> talonFX.getSupplyCurrent().getValue();
+            case TALONSRX -> talonSRX.getSupplyCurrent();
+            case SPARKMAX -> -999999; // Not supported, no warning to avoid spamming (& -999999 is a clearly invalid)
+        };
+    }
+
+    /** Get the output current of the motor controller.
+     * @return The output current of the motor controller
+     */
+    public double getStatorCurrent() {
+        return switch (base) {
+            case TALONFX -> talonFX.getStatorCurrent().getValue();
+            case TALONSRX -> talonSRX.getStatorCurrent();
+            case SPARKMAX -> sparkMax.getOutputCurrent();
+        };
+    }
+
+    /** Get the ID of the motor controller.
+     * @return The ID of the motor controller.
+     */
+    public int getID() {
+        return switch (base) {
+            case TALONFX -> talonFX.getDeviceID();
+            case TALONSRX -> talonSRX.getDeviceID();
+            case SPARKMAX -> sparkMax.getDeviceId();
         };
     }
 

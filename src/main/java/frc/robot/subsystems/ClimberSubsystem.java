@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.util.GenericController;
 import frc.robot.util.GenericController.BaseController;
 import frc.robot.util.GenericController.NeutralMode;
@@ -82,5 +84,15 @@ public class ClimberSubsystem extends SubsystemBase {
      */
     public double getPosition() {
         return motor.getPosition();
+    }
+
+    @Override
+    public void periodic() {
+        SmartDashboard.putNumber("Climber Position", getPosition());
+        if (Constants.Debug.ENABLE && Constants.Debug.DETAILED_SMART_DASHBOARD) {
+            SmartDashboard.putNumber("Climber Temperature", motor.getTemperature());
+            SmartDashboard.putNumber("Climber Supply Current", motor.getSupplyCurrent());
+            SmartDashboard.putNumber("Climber Stator Current", motor.getStatorCurrent());
+        }
     }
 }

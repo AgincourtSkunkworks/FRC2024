@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.util.GenericController;
 import frc.robot.util.GenericController.BaseController;
 import java.util.ArrayList;
@@ -37,6 +39,14 @@ public class OuttakeSubsystem extends SubsystemBase {
     public void setMotors(double speed) {
         for (GenericController motor : motors) {
             motor.set(speed);
+        }
+    }
+
+    @Override
+    public void periodic() {
+        if (Constants.Debug.ENABLE && Constants.Debug.DETAILED_SMART_DASHBOARD) {
+            SmartDashboard.putNumber("Outtake Motor 1 Speed", motors.get(0).get());
+            SmartDashboard.putNumber("Outtake Motor 2 Speed", motors.get(1).get());
         }
     }
 }
