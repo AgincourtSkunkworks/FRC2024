@@ -82,9 +82,9 @@ public final class Constants {
                 static final double FINISH_TOLERANCE = 0.4; // # of ticks of difference from setpoint to end PID within
             }
 
-            public static final class Setpoints {
+            public static final class Setpoints { // Left/first motor is used as reference (IRTLM)
 
-                static final double LOW = -5;
+                static final double LOW = 5;
                 static final double HIGH = 0;
             }
 

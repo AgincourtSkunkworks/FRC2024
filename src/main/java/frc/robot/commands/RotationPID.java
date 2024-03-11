@@ -35,7 +35,7 @@ public class RotationPID extends GenericPID {
             defaultI,
             defaultD,
             defaultIMax,
-            () -> target - rotation.getAveragePosition(),
+            () -> target - rotation.getPosition(),
             rotation::setMotors
         );
         addRequirements(rotation);

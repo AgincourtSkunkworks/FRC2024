@@ -10,39 +10,41 @@ public class IntakeSubsystems {
     public static class RotationSubsystem extends SubsystemBase {
 
         final ArrayList<GenericController> motors = new ArrayList<>();
+        final GenericController positionalMotor; // The motor we get the position from -- the left/first motor
 
         // Private constructor so people use .create() instead
         private RotationSubsystem(
             BaseController type,
-            int m1ID,
-            boolean m1Invert,
-            int m2ID,
-            boolean m2Invert
+            int lmID,
+            boolean lmInvert,
+            int rmID,
+            boolean rmInvert
         ) {
-            GenericController motor1 = new GenericController(type, m1ID);
-            motor1.setInverted(m1Invert);
-            motors.add(motor1);
-            GenericController motor2 = new GenericController(type, m2ID);
-            motor2.setInverted(m2Invert);
-            motors.add(motor2);
+            GenericController lm = new GenericController(type, lmID);
+            lm.setInverted(lmInvert);
+            motors.add(lm);
+            positionalMotor = lm; // The first (left) motor is the motor we get the position from
+            GenericController rm = new GenericController(type, rmID);
+            rm.setInverted(rmInvert);
+            motors.add(rm);
         }
 
         /** Create a new RotationSubsystem.
          * @param type The type of motor controller
-         * @param m1ID The ID of the first motor
-         * @param m1Invert Whether the first motor is inverted
-         * @param m2ID The ID of the second motor
-         * @param m2Invert Whether the second motor is inverted
+         * @param lmID The ID of the left motor (this will be the motor used for positional data)
+         * @param lmInvert Whether the left motor is inverted
+         * @param rmID The ID of the right motor
+         * @param rmInvert Whether the right motor is inverted
          * @return A new RotationSubsystem subsystem
          */
         public static RotationSubsystem create(
             BaseController type,
-            int m1ID,
-            boolean m1Invert,
-            int m2ID,
-            boolean m2Invert
+            int lmID,
+            boolean lmInvert,
+            int rmID,
+            boolean rmInvert
         ) {
-            return new RotationSubsystem(type, m1ID, m1Invert, m2ID, m2Invert);
+            return new RotationSubsystem(type, lmID, lmInvert, rmID, rmInvert);
         }
 
         /** Set the neutral mode
@@ -106,22 +108,11 @@ public class IntakeSubsystems {
             }
         }
 
-        /** Get the position of the [first] motor
-         * @return The position of the [first] motor, in raw encoder units
+        /** Get the position of the positional motor (left/first)
+         * @return The position of the positional motor, in raw encoder units
          */
         public double getPosition() {
-            return motors.get(0).getPosition();
-        }
-
-        /** Get the average position of the motors
-         * @return The average position of the motors, in raw encoder units
-         */
-        public double getAveragePosition() {
-            return motors
-                .stream()
-                .mapToDouble(GenericController::getPosition)
-                .average()
-                .orElseThrow();
+            return positionalMotor.getPosition();
         }
 
         /** Set the position of the motors

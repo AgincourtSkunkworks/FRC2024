@@ -133,6 +133,17 @@ public class GenericController {
         }
     }
 
+    /** Gets the inversion of the motor.
+     * @return Whether the motor is inverted.
+     */
+    public boolean getInverted() {
+        return switch (base) {
+            case TALONFX -> talonFXConfig.MotorOutput.Inverted == InvertedValue.CounterClockwise_Positive;
+            case TALONSRX -> talonSRX.getInverted();
+            case SPARKMAX -> sparkMax.getInverted();
+        };
+    }
+
     /** Configure the supply current limit for the motors. This is only partially supported on the TalonFX and SparkMax.
      * @param enabled Whether to enable the supply current limit.
      * @param limit The "holding" current (amperes) to limit to when feature is activated. * ROUNDED TO NEAREST INTEGER ON SPARKMAX *
