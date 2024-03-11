@@ -235,47 +235,79 @@ public class DriveSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        if (Constants.Debug.ENABLE && Constants.Debug.DETAILED_SMART_DASHBOARD) {
+        if (
+            Constants.Debug.ENABLE && Constants.Debug.DETAILED_SMART_DASHBOARD
+        ) {
             for (GenericController motor : leftMotors) {
                 SmartDashboard.putNumber(
-                    String.format("Drive Left Motor (%d) Position", motor.getID()),
+                    String.format(
+                        "Drive Left Motor (%d) Position",
+                        motor.getID()
+                    ),
                     motor.getPosition()
                 );
                 SmartDashboard.putNumber(
-                    String.format("Drive Left Motor (%d) Temperature", motor.getID()),
+                    String.format(
+                        "Drive Left Motor (%d) Temperature",
+                        motor.getID()
+                    ),
                     motor.getTemperature()
                 );
                 SmartDashboard.putNumber(
-                    String.format("Drive Left Motor (%d) Supply Current", motor.getID()),
+                    String.format(
+                        "Drive Left Motor (%d) Supply Current",
+                        motor.getID()
+                    ),
                     motor.getSupplyCurrent()
                 );
                 SmartDashboard.putNumber(
-                    String.format("Drive Left Motor (%d) Stator Current", motor.getID()),
+                    String.format(
+                        "Drive Left Motor (%d) Stator Current",
+                        motor.getID()
+                    ),
                     motor.getStatorCurrent()
                 );
             }
             for (GenericController motor : rightMotors) {
                 SmartDashboard.putNumber(
-                    String.format("Drive Right Motor (%d) Position", motor.getID()),
+                    String.format(
+                        "Drive Right Motor (%d) Position",
+                        motor.getID()
+                    ),
                     motor.getPosition()
                 );
                 SmartDashboard.putNumber(
-                    String.format("Drive Right Motor (%d) Temperature", motor.getID()),
+                    String.format(
+                        "Drive Right Motor (%d) Temperature",
+                        motor.getID()
+                    ),
                     motor.getTemperature()
                 );
                 SmartDashboard.putNumber(
-                    String.format("Drive Right Motor (%d) Supply Current", motor.getID()),
+                    String.format(
+                        "Drive Right Motor (%d) Supply Current",
+                        motor.getID()
+                    ),
                     motor.getSupplyCurrent()
                 );
                 SmartDashboard.putNumber(
-                    String.format("Drive Right Motor (%d) Stator Current", motor.getID()),
+                    String.format(
+                        "Drive Right Motor (%d) Stator Current",
+                        motor.getID()
+                    ),
                     motor.getStatorCurrent()
                 );
             }
         } else {
             SmartDashboard.putNumber("Drive Highest Temp", getHighestTemp());
-            SmartDashboard.putNumber("Drive Left Motor Position (First)", leftMotors.get(0).getPosition());
-            SmartDashboard.putNumber("Drive Right Motor Position (First)", rightMotors.get(0).getPosition());
+            SmartDashboard.putNumber(
+                "Drive Left Motor Position (First)",
+                leftMotors.get(0).getPosition()
+            );
+            SmartDashboard.putNumber(
+                "Drive Right Motor Position (First)",
+                rightMotors.get(0).getPosition()
+            );
         }
 
         if (maxTemp > 0 && getHighestTemp() >= maxTemp) {

@@ -44,9 +44,17 @@ public class OuttakeSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        if (Constants.Debug.ENABLE && Constants.Debug.DETAILED_SMART_DASHBOARD) {
-            SmartDashboard.putNumber("Outtake Motor 1 Speed", motors.get(0).get());
-            SmartDashboard.putNumber("Outtake Motor 2 Speed", motors.get(1).get());
+        if (
+            Constants.Debug.ENABLE && Constants.Debug.DETAILED_SMART_DASHBOARD
+        ) {
+            SmartDashboard.putNumber(
+                "Outtake Motor 1 Speed",
+                motors.get(0).get()
+            );
+            SmartDashboard.putNumber(
+                "Outtake Motor 2 Speed",
+                motors.get(1).get()
+            );
         }
     }
 }

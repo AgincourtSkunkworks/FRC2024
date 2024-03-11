@@ -222,7 +222,7 @@ public class GenericController {
         switch (base) {
             case TALONFX -> talonFX.setPosition(newPosition);
             case TALONSRX -> talonSRX.setSelectedSensorPosition(
-                    (int) newPosition
+                (int) newPosition
             );
             case SPARKMAX -> sparkMax.getEncoder().setPosition(newPosition);
         }

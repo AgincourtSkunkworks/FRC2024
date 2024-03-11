@@ -128,16 +128,46 @@ public class IntakeSubsystems {
 
         @Override
         public void periodic() {
-            SmartDashboard.putNumber("Rotation Primary Position", getPosition());
-            if (Constants.Debug.ENABLE && Constants.Debug.DETAILED_SMART_DASHBOARD) {
-                SmartDashboard.putNumber("Rotation Left Motor Position", motors.get(0).getPosition());
-                SmartDashboard.putNumber("Rotation Right Motor Position", motors.get(1).getPosition());
-                SmartDashboard.putNumber("Rotation Left Motor Temperature", motors.get(0).getTemperature());
-                SmartDashboard.putNumber("Rotation Right Motor Temperature", motors.get(1).getTemperature());
-                SmartDashboard.putNumber("Rotation Left Motor Supply Current", motors.get(0).getSupplyCurrent());
-                SmartDashboard.putNumber("Rotation Right Motor Supply Current", motors.get(1).getSupplyCurrent());
-                SmartDashboard.putNumber("Rotation Left Motor Stator Current", motors.get(0).getStatorCurrent());
-                SmartDashboard.putNumber("Rotation Right Motor Stator Current", motors.get(1).getStatorCurrent());
+            SmartDashboard.putNumber(
+                "Rotation Primary Position",
+                getPosition()
+            );
+            if (
+                Constants.Debug.ENABLE &&
+                Constants.Debug.DETAILED_SMART_DASHBOARD
+            ) {
+                SmartDashboard.putNumber(
+                    "Rotation Left Motor Position",
+                    motors.get(0).getPosition()
+                );
+                SmartDashboard.putNumber(
+                    "Rotation Right Motor Position",
+                    motors.get(1).getPosition()
+                );
+                SmartDashboard.putNumber(
+                    "Rotation Left Motor Temperature",
+                    motors.get(0).getTemperature()
+                );
+                SmartDashboard.putNumber(
+                    "Rotation Right Motor Temperature",
+                    motors.get(1).getTemperature()
+                );
+                SmartDashboard.putNumber(
+                    "Rotation Left Motor Supply Current",
+                    motors.get(0).getSupplyCurrent()
+                );
+                SmartDashboard.putNumber(
+                    "Rotation Right Motor Supply Current",
+                    motors.get(1).getSupplyCurrent()
+                );
+                SmartDashboard.putNumber(
+                    "Rotation Left Motor Stator Current",
+                    motors.get(0).getStatorCurrent()
+                );
+                SmartDashboard.putNumber(
+                    "Rotation Right Motor Stator Current",
+                    motors.get(1).getStatorCurrent()
+                );
             }
         }
     }
@@ -165,7 +195,10 @@ public class IntakeSubsystems {
 
         @Override
         public void periodic() {
-            if (Constants.Debug.ENABLE && Constants.Debug.DETAILED_SMART_DASHBOARD) {
+            if (
+                Constants.Debug.ENABLE &&
+                Constants.Debug.DETAILED_SMART_DASHBOARD
+            ) {
                 SmartDashboard.putNumber("Feeder Motor Speed", motor.get());
             }
         }

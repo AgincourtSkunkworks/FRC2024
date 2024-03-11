@@ -89,10 +89,21 @@ public class ClimberSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Climber Position", getPosition());
-        if (Constants.Debug.ENABLE && Constants.Debug.DETAILED_SMART_DASHBOARD) {
-            SmartDashboard.putNumber("Climber Temperature", motor.getTemperature());
-            SmartDashboard.putNumber("Climber Supply Current", motor.getSupplyCurrent());
-            SmartDashboard.putNumber("Climber Stator Current", motor.getStatorCurrent());
+        if (
+            Constants.Debug.ENABLE && Constants.Debug.DETAILED_SMART_DASHBOARD
+        ) {
+            SmartDashboard.putNumber(
+                "Climber Temperature",
+                motor.getTemperature()
+            );
+            SmartDashboard.putNumber(
+                "Climber Supply Current",
+                motor.getSupplyCurrent()
+            );
+            SmartDashboard.putNumber(
+                "Climber Stator Current",
+                motor.getStatorCurrent()
+            );
         }
     }
 }
