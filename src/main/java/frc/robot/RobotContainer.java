@@ -186,7 +186,7 @@ public class RobotContainer {
 
     public RobotContainer() {
         // ! DEBUG TOOLS (DANGEROUS)
-        if (Constants.Debug.ENABLE) handleDebug();
+        handleStartingDebug();
 
         // ! SMART DASHBOARD DATA
         SmartDashboard.putData(CommandScheduler.getInstance());
@@ -372,10 +372,12 @@ public class RobotContainer {
     }
 
     /**
-     * Handles debug tools. Ensure you are only calling this when you mean to.
+     * Handles debug tools expected to run on startup. Ensure you are only calling this when you mean to.
      * ! Most of this code is dangerous & destructive -- make sure you know what you're doing!
      */
-    private void handleDebug() {
+    private void handleStartingDebug() {
+        if (!Constants.Debug.ENABLE) return;
+
         if (Constants.Debug.WIPE_PREFERENCES) {
             Preferences.removeAll();
         }
