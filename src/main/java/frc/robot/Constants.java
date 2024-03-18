@@ -75,7 +75,7 @@ public final class Constants {
 
             public static final class DefaultPID {
 
-                static final double P = 0.0395;
+                static final double P = 0.038;
                 static final double I = 0.0;
                 static final double IMax = 0.0; // Maximum integral value
                 static final double D = 0.0; // TODO: Tune
@@ -122,6 +122,7 @@ public final class Constants {
 
     public static final class Climber {
 
+        public static final boolean ENABLE = false; // Whether the climber is enabled (at all)
         static final BaseController MOTOR_TYPE = BaseController.TALONFX;
         static final NeutralMode NEUTRAL_MODE = NeutralMode.Brake;
         static final Button LOW_BTN = Button.L1; // FIXME: Switch button or get a controller with a working L1

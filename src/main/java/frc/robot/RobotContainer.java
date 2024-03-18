@@ -194,7 +194,7 @@ public class RobotContainer {
         SmartDashboard.putData(intakeRotation);
         SmartDashboard.putData(intakeFeeder);
         SmartDashboard.putData(outtake);
-        SmartDashboard.putData(climber);
+        if (Constants.Climber.ENABLE) SmartDashboard.putData(climber);
 
         // ! BUTTONS
         configureButtonBindings();
@@ -209,7 +209,7 @@ public class RobotContainer {
                 Constants.TeleOp.SLEW_RATE_LIMIT
             )
         );
-        climber.setDefaultCommand(climberLowPID.create());
+        if (Constants.Climber.ENABLE) climber.setDefaultCommand(climberLowPID.create());
 
         // ! CONFIGURATION
         intakeRotation.setPositions(0); // ! INTAKE IS EXPECTED TO BE IN HIGH AT STARTUP
@@ -345,30 +345,35 @@ public class RobotContainer {
                     () -> outtake.setMotors(0)
                 )
             );
-        controller
-            .getPOVButton(Constants.Climber.OVERRIDE_UP_POV)
-            .whileTrue(
-                Commands.startEnd(
-                    () -> climber.setMotor(Constants.Climber.OVERRIDE_SPEED),
-                    () -> climber.setMotor(0)
-                )
-            );
-        controller
-            .getPOVButton(Constants.Climber.OVERRIDE_DOWN_POV)
-            .whileTrue(
-                Commands.startEnd(
-                    () -> climber.setMotor(-Constants.Climber.OVERRIDE_SPEED),
-                    () -> climber.setMotor(0)
-                )
-            );
+
+        if (Constants.Climber.ENABLE) {
+            controller
+                    .getPOVButton(Constants.Climber.OVERRIDE_UP_POV)
+                    .whileTrue(
+                            Commands.startEnd(
+                                    () -> climber.setMotor(Constants.Climber.OVERRIDE_SPEED),
+                                    () -> climber.setMotor(0)
+                            )
+                    );
+            controller
+                    .getPOVButton(Constants.Climber.OVERRIDE_DOWN_POV)
+                    .whileTrue(
+                            Commands.startEnd(
+                                    () -> climber.setMotor(-Constants.Climber.OVERRIDE_SPEED),
+                                    () -> climber.setMotor(0)
+                            )
+                    );
+        }
 
         // ! Climber
-        controller
-            .getButton(Constants.Climber.LOW_BTN)
-            .onTrue(climberLowPID.create());
-        controller
-            .getButton(Constants.Climber.HIGH_BTN)
-            .onTrue(climberHighPID.create());
+        if (Constants.Climber.ENABLE) {
+            controller
+                    .getButton(Constants.Climber.LOW_BTN)
+                    .onTrue(climberLowPID.create());
+            controller
+                    .getButton(Constants.Climber.HIGH_BTN)
+                    .onTrue(climberHighPID.create());
+        }
     }
 
     /**

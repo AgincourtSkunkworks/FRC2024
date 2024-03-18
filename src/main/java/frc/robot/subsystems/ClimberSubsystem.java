@@ -76,6 +76,10 @@ public class ClimberSubsystem extends SubsystemBase {
      * @param speed The speed to set the motor to
      */
     public void setMotor(double speed) {
+        if (!Constants.Climber.ENABLE) {
+            System.out.println("ERROR: Climber is disabled but climber motors are getting set. This shouldn't be happening. = ABORTING = ");
+            return;
+        }
         motor.set(speed);
     }
 
@@ -88,6 +92,8 @@ public class ClimberSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
+        if (!Constants.Climber.ENABLE) return;
+
         SmartDashboard.putNumber("Climber Position", getPosition());
         if (
             Constants.Debug.ENABLE && Constants.Debug.DETAILED_SMART_DASHBOARD

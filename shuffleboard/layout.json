@@ -210,7 +210,7 @@
             "content": {
               "_type": "Basic Subsystem",
               "_source0": "network_table:///SmartDashboard/DriveSubsystem",
-              "_title": "Drive",
+              "_title": "/SmartDashboard/DriveSubsystem",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -223,7 +223,7 @@
             "content": {
               "_type": "Basic Subsystem",
               "_source0": "network_table:///SmartDashboard/FeederSubsystem",
-              "_title": "Feeder",
+              "_title": "/SmartDashboard/FeederSubsystem",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -236,7 +236,7 @@
             "content": {
               "_type": "Basic Subsystem",
               "_source0": "network_table:///SmartDashboard/OuttakeSubsystem",
-              "_title": "Outtake",
+              "_title": "/SmartDashboard/OuttakeSubsystem",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -249,7 +249,7 @@
             "content": {
               "_type": "Basic Subsystem",
               "_source0": "network_table:///SmartDashboard/RotationSubsystem",
-              "_title": "Rotation",
+              "_title": "/SmartDashboard/RotationSubsystem",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -262,7 +262,7 @@
             "content": {
               "_type": "Basic Subsystem",
               "_source0": "network_table:///SmartDashboard/ClimberSubsystem",
-              "_title": "Climber",
+              "_title": "/SmartDashboard/ClimberSubsystem",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -275,7 +275,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Climber Position",
-              "_title": "Pos",
+              "_title": "/SmartDashboard/Climber Position",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -288,7 +288,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Rotation Primary Position",
-              "_title": "Leader Pos",
+              "_title": "/SmartDashboard/Rotation Primary Position",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -301,7 +301,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Drive Left Motor Position (First)",
-              "_title": "Left Pos",
+              "_title": "/SmartDashboard/Drive Left Motor Position (First)",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -314,7 +314,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Drive Left Motor Position (First)",
-              "_title": "Right Pos",
+              "_title": "/SmartDashboard/Drive Left Motor Position (First)",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -327,7 +327,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///Preferences/ClimberHighP",
-              "_title": "High P",
+              "_title": "/Preferences/ClimberHighP",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -340,7 +340,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///Preferences/ClimberHighI",
-              "_title": "High I",
+              "_title": "/Preferences/ClimberHighI",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -353,7 +353,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///Preferences/ClimberHighD",
-              "_title": "High D",
+              "_title": "/Preferences/ClimberHighD",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -366,7 +366,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///Preferences/ClimberHighIMax",
-              "_title": "High I-Max",
+              "_title": "/Preferences/ClimberHighIMax",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -379,7 +379,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///Preferences/ClimberLowP",
-              "_title": "Low P",
+              "_title": "/Preferences/ClimberLowP",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -392,7 +392,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///Preferences/ClimberLowI",
-              "_title": "Low I",
+              "_title": "/Preferences/ClimberLowI",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -405,7 +405,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///Preferences/ClimberLowD",
-              "_title": "Low D",
+              "_title": "/Preferences/ClimberLowD",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -418,7 +418,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///Preferences/ClimberLowIMax",
-              "_title": "Low I-Max",
+              "_title": "/Preferences/ClimberLowIMax",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -431,7 +431,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///Preferences/IntakeLowP",
-              "_title": "Low P",
+              "_title": "/Preferences/IntakeLowP",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -444,7 +444,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///Preferences/IntakeLowI",
-              "_title": "Low I",
+              "_title": "/Preferences/IntakeLowI",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -457,7 +457,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///Preferences/IntakeLowD",
-              "_title": "Low D",
+              "_title": "/Preferences/IntakeLowD",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -470,7 +470,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///Preferences/IntakeLowIMax",
-              "_title": "Low I-Max",
+              "_title": "/Preferences/IntakeLowIMax",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -483,7 +483,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///Preferences/IntakeLowTolerance",
-              "_title": "Low Tolerance",
+              "_title": "/Preferences/IntakeLowTolerance",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -496,7 +496,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///Preferences/IntakeHighP",
-              "_title": "High P",
+              "_title": "/Preferences/IntakeHighP",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -509,7 +509,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///Preferences/IntakeHighI",
-              "_title": "High I",
+              "_title": "/Preferences/IntakeHighI",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -522,7 +522,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///Preferences/IntakeHighD",
-              "_title": "High D",
+              "_title": "/Preferences/IntakeHighD",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -535,7 +535,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///Preferences/IntakeHighIMax",
-              "_title": "High I-Max",
+              "_title": "/Preferences/IntakeHighIMax",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -548,7 +548,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///Preferences/IntakeHighTolerance",
-              "_title": "High Tolerance",
+              "_title": "/Preferences/IntakeHighTolerance",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -561,7 +561,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///Preferences/DriveLMOffset",
-              "_title": "LM Offset (Mult)",
+              "_title": "/Preferences/DriveLMOffset",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -574,7 +574,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///Preferences/DriveRMOffset",
-              "_title": "RM Offset (Mult)",
+              "_title": "/Preferences/DriveRMOffset",
               "_glyph": 148,
               "_showGlyph": false
             }
