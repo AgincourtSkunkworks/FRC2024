@@ -27,7 +27,7 @@ public final class Constants {
 
     public static final class Joystick {
 
-        public static final BaseJoystick TYPE = BaseJoystick.DIRECT; // Joystick type
+        public static final BaseJoystick TYPE = BaseJoystick.PS5; // Joystick type
     }
 
     public static final class Drive {
@@ -125,7 +125,7 @@ public final class Constants {
         public static final boolean ENABLE = false; // Whether the climber is enabled (at all)
         static final BaseController MOTOR_TYPE = BaseController.TALONFX;
         static final NeutralMode NEUTRAL_MODE = NeutralMode.Brake;
-        static final Button LOW_BTN = Button.L1; // FIXME: Switch button or get a controller with a working L1
+        static final Button LOW_BTN = Button.L1;
         static final Button HIGH_BTN = Button.L2;
         static final POV OVERRIDE_UP_POV = POV.N;
         static final POV OVERRIDE_DOWN_POV = POV.S;
