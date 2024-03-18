@@ -41,7 +41,7 @@ public final class Constants {
             "DriveRMOffset",
             1.0
         ); // Value to multiply right motor speed by, used in cases of motor speed mismatch
-        static final double BRAKE_THRESHOLD = 0.005; // Speed threshold to round to 0 (and thus brake)
+        static final double BRAKE_THRESHOLD = 0.055; // Speed threshold to round to 0 (and thus brake)
         static final boolean LM_INVERSE = false; // Whether the left motors are inverted
         static final boolean RM_INVERSE = true; // Whether the right motors are inverted
 
@@ -104,7 +104,7 @@ public final class Constants {
             static final BaseController MOTOR_TYPE = BaseController.TALONSRX; // CIM motor type
             public static Button OVERRIDE_FWD_BTN = Button.OPT_R;
             public static Button OVERRIDE_REV_BTN = Button.OPT_L;
-            static final boolean INVERSE = false; // Whether the motor is inverted
+            static final boolean INVERSE = true; // Whether the motor is inverted
             static final double SPEED = 1; // Speed in which to run the intake feeder
         }
     }
