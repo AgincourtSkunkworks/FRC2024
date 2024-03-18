@@ -77,7 +77,9 @@ public class ClimberSubsystem extends SubsystemBase {
      */
     public void setMotor(double speed) {
         if (!Constants.Climber.ENABLE) {
-            System.out.println("ERROR: Climber is disabled but climber motors are getting set. This shouldn't be happening. = ABORTING = ");
+            System.out.println(
+                "ERROR: Climber is disabled but climber motors are getting set. This shouldn't be happening. = ABORTING = "
+            );
             return;
         }
         motor.set(speed);

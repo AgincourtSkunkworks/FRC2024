@@ -54,10 +54,7 @@ public class GenericJoystick {
     }
 
     private final HashMap<Axis, Integer> directAxisMap, ps4AxisMap, ps5AxisMap;
-    private final HashMap<
-        Button,
-        Integer
-    > directButtonMap, ps4ButtonMap, ps5ButtonMap;
+    private final HashMap<Button, Integer> directButtonMap, ps4ButtonMap, ps5ButtonMap;
     private final HashMap<POV, Integer> directPOVMap, ps4POVMap, ps5POVMap;
 
     // ! Direct Input (for Logitech Dual Action [ON D SWITCH MODE], & others)
