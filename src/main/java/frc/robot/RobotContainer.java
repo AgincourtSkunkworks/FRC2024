@@ -196,6 +196,11 @@ public class RobotContainer {
         SmartDashboard.putData(outtake);
         if (Constants.Climber.ENABLE) SmartDashboard.putData(climber);
 
+        // ! SMART DASHBOARD BUTTONS
+        Command zeroRotationPosCmd = Commands.runOnce(() -> intakeRotation.setPositions(0));
+        zeroRotationPosCmd.setName("ZeroRotationPos");
+        SmartDashboard.putData(zeroRotationPosCmd);
+
         // ! BUTTONS
         configureButtonBindings();
 
@@ -339,9 +344,6 @@ public class RobotContainer {
                     () -> intakeRotation.setMotors(0)
                 )
             );
-        controller
-            .getButtonCombination(Constants.Intake.Rotation.OVERRIDE_ZERO_POS_COMB)
-            .onTrue(Commands.runOnce(() -> intakeRotation.setPositions(0)));
         controller
             .getButton(Constants.Intake.Feeder.OVERRIDE_FWD_BTN)
             .whileTrue(
