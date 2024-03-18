@@ -271,6 +271,25 @@ public class RobotContainer {
                 )
             );
         controller
+            .getButton(Constants.Intake.UNLOAD_BTN)
+            .whileTrue(
+                new SequentialCommandGroup(
+                    Commands.runOnce(() -> outtake.setMotors(-Constants.Outtake.SPEED)),
+                    Commands.runOnce(() -> intakeFeeder.setMotor(Constants.Intake.Feeder.SPEED)),
+                    Commands.waitSeconds(Constants.Intake.UNLOAD_CONSUME_TIME),
+                    Commands.runOnce(() -> outtake.setMotors(0)),
+                    Commands.runOnce(() -> intakeFeeder.setMotor(0)),
+                    rotationLowPID.create(),
+                    Commands.runOnce(() -> intakeFeeder.setMotor(-Constants.Intake.Feeder.SPEED))
+                )
+            )
+            .whileFalse(
+                new SequentialCommandGroup(
+                    Commands.runOnce(() -> intakeFeeder.setMotor(0)),
+                    rotationHighPID.create()
+                )
+            );
+        controller
             .getButton(Constants.Outtake.TRIGGER_BTN)
             .whileTrue(
                 new SequentialCommandGroup(

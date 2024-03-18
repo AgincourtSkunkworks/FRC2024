@@ -61,6 +61,8 @@ public final class Constants {
     public static final class Intake {
 
         public static Button TRIGGER_BTN = Button.R1;
+        public static Button UNLOAD_BTN = Button.N; // A reverse seq. that tries to unload a note to the ground
+        public static double UNLOAD_CONSUME_TIME = 0.8; // Seconds to run motors to attempt to pull the note back into the intake mechanism
 
         public static final class Rotation {
 
