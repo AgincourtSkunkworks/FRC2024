@@ -321,7 +321,7 @@ public class RobotContainer {
                 )
             );
         controller
-            .getPOVButton(Constants.Intake.Rotation.OVERRIDE_ZERO_POS_POV)
+            .getButtonCombination(Constants.Intake.Rotation.OVERRIDE_ZERO_POS_COMB)
             .onTrue(Commands.runOnce(() -> intakeRotation.setPositions(0)));
         controller
             .getButton(Constants.Intake.Feeder.OVERRIDE_FWD_BTN)

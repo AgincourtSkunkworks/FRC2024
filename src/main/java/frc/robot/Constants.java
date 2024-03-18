@@ -8,6 +8,8 @@ import frc.robot.util.GenericJoystick.BaseJoystick;
 import frc.robot.util.GenericJoystick.Button;
 import frc.robot.util.GenericJoystick.POV;
 
+import java.util.List;
+
 public final class Constants {
 
     public static final class ID { // Motor Name -> ID Mapping
@@ -68,7 +70,7 @@ public final class Constants {
             static final Button OVERRIDE_HIGH_BTN = Button.E;
             static final POV OVERRIDE_FWD_POV = POV.E;
             static final POV OVERRIDE_REV_POV = POV.W;
-            static final POV OVERRIDE_ZERO_POS_POV = POV.N;
+            static final List<Button> OVERRIDE_ZERO_POS_COMB = List.of(Button.STK_L, Button.N);
             static final boolean LM_INVERSE = false; // Whether the left motor is inverted
             static final boolean RM_INVERSE = true; // Whether the right motor is inverted
             static final double OVERRIDE_SPEED = 0.5; // Speed in which to run the intake on fwd/rev override

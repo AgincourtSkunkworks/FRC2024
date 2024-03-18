@@ -6,7 +6,10 @@ import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+
 import java.util.HashMap;
+import java.util.List;
 
 @SuppressWarnings("ALL")
 public class GenericJoystick {
@@ -249,6 +252,17 @@ public class GenericJoystick {
             case PS4 -> new JoystickButton(ps4, ps4ButtonMap.get(button));
             case PS5 -> new JoystickButton(ps5, ps5ButtonMap.get(button));
         };
+    }
+
+    /** Get a Trigger object for an AND combination of buttons (all buttons must be pressed to trigger)
+     * @param buttons The buttons that are required
+     * @return The Trigger object for the button combination
+     */
+    public Trigger getButtonCombination(List<Button> buttons) {
+        Trigger combinationButton = getButton(buttons.get(0));
+        for (Button button : buttons.subList(1, buttons.size()))
+            combinationButton = combinationButton.and(getButton(button));
+        return combinationButton;
     }
 
     /** Get the value of a button.
