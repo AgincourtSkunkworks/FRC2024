@@ -196,7 +196,7 @@
             "content": {
               "_type": "Command",
               "_source0": "network_table:///SmartDashboard/ZeroRotationPos",
-              "_title": "Zero Rot. Pos",
+              "_title": "/SmartDashboard/ZeroRotationPos",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -574,7 +574,7 @@
             "content": {
               "_type": "Command",
               "_source0": "network_table:///SmartDashboard/ZeroRotationPos",
-              "_title": "Zero Position",
+              "_title": "/SmartDashboard/ZeroRotationPos",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -587,7 +587,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///Preferences/DriveRMOffset",
-              "_title": "RM Offset",
+              "_title": "/Preferences/DriveRMOffset",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -600,7 +600,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Drive Right Motor Position (First)",
-              "_title": "RM Pos. (First)",
+              "_title": "/SmartDashboard/Drive Right Motor Position (First)",
               "_glyph": 148,
               "_showGlyph": false
             }

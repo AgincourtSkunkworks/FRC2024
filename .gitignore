@@ -3,6 +3,7 @@ bin/
 .idea/
 .vscode/
 .gradle/
+node_modules/
 
 # Robot Simulation Files
 networktables.json*

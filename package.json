@@ -1,0 +1,9 @@
+{
+  "name": "frc2024",
+  "version": "1.0.0",
+  "description": "NPM package to list utility requirements for FRC development",
+  "dependencies": {
+    "prettier": "^2.8.2",
+    "prettier-plugin-java": "^2.0.0"
+  }
+}

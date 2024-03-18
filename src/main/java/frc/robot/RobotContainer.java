@@ -197,7 +197,9 @@ public class RobotContainer {
         if (Constants.Climber.ENABLE) SmartDashboard.putData(climber);
 
         // ! SMART DASHBOARD BUTTONS
-        Command zeroRotationPosCmd = Commands.runOnce(() -> intakeRotation.setPositions(0));
+        Command zeroRotationPosCmd = Commands.runOnce(() ->
+            intakeRotation.setPositions(0)
+        );
         zeroRotationPosCmd.setName("ZeroRotationPos");
         SmartDashboard.putData(zeroRotationPosCmd);
 
@@ -279,13 +281,19 @@ public class RobotContainer {
             .getButton(Constants.Intake.UNLOAD_BTN)
             .whileTrue(
                 new SequentialCommandGroup(
-                    Commands.runOnce(() -> outtake.setMotors(-Constants.Outtake.SPEED)),
-                    Commands.runOnce(() -> intakeFeeder.setMotor(Constants.Intake.Feeder.SPEED)),
+                    Commands.runOnce(() ->
+                        outtake.setMotors(-Constants.Outtake.SPEED)
+                    ),
+                    Commands.runOnce(() ->
+                        intakeFeeder.setMotor(Constants.Intake.Feeder.SPEED)
+                    ),
                     Commands.waitSeconds(Constants.Intake.UNLOAD_CONSUME_TIME),
                     Commands.runOnce(() -> outtake.setMotors(0)),
                     Commands.runOnce(() -> intakeFeeder.setMotor(0)),
                     rotationLowPID.create(),
-                    Commands.runOnce(() -> intakeFeeder.setMotor(-Constants.Intake.Feeder.SPEED))
+                    Commands.runOnce(() ->
+                        intakeFeeder.setMotor(-Constants.Intake.Feeder.SPEED)
+                    )
                 )
             )
             .whileFalse(

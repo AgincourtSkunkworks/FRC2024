@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -260,8 +259,10 @@ public class GenericJoystick {
      */
     public Trigger getButtonCombination(List<Button> buttons) {
         Trigger combinationButton = getButton(buttons.get(0));
-        for (Button button : buttons.subList(1, buttons.size()))
-            combinationButton = combinationButton.and(getButton(button));
+        for (Button button : buttons.subList(
+            1,
+            buttons.size()
+        )) combinationButton = combinationButton.and(getButton(button));
         return combinationButton;
     }
 
