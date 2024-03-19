@@ -180,7 +180,8 @@ public final class Constants {
 
         static final Axis LEFT_DRIVE_STICK = Axis.LY; // Joystick to use for left motor control
         static final Axis RIGHT_DRIVE_STICK = Axis.RY; // Joystick to use for right motor control
-        static final double SLEW_RATE_LIMIT = 0.985; // Slew rate limit for joystick input
+        static final boolean ENABLE_SLEW = false; // Whether to enable slew rate limiting (below)
+        static final double SLEW_RATE_LIMIT = 0.985; // Slew rate limit for joystick input (req. above)
     }
 
     /*
