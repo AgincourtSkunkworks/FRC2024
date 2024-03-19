@@ -288,16 +288,16 @@ public class RobotContainer {
             .getButton(Constants.Intake.TRIGGER_BTN)
             .whileTrue( // prime for intake of piece when pressed
                 new SequentialCommandGroup(
-                    rotationLowPID.create(),
                     Commands.runOnce(() ->
-                        intakeFeeder.setMotor(Constants.Intake.Feeder.SPEED)
-                    )
+                            intakeFeeder.setMotor(Constants.Intake.Feeder.SPEED)
+                    ),
+                    rotationLowPID.create()
                 )
             )
             .whileFalse( // intake piece when released
                 new SequentialCommandGroup(
-                    Commands.runOnce(() -> intakeFeeder.setMotor(0)),
-                    rotationHighPID.create()
+                    rotationHighPID.create(),
+                    Commands.runOnce(() -> intakeFeeder.setMotor(0))
                 )
             );
         controller
