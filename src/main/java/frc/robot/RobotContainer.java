@@ -272,7 +272,7 @@ public class RobotContainer {
             .whileTrue( // prime for intake of piece when pressed
                 new SequentialCommandGroup(
                     Commands.runOnce(() ->
-                            intakeFeeder.setMotor(Constants.Intake.Feeder.SPEED)
+                        intakeFeeder.setMotor(Constants.Intake.Feeder.SPEED)
                     ),
                     rotationLowPID.create()
                 )
