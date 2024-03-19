@@ -172,7 +172,7 @@ public final class Constants {
 
         static final double MAX_TEMP = 60; // Maximum temperature (in degrees C) before autonomous stops (-1 to disable)
         static final double MOVE_SPEED = 0.5; // Percent speed (0-1) for moving the robot
-        static final double COMM_LEAVE_TIME = 3; // Time in seconds that are needed to leave the community area
+        static final double COMM_LEAVE_TIME = 2.4; // Time in seconds that are needed to leave the community area
         static final double SHOOT_TIME = 3; // Seconds to run the flywheels for
     }
 
@@ -180,7 +180,7 @@ public final class Constants {
 
         static final Axis LEFT_DRIVE_STICK = Axis.LY; // Joystick to use for left motor control
         static final Axis RIGHT_DRIVE_STICK = Axis.RY; // Joystick to use for right motor control
-        static final double SLEW_RATE_LIMIT = 1; // Slew rate limit for joystick input
+        static final double SLEW_RATE_LIMIT = 2.5; // Slew rate limit for joystick input
     }
 
     /*
