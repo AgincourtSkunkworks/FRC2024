@@ -196,7 +196,7 @@
             "content": {
               "_type": "Command",
               "_source0": "network_table:///SmartDashboard/ZeroRotationPos",
-              "_title": "/SmartDashboard/ZeroRotationPos",
+              "_title": "Zero Rot. Pos",
               "_glyph": 148,
               "_showGlyph": false
             }

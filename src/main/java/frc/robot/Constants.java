@@ -124,8 +124,8 @@ public final class Constants {
         public static final class CurrentLimit {
 
             static final boolean SUPPLY = true; // Whether to enable supply current limiting
-            static final double SUPPLY_LIMIT = 50; // Supply current limit
-            static final double SUPPLY_TRIGGER = 50; // Current in which to trigger the supply limit (lower to SUPPLY_LIMIT)
+            static final double SUPPLY_LIMIT = 30; // Supply current limit
+            static final double SUPPLY_TRIGGER = 30; // Current in which to trigger the supply limit (lower to SUPPLY_LIMIT)
             static final double SUPPLY_TRIGGER_TIME = 0.15; // Amount of time to go over SUPPLY_TRIGGER before triggering the limit
         }
     }
