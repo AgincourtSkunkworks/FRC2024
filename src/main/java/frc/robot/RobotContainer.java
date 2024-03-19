@@ -214,30 +214,13 @@ public class RobotContainer {
 
         // ! DEFAULT COMMANDS
         drive.setDefaultCommand(
-            (Constants.TeleOp.ENABLE_SLEW)
-                ? new TeleopDrive(
-                    drive,
-                    () ->
-                        -controller.getRawAxis(
-                            Constants.TeleOp.LEFT_DRIVE_STICK
-                        ),
-                    () ->
-                        -controller.getRawAxis(
-                            Constants.TeleOp.RIGHT_DRIVE_STICK
-                        ),
-                    Constants.TeleOp.SLEW_RATE_LIMIT
-                )
-                : new TeleopDrive(
-                    drive,
-                    () ->
-                        -controller.getRawAxis(
-                            Constants.TeleOp.LEFT_DRIVE_STICK
-                        ),
-                    () ->
-                        -controller.getRawAxis(
-                            Constants.TeleOp.RIGHT_DRIVE_STICK
-                        )
-                )
+            new TeleopDrive(
+                drive,
+                () -> -controller.getRawAxis(Constants.TeleOp.LEFT_DRIVE_STICK),
+                () ->
+                    -controller.getRawAxis(Constants.TeleOp.RIGHT_DRIVE_STICK),
+                Constants.TeleOp.SLEW_RATE_LIMIT
+            )
         );
         if (Constants.Climber.ENABLE) climber.setDefaultCommand(
             climberLowPID.create()
