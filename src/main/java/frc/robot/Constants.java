@@ -123,9 +123,9 @@ public final class Constants {
 
         public static final class CurrentLimit {
 
-            static final boolean SUPPLY = true; // Whether to enable supply current limiting
-            static final double SUPPLY_LIMIT = 30; // Supply current limit
-            static final double SUPPLY_TRIGGER = 30; // Current in which to trigger the supply limit (lower to SUPPLY_LIMIT)
+            static final boolean SUPPLY = false; // Whether to enable supply current limiting
+            static final double SUPPLY_LIMIT = 100; // Supply current limit
+            static final double SUPPLY_TRIGGER = 100; // Current in which to trigger the supply limit (lower to SUPPLY_LIMIT)
             static final double SUPPLY_TRIGGER_TIME = 0.15; // Amount of time to go over SUPPLY_TRIGGER before triggering the limit
         }
     }
@@ -172,7 +172,7 @@ public final class Constants {
 
         static final double MAX_TEMP = 60; // Maximum temperature (in degrees C) before autonomous stops (-1 to disable)
         static final double MOVE_SPEED = 0.5; // Percent speed (0-1) for moving the robot
-        static final double COMM_LEAVE_TIME = 1.78; // Time in seconds that are needed to leave the community area
+        static final double COMM_LEAVE_TIME = 3; // Time in seconds that are needed to leave the community area
         static final double SHOOT_TIME = 3; // Seconds to run the flywheels for
     }
 
