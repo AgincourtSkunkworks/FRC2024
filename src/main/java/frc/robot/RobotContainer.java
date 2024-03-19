@@ -87,7 +87,13 @@ public class RobotContainer {
                 Constants.Outtake.FLYWHEEL_LM_INVERSE,
                 Constants.ID.OFRM,
                 Constants.Outtake.FLYWHEEL_RM_INVERSE
-            );
+            )
+                .setSupplyLimit(
+                    Constants.Outtake.CurrentLimit.SUPPLY,
+                    Constants.Outtake.CurrentLimit.SUPPLY_LIMIT,
+                    Constants.Outtake.CurrentLimit.SUPPLY_TRIGGER,
+                    Constants.Outtake.CurrentLimit.SUPPLY_TRIGGER_TIME
+                );
         climber =
             ClimberSubsystem
                 .create(
@@ -308,10 +314,14 @@ public class RobotContainer {
                 new SequentialCommandGroup(
                     rotationHighPID.create(),
                     Commands.runOnce(() ->
-                        intakeFeeder.setMotor(-Constants.Intake.Feeder.SPEED)
+                        intakeFeeder.setMotor(Constants.Intake.Feeder.SPEED)
                     ),
                     Commands.runOnce(() ->
                         outtake.setMotors(Constants.Outtake.SPEED)
+                    ),
+                    Commands.waitSeconds(Constants.Outtake.HOLD_TIME),
+                    Commands.runOnce(() ->
+                        intakeFeeder.setMotor(-Constants.Intake.Feeder.SPEED)
                     )
                 )
             )

@@ -119,6 +119,15 @@ public final class Constants {
         static final boolean FLYWHEEL_LM_INVERSE = false; // Whether the flywheel left motor is inverted
         static final boolean FLYWHEEL_RM_INVERSE = true; // Whether the flywheel right motor is inverted
         static final double SPEED = 1; // Speed in which to run the flywheels
+        static final double HOLD_TIME = 0.5; // Time to hold the piece in while flywheels spin up
+
+        public static final class CurrentLimit {
+
+            static final boolean SUPPLY = true; // Whether to enable supply current limiting
+            static final double SUPPLY_LIMIT = 50; // Supply current limit
+            static final double SUPPLY_TRIGGER = 50; // Current in which to trigger the supply limit (lower to SUPPLY_LIMIT)
+            static final double SUPPLY_TRIGGER_TIME = 0.15; // Amount of time to go over SUPPLY_TRIGGER before triggering the limit
+        }
     }
 
     public static final class Climber {

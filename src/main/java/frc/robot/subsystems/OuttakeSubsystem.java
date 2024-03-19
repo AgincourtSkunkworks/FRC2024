@@ -33,6 +33,30 @@ public class OuttakeSubsystem extends SubsystemBase {
         motors.add(motor2);
     }
 
+    /** Set the supply current limit
+     * @param limit Whether to enable the supply current limit
+     * @param currentLimit The current limit to set
+     * @param triggerCurrent The current at which to trigger the limit
+     * @param triggerTime The time to trigger the limit
+     * @return The OuttakeSubsystem subsystem, for chaining
+     */
+    public OuttakeSubsystem setSupplyLimit(
+        boolean limit,
+        double currentLimit,
+        double triggerCurrent,
+        double triggerTime
+    ) {
+        for (GenericController motor : motors) {
+            motor.setSupplyCurrentLimit(
+                limit,
+                currentLimit,
+                triggerCurrent,
+                triggerTime
+            );
+        }
+        return this;
+    }
+
     /** Set the speed of the motors.
      * @param speed The speed to set the motors to
      */
