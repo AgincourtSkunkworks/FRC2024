@@ -76,10 +76,10 @@ public final class Constants {
 
             public static final class DefaultPID {
 
-                static final double P = 0.038;
+                static final double P = 0.042;
                 static final double I = 0.0;
                 static final double IMax = 0.0; // Maximum integral value
-                static final double D = 0.0; // TODO: Tune
+                static final double D = 0.0045;
                 static final double FINISH_TOLERANCE = 0.4; // # of ticks of difference from setpoint to end PID within
             }
 
