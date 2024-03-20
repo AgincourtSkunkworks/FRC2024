@@ -48,8 +48,8 @@ public final class Constants {
         public static final class CurrentLimit {
 
             static final boolean SUPPLY = true; // Whether to enable supply current limiting
-            static final double SUPPLY_LIMIT = 100; // Supply current limit
-            static final double SUPPLY_TRIGGER = 100; // Current in which to trigger the supply limit (lower to SUPPLY_LIMIT)
+            static final double SUPPLY_LIMIT = 80; // Supply current limit
+            static final double SUPPLY_TRIGGER = 80; // Current in which to trigger the supply limit (lower to SUPPLY_LIMIT)
             static final double SUPPLY_TRIGGER_TIME = 0.15; // Amount of time to go over SUPPLY_TRIGGER before triggering the limit
             static final boolean STATOR = true; // Whether to enable stator current limiting
             static final double STATOR_LIMIT = 100; // Stator current limit
@@ -182,7 +182,7 @@ public final class Constants {
 
         static final Axis LEFT_DRIVE_STICK = Axis.LY; // Joystick to use for left motor control
         static final Axis RIGHT_DRIVE_STICK = Axis.RY; // Joystick to use for right motor control
-        static final double SLEW_RATE_LIMIT = 2.5; // Slew rate limit for joystick input
+        static final double SLEW_RATE_LIMIT = 2; // Slew rate limit for joystick input
     }
 
     /*
