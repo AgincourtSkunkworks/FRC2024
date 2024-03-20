@@ -106,7 +106,9 @@ public final class Constants {
             public static Button OVERRIDE_FWD_BTN = Button.OPT_R;
             public static Button OVERRIDE_REV_BTN = Button.OPT_L;
             static final boolean INVERSE = false; // Whether the motor is inverted
-            static final double SPEED = 1; // Speed in which to run the intake feeder
+            static final boolean HOLD_ON_SPINUP = false; // Whether to run the motor in reverse to hold the piece on spinup
+            static final double SPEED = 0.75; // Speed in which to run the intake feeder
+            static final double SHOOT_SPEED = 1; // Speed in which to run the intake feeder when shooting & overriding
         }
     }
 
@@ -119,7 +121,7 @@ public final class Constants {
         static final boolean FLYWHEEL_LM_INVERSE = false; // Whether the flywheel left motor is inverted
         static final boolean FLYWHEEL_RM_INVERSE = true; // Whether the flywheel right motor is inverted
         static final double SPEED = 1; // Speed in which to run the flywheels
-        static final double HOLD_TIME = 0; // Time to hold the piece in while flywheels spin up
+        static final double SPINUP_TIME = 0.5; // Time to hold the piece in while flywheels spin up
 
         public static final class CurrentLimit {
 

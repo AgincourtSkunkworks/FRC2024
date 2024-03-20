@@ -242,7 +242,7 @@ public class RobotContainer {
             "Shoot & Leave (Straight)",
             new SequentialCommandGroup(
                 Commands.runOnce(() ->
-                    intakeFeeder.setMotor(-Constants.Intake.Feeder.SPEED)
+                    intakeFeeder.setMotor(-Constants.Intake.Feeder.SHOOT_SPEED)
                 ),
                 Commands.runOnce(() ->
                     outtake.setMotors(Constants.Outtake.SPEED)
@@ -279,8 +279,8 @@ public class RobotContainer {
             )
             .whileFalse( // intake piece when released
                 new SequentialCommandGroup(
-                    rotationHighPID.create(),
-                    Commands.runOnce(() -> intakeFeeder.setMotor(0))
+                    Commands.runOnce(() -> intakeFeeder.setMotor(0)),
+                    rotationHighPID.create()
                 )
             );
         controller
@@ -313,15 +313,19 @@ public class RobotContainer {
             .whileTrue(
                 new SequentialCommandGroup(
                     rotationHighPID.create(),
-                    Commands.runOnce(() ->
-                        intakeFeeder.setMotor(Constants.Intake.Feeder.SPEED)
-                    ),
+                    (Constants.Intake.Feeder.HOLD_ON_SPINUP)
+                        ? Commands.runOnce(() ->
+                            intakeFeeder.setMotor(Constants.Intake.Feeder.SPEED)
+                        )
+                        : Commands.none(),
                     Commands.runOnce(() ->
                         outtake.setMotors(Constants.Outtake.SPEED)
                     ),
-                    Commands.waitSeconds(Constants.Outtake.HOLD_TIME),
+                    Commands.waitSeconds(Constants.Outtake.SPINUP_TIME),
                     Commands.runOnce(() ->
-                        intakeFeeder.setMotor(-Constants.Intake.Feeder.SPEED)
+                        intakeFeeder.setMotor(
+                            -Constants.Intake.Feeder.SHOOT_SPEED
+                        )
                     )
                 )
             )
@@ -366,7 +370,10 @@ public class RobotContainer {
             .getButton(Constants.Intake.Feeder.OVERRIDE_FWD_BTN)
             .whileTrue(
                 Commands.startEnd(
-                    () -> intakeFeeder.setMotor(Constants.Intake.Feeder.SPEED),
+                    () ->
+                        intakeFeeder.setMotor(
+                            Constants.Intake.Feeder.SHOOT_SPEED
+                        ),
                     () -> intakeFeeder.setMotor(0)
                 )
             );
@@ -374,7 +381,10 @@ public class RobotContainer {
             .getButton(Constants.Intake.Feeder.OVERRIDE_REV_BTN)
             .whileTrue(
                 Commands.startEnd(
-                    () -> intakeFeeder.setMotor(-Constants.Intake.Feeder.SPEED),
+                    () ->
+                        intakeFeeder.setMotor(
+                            -Constants.Intake.Feeder.SHOOT_SPEED
+                        ),
                     () -> intakeFeeder.setMotor(0)
                 )
             );
