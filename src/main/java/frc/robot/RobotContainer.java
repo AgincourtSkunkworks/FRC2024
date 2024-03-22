@@ -231,9 +231,7 @@ public class RobotContainer {
                 Constants.TeleOp.SLEW_RATE_LIMIT
             )
         );
-        if (Constants.Climber.ENABLE) climber.setDefaultCommand(
-            climberLowPID.create()
-        );
+        // TODO: Check whether default command is needed for climber
 
         // ! CONFIGURATION
         intakeRotation.setPositions(0); // ! INTAKE IS EXPECTED TO BE IN HIGH AT STARTUP

@@ -167,7 +167,7 @@ public final class Constants {
         public static final class Setpoints {
 
             static final double LOW = 0;
-            static final double HIGH = 0; // TODO: Measure
+            static final double HIGH = 60;
         }
     }
 
