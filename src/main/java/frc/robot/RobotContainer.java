@@ -212,6 +212,11 @@ public class RobotContainer {
         );
         zeroRotationPosCmd.setName("ZeroRotationPos");
         SmartDashboard.putData(zeroRotationPosCmd);
+        Command zeroClimberPosCmd = Commands.runOnce(() ->
+            climber.setPosition(0)
+        );
+        zeroClimberPosCmd.setName("ZeroClimberPos");
+        SmartDashboard.putData(zeroClimberPosCmd);
 
         // ! BUTTONS
         configureButtonBindings();
@@ -232,6 +237,7 @@ public class RobotContainer {
 
         // ! CONFIGURATION
         intakeRotation.setPositions(0); // ! INTAKE IS EXPECTED TO BE IN HIGH AT STARTUP
+        climber.setPosition(0); // ! CLIMBER IS EXPECTED TO  BE IN LOW AT STARTUP
 
         // ! AUTONOMOUS
         autoChooser.addOption(

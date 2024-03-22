@@ -92,6 +92,13 @@ public class ClimberSubsystem extends SubsystemBase {
         return motor.getPosition();
     }
 
+    /** Set the position of the motor
+     * @param position The position to set to, in raw encoder units
+     */
+    public void setPosition(double position) {
+        motor.setPosition(position);
+    }
+
     @Override
     public void periodic() {
         if (!Constants.Climber.ENABLE) return;
