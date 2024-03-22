@@ -58,18 +58,18 @@ public final class Constants {
 
     public static final class Intake {
 
-        public static Button TRIGGER_BTN = Button.R1;
-        public static Button UNLOAD_BTN = Button.N; // A reverse seq. that tries to unload a note to the ground
+        public static Button TRIGGER_TRG = Button.R1;
+        public static Button UNLOAD_TRG = Button.N; // A reverse seq. that tries to unload a note to the ground
         public static double UNLOAD_CONSUME_TIME = 0.8; // Seconds to run motors to attempt to pull the note back into the intake mechanism
 
         public static final class Rotation {
 
             static final BaseController MOTOR_TYPE = BaseController.TALONFX; // Motor type
             static final NeutralMode NEUTRAL_MODE = NeutralMode.Brake;
-            static final Button OVERRIDE_LOW_BTN = Button.S;
-            static final Button OVERRIDE_HIGH_BTN = Button.E;
-            static final POV OVERRIDE_FWD_POV = POV.E;
-            static final POV OVERRIDE_REV_POV = POV.W;
+            static final Button OVERRIDE_LOW_TRG = Button.S;
+            static final Button OVERRIDE_HIGH_TRG = Button.E;
+            static final POV OVERRIDE_FWD_TRG = POV.E;
+            static final POV OVERRIDE_REV_TRG = POV.W;
             static final boolean LM_INVERSE = false; // Whether the left motor is inverted
             static final boolean RM_INVERSE = true; // Whether the right motor is inverted
             static final double OVERRIDE_SPEED = 0.5; // Speed in which to run the intake on fwd/rev override
@@ -103,8 +103,8 @@ public final class Constants {
         public static final class Feeder {
 
             static final BaseController MOTOR_TYPE = BaseController.TALONSRX; // CIM motor type
-            public static Button OVERRIDE_FWD_BTN = Button.L2;
-            public static Button OVERRIDE_REV_BTN = Button.L1;
+            public static Button OVERRIDE_FWD_TRG = Button.L2;
+            public static Button OVERRIDE_REV_TRG = Button.L1;
             static final boolean INVERSE = false; // Whether the motor is inverted
             static final boolean HOLD_ON_SPINUP = false; // Whether to run the motor in reverse to hold the piece on spinup
             static final double SPEED = 0.75; // Speed in which to run the intake feeder
@@ -116,8 +116,8 @@ public final class Constants {
 
         static final BaseController FLYWHEEL_MOTOR_TYPE =
             BaseController.TALONSRX; // CIM motor type
-        static final Button TRIGGER_BTN = Button.R2;
-        static final Button OVERRIDE_BTN = Button.W;
+        static final Button TRIGGER_TRG = Button.R2;
+        static final Button OVERRIDE_TRG = Button.W;
         static final boolean FLYWHEEL_LM_INVERSE = false; // Whether the flywheel left motor is inverted
         static final boolean FLYWHEEL_RM_INVERSE = true; // Whether the flywheel right motor is inverted
         static final double SPEED = 1; // Speed in which to run the flywheels
@@ -137,10 +137,10 @@ public final class Constants {
         public static final boolean ENABLE = false; // Whether the climber is enabled (at all)
         static final BaseController MOTOR_TYPE = BaseController.TALONFX;
         static final NeutralMode NEUTRAL_MODE = NeutralMode.Brake;
-        static final POV HIGH_POV = POV.N;
-        static final POV LOW_POV = POV.S;
-        static final Button OVERRIDE_UP_BTN = Button.OPT_L;
-        static final Button OVERRIDE_DOWN_BTN = Button.OPT_R;
+        static final POV HIGH_TRG = POV.N;
+        static final POV LOW_TRG = POV.S;
+        static final Button OVERRIDE_UP_TRG = Button.OPT_L;
+        static final Button OVERRIDE_DOWN_TRG = Button.OPT_R;
         static final boolean INVERSE = false; // Whether the motor is inverted
         static final double OVERRIDE_SPEED = 0.5; // Speed in which to run the climber on override
 

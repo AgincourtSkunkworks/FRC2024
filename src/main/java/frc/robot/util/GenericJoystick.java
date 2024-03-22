@@ -238,11 +238,27 @@ public class GenericJoystick {
         };
     }
 
+    /** Get a Trigger for a button on the joystick.
+     * @param button The button to get
+     * @return The Trigger object for the button
+     */
+    public Trigger getTrigger(Button button) {
+        return getActualButton(button);
+    }
+
+    /** Get a Trigger for a POV on the joystick.
+     * @param pov The POV to get
+     * @return The Trigger object for the POV
+     */
+    public Trigger getTrigger(POV pov) {
+        return getPOVButton(pov);
+    }
+
     /** Get a JoystickButton object for a button.
      * @param button The button to get
      * @return The JoystickButton object for the button
      */
-    public JoystickButton getButton(Button button) {
+    public JoystickButton getActualButton(Button button) {
         return switch (base) {
             case DIRECT -> new JoystickButton(
                 direct,
@@ -253,16 +269,28 @@ public class GenericJoystick {
         };
     }
 
+    /** Get a POVButton object for a POV.
+     * @param pov The POV to get
+     * @return The POVButton object for the POV
+     */
+    public POVButton getPOVButton(POV pov) {
+        return switch (base) {
+            case DIRECT -> new POVButton(direct, directPOVMap.get(pov));
+            case PS4 -> new POVButton(ps4, ps4POVMap.get(pov));
+            case PS5 -> new POVButton(ps5, ps5POVMap.get(pov));
+        };
+    }
+
     /** Get a Trigger object for an AND combination of buttons (all buttons must be pressed to trigger)
      * @param buttons The buttons that are required
      * @return The Trigger object for the button combination
      */
     public Trigger getButtonCombination(List<Button> buttons) {
-        Trigger combinationButton = getButton(buttons.get(0));
+        Trigger combinationButton = getActualButton(buttons.get(0));
         for (Button button : buttons.subList(
             1,
             buttons.size()
-        )) combinationButton = combinationButton.and(getButton(button));
+        )) combinationButton = combinationButton.and(getActualButton(button));
         return combinationButton;
     }
 
@@ -286,18 +314,6 @@ public class GenericJoystick {
             case DIRECT -> direct.getPOV();
             case PS4 -> ps4.getPOV();
             case PS5 -> ps5.getPOV();
-        };
-    }
-
-    /** Get a POVButton object for a POV.
-     * @param pov The POV to get
-     * @return The POVButton object for the POV
-     */
-    public POVButton getPOVButton(POV pov) {
-        return switch (base) {
-            case DIRECT -> new POVButton(direct, directPOVMap.get(pov));
-            case PS4 -> new POVButton(ps4, ps4POVMap.get(pov));
-            case PS5 -> new POVButton(ps5, ps5POVMap.get(pov));
         };
     }
 

@@ -268,7 +268,7 @@ public class RobotContainer {
         // ! Intake/Outtake
         // * AUTOMATED SEQUENCES
         controller
-            .getButton(Constants.Intake.TRIGGER_BTN)
+            .getTrigger(Constants.Intake.TRIGGER_TRG)
             .whileTrue( // prime for intake of piece when pressed
                 new SequentialCommandGroup(
                     Commands.runOnce(() ->
@@ -284,7 +284,7 @@ public class RobotContainer {
                 )
             );
         controller
-            .getButton(Constants.Intake.UNLOAD_BTN)
+            .getTrigger(Constants.Intake.UNLOAD_TRG)
             .whileTrue(
                 new SequentialCommandGroup(
                     Commands.runOnce(() ->
@@ -309,7 +309,7 @@ public class RobotContainer {
                 )
             );
         controller
-            .getButton(Constants.Outtake.TRIGGER_BTN)
+            .getTrigger(Constants.Outtake.TRIGGER_TRG)
             .whileTrue(
                 new SequentialCommandGroup(
                     rotationHighPID.create(),
@@ -339,13 +339,13 @@ public class RobotContainer {
         // * MANUAL OVERRIDES
 
         controller
-            .getButton(Constants.Intake.Rotation.OVERRIDE_LOW_BTN)
+            .getTrigger(Constants.Intake.Rotation.OVERRIDE_LOW_TRG)
             .onTrue(rotationLowPID.create());
         controller
-            .getButton(Constants.Intake.Rotation.OVERRIDE_HIGH_BTN)
+            .getTrigger(Constants.Intake.Rotation.OVERRIDE_HIGH_TRG)
             .onTrue(rotationHighPID.create());
         controller
-            .getPOVButton(Constants.Intake.Rotation.OVERRIDE_FWD_POV)
+            .getTrigger(Constants.Intake.Rotation.OVERRIDE_FWD_TRG)
             .whileTrue(
                 Commands.startEnd(
                     () ->
@@ -356,7 +356,7 @@ public class RobotContainer {
                 )
             );
         controller
-            .getPOVButton(Constants.Intake.Rotation.OVERRIDE_REV_POV)
+            .getTrigger(Constants.Intake.Rotation.OVERRIDE_REV_TRG)
             .whileTrue(
                 Commands.startEnd(
                     () ->
@@ -367,7 +367,7 @@ public class RobotContainer {
                 )
             );
         controller
-            .getButton(Constants.Intake.Feeder.OVERRIDE_FWD_BTN)
+            .getTrigger(Constants.Intake.Feeder.OVERRIDE_FWD_TRG)
             .whileTrue(
                 Commands.startEnd(
                     () ->
@@ -378,7 +378,7 @@ public class RobotContainer {
                 )
             );
         controller
-            .getButton(Constants.Intake.Feeder.OVERRIDE_REV_BTN)
+            .getTrigger(Constants.Intake.Feeder.OVERRIDE_REV_TRG)
             .whileTrue(
                 Commands.startEnd(
                     () ->
@@ -389,7 +389,7 @@ public class RobotContainer {
                 )
             );
         controller
-            .getButton(Constants.Outtake.OVERRIDE_BTN)
+            .getTrigger(Constants.Outtake.OVERRIDE_TRG)
             .whileTrue(
                 Commands.startEnd(
                     () -> outtake.setMotors(Constants.Outtake.SPEED),
@@ -399,7 +399,7 @@ public class RobotContainer {
 
         if (Constants.Climber.ENABLE) {
             controller
-                .getButton(Constants.Climber.OVERRIDE_UP_BTN)
+                .getTrigger(Constants.Climber.OVERRIDE_UP_TRG)
                 .whileTrue(
                     Commands.startEnd(
                         () ->
@@ -408,7 +408,7 @@ public class RobotContainer {
                     )
                 );
             controller
-                .getButton(Constants.Climber.OVERRIDE_DOWN_BTN)
+                .getTrigger(Constants.Climber.OVERRIDE_DOWN_TRG)
                 .whileTrue(
                     Commands.startEnd(
                         () ->
@@ -421,10 +421,10 @@ public class RobotContainer {
         // ! Climber
         if (Constants.Climber.ENABLE) {
             controller
-                .getPOVButton(Constants.Climber.LOW_POV)
+                .getTrigger(Constants.Climber.LOW_TRG)
                 .onTrue(climberLowPID.create());
             controller
-                .getPOVButton(Constants.Climber.HIGH_POV)
+                .getTrigger(Constants.Climber.HIGH_TRG)
                 .onTrue(climberHighPID.create());
         }
     }
