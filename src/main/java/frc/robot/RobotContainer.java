@@ -23,7 +23,7 @@ public class RobotContainer {
     private final OuttakeSubsystem outtake;
     private final ClimberSubsystem climber;
 
-    @SuppressWarnings("FieldCanBeLocal")
+    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private final CameraSubsystem camera;
 
     {
@@ -235,7 +235,7 @@ public class RobotContainer {
 
         // ! CONFIGURATION
         intakeRotation.setPositions(0); // ! INTAKE IS EXPECTED TO BE IN HIGH AT STARTUP
-        climber.setPosition(0); // ! CLIMBER IS EXPECTED TO  BE IN LOW AT STARTUP
+        climber.setPosition(0); // ! CLIMBER IS EXPECTED TO BE IN LOW AT STARTUP
 
         // ! AUTONOMOUS
         autoChooser.addOption(
