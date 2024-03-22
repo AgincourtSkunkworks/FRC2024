@@ -23,7 +23,7 @@ public class RobotContainer {
     private final OuttakeSubsystem outtake;
     private final ClimberSubsystem climber;
 
-    @SuppressWarnings({"FieldCanBeLocal", "unused"})
+    @SuppressWarnings({ "FieldCanBeLocal", "unused" })
     private final CameraSubsystem camera;
 
     {
@@ -214,7 +214,7 @@ public class RobotContainer {
         SmartDashboard.putData(zeroRotationPosCmd);
         if (Constants.Climber.ENABLE) {
             Command zeroClimberPosCmd = Commands.runOnce(() ->
-                    climber.setPosition(0)
+                climber.setPosition(0)
             );
             zeroClimberPosCmd.setName("ZeroClimberPos");
             SmartDashboard.putData(zeroClimberPosCmd);
