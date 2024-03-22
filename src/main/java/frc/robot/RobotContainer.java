@@ -23,6 +23,9 @@ public class RobotContainer {
     private final OuttakeSubsystem outtake;
     private final ClimberSubsystem climber;
 
+    @SuppressWarnings("FieldCanBeLocal")
+    private final CameraSubsystem camera;
+
     {
         drive =
             DriveSubsystem
@@ -112,6 +115,7 @@ public class RobotContainer {
                     Constants.Climber.CurrentLimit.STATOR_LIMIT
                 )
                 .setNeutralMode(Constants.Climber.NEUTRAL_MODE);
+        camera = new CameraSubsystem();
     }
 
     // ! CONTROLS
