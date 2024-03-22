@@ -207,11 +207,17 @@
               1
             ],
             "content": {
-              "_type": "Text View",
+              "_type": "Number Bar",
               "_source0": "network_table:///SmartDashboard/Climber Position",
               "_title": "Climber Pos",
               "_glyph": 148,
-              "_showGlyph": false
+              "_showGlyph": false,
+              "Range/Min": -5.0,
+              "Range/Max": 75.0,
+              "Range/Center": 0.0,
+              "Visuals/Num tick marks": 5,
+              "Visuals/Show text": true,
+              "Visuals/Orientation": "HORIZONTAL"
             }
           },
           "5,3": {
