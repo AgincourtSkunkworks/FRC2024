@@ -399,7 +399,7 @@ public class RobotContainer {
 
         if (Constants.Climber.ENABLE) {
             controller
-                .getPOVButton(Constants.Climber.OVERRIDE_UP_POV)
+                .getButton(Constants.Climber.OVERRIDE_UP_BTN)
                 .whileTrue(
                     Commands.startEnd(
                         () ->
@@ -408,7 +408,7 @@ public class RobotContainer {
                     )
                 );
             controller
-                .getPOVButton(Constants.Climber.OVERRIDE_DOWN_POV)
+                .getButton(Constants.Climber.OVERRIDE_DOWN_BTN)
                 .whileTrue(
                     Commands.startEnd(
                         () ->
@@ -421,10 +421,10 @@ public class RobotContainer {
         // ! Climber
         if (Constants.Climber.ENABLE) {
             controller
-                .getButton(Constants.Climber.LOW_BTN)
+                .getPOVButton(Constants.Climber.LOW_POV)
                 .onTrue(climberLowPID.create());
             controller
-                .getButton(Constants.Climber.HIGH_BTN)
+                .getPOVButton(Constants.Climber.HIGH_POV)
                 .onTrue(climberHighPID.create());
         }
     }
