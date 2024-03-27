@@ -243,7 +243,7 @@ public class GenericJoystick {
      * @return The Trigger object for the button
      */
     public Trigger getTrigger(Button button) {
-        return getActualButton(button);
+        return getJoystickButton(button);
     }
 
     /** Get a Trigger for a POV on the joystick.
@@ -258,7 +258,7 @@ public class GenericJoystick {
      * @param button The button to get
      * @return The JoystickButton object for the button
      */
-    public JoystickButton getActualButton(Button button) {
+    public JoystickButton getJoystickButton(Button button) {
         return switch (base) {
             case DIRECT -> new JoystickButton(
                 direct,
@@ -282,15 +282,18 @@ public class GenericJoystick {
     }
 
     /** Get a Trigger object for an AND combination of buttons (all buttons must be pressed to trigger)
+     * <p>
+     *     ! This DOES NOT support POV buttons
+     * </p>
      * @param buttons The buttons that are required
      * @return The Trigger object for the button combination
      */
     public Trigger getButtonCombination(List<Button> buttons) {
-        Trigger combinationButton = getActualButton(buttons.get(0));
+        Trigger combinationButton = getJoystickButton(buttons.get(0));
         for (Button button : buttons.subList(
             1,
             buttons.size()
-        )) combinationButton = combinationButton.and(getActualButton(button));
+        )) combinationButton = combinationButton.and(getJoystickButton(button));
         return combinationButton;
     }
 
