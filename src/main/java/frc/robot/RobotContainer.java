@@ -166,15 +166,10 @@ public class RobotContainer {
                 "ClimberLow",
                 climber,
                 Constants.Climber.Setpoints.LOW,
-                // TODO: Check whether this can end
-                //        new DynamicValue<>(
-                //            "ClimberLowTolerance",
-                //            Constants.Climber.DefaultPID.FINISH_TOLERANCE
-                //        ),
-                Constants.Climber.DefaultPID.P,
-                Constants.Climber.DefaultPID.I,
-                Constants.Climber.DefaultPID.D,
-                Constants.Climber.DefaultPID.IMax
+                Constants.Climber.DefaultPID.Low.P,
+                Constants.Climber.DefaultPID.Low.I,
+                Constants.Climber.DefaultPID.Low.D,
+                Constants.Climber.DefaultPID.Low.IMax
             );
 
         climberHighPID =
@@ -182,15 +177,14 @@ public class RobotContainer {
                 "ClimberHigh",
                 climber,
                 Constants.Climber.Setpoints.HIGH,
-                // TODO: Check whether this can end
-                //        new DynamicValue<>(
-                //            "ClimberHighTolerance",
-                //            Constants.Climber.DefaultPID.FINISH_TOLERANCE
-                //        ),
-                Constants.Climber.DefaultPID.P,
-                Constants.Climber.DefaultPID.I,
-                Constants.Climber.DefaultPID.D,
-                Constants.Climber.DefaultPID.IMax
+                new DynamicValue<>(
+                    "ClimberHighTolerance",
+                    Constants.Climber.DefaultPID.High.FINISH_TOLERANCE
+                ),
+                Constants.Climber.DefaultPID.High.P,
+                Constants.Climber.DefaultPID.High.I,
+                Constants.Climber.DefaultPID.High.D,
+                Constants.Climber.DefaultPID.High.IMax
             );
     }
 
@@ -233,7 +227,6 @@ public class RobotContainer {
                 Constants.TeleOp.SLEW_RATE_LIMIT
             )
         );
-        // TODO: Check whether default command is needed for climber
 
         // ! CONFIGURATION
         intakeRotation.setPositions(0); // ! INTAKE IS EXPECTED TO BE IN HIGH AT STARTUP
@@ -412,8 +405,11 @@ public class RobotContainer {
                 .getTrigger(Constants.Climber.OVERRIDE_UP_TRG)
                 .whileTrue(
                     Commands.startEnd(
-                        () ->
-                            climber.setMotor(Constants.Climber.OVERRIDE_SPEED),
+                        () -> {
+                            Command command = climber.getCurrentCommand();
+                            if (command != null) command.cancel();
+                            climber.setMotor(Constants.Climber.OVERRIDE_SPEED);
+                        },
                         () -> climber.setMotor(0)
                     )
                 );
@@ -421,8 +417,11 @@ public class RobotContainer {
                 .getTrigger(Constants.Climber.OVERRIDE_DOWN_TRG)
                 .whileTrue(
                     Commands.startEnd(
-                        () ->
-                            climber.setMotor(-Constants.Climber.OVERRIDE_SPEED),
+                        () -> {
+                            Command command = climber.getCurrentCommand();
+                            if (command != null) command.cancel();
+                            climber.setMotor(-Constants.Climber.OVERRIDE_SPEED);
+                        },
                         () -> climber.setMotor(0)
                     )
                 );

@@ -61,7 +61,7 @@ public final class Constants {
         public static Button TRIGGER_TRG = Button.R1;
         public static Button UNLOAD_TRG = Button.N; // A reverse seq. that tries to unload a note to the ground
         // TODO: Check whether UNLOAD_CONSUME_TIME is still needed, and adjust as low possible
-        public static double UNLOAD_CONSUME_TIME = 0.8; // Seconds to run motors to attempt to pull the note back into the intake mechanism
+        public static double UNLOAD_CONSUME_TIME = 0.2; // Seconds to run motors to attempt to pull the note back into the intake mechanism
 
         public static final class Rotation {
 
@@ -135,14 +135,14 @@ public final class Constants {
 
     public static final class Climber {
 
-        public static final boolean ENABLE = false; // Whether the climber is enabled (at all)
+        public static final boolean ENABLE = true; // Whether the climber is enabled (at all)
         static final BaseController MOTOR_TYPE = BaseController.TALONFX;
         static final NeutralMode NEUTRAL_MODE = NeutralMode.Brake;
         static final POV HIGH_TRG = POV.N;
         static final POV LOW_TRG = POV.S;
         static final Button OVERRIDE_UP_TRG = Button.OPT_L;
         static final Button OVERRIDE_DOWN_TRG = Button.OPT_R;
-        static final boolean INVERSE = false; // Whether the motor is inverted
+        static final boolean INVERSE = true; // Whether the motor is inverted
         static final double OVERRIDE_SPEED = 0.5; // Speed in which to run the climber on override
 
         public static final class CurrentLimit {
@@ -157,17 +157,28 @@ public final class Constants {
 
         public static final class DefaultPID { // TODO: Tune
 
-            static final double P = 0.000035;
-            static final double I = 0.0;
-            static final double IMax = 0.0; // Maximum integral value
-            static final double D = 0.0;
-            static final double FINISH_TOLERANCE = 100; // # of ticks of difference from setpoint to end PID within
+            public static final class Low {
+
+                static final double P = 0.04;
+                static final double I = 0.05;
+                static final double IMax = 3;
+                static final double D = 0.004;
+            }
+
+            public static final class High {
+
+                static final double P = 0.015;
+                static final double I = 0;
+                static final double IMax = 0;
+                static final double D = 0.00004;
+                static final double FINISH_TOLERANCE = 1;
+            }
         }
 
         public static final class Setpoints {
 
             static final double LOW = 0;
-            static final double HIGH = 60;
+            static final double HIGH = 68;
         }
     }
 

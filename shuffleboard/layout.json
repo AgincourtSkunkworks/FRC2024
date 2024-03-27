@@ -213,7 +213,7 @@
               "_glyph": 148,
               "_showGlyph": false,
               "Range/Min": -5.0,
-              "Range/Max": 75.0,
+              "Range/Max": 85.0,
               "Range/Center": 0.0,
               "Visuals/Num tick marks": 5,
               "Visuals/Show text": true,
@@ -250,8 +250,24 @@
               "Controls/Rotation": "NONE",
               "compression": -1.0,
               "fps": -1,
-              "imageWidth": -1,
-              "imageHeight": -1
+              "imageWidth": 0,
+              "imageHeight": 0
+            }
+          },
+          "6,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Simple Dial",
+              "_source0": "network_table:///SmartDashboard/Climber Temperature",
+              "_title": "Climber Temp.",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Range/Min": 0.0,
+              "Range/Max": 150.0,
+              "Visuals/Show value": true
             }
           }
         }
@@ -654,6 +670,45 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Drive Right Motor Position (First)",
               "_title": "RM Pos. (First)",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "3,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/ZeroClimberPos",
+              "_title": "Zero Climber Pos",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Preferences/ClimberHighTolerance",
+              "_title": "High Tolerance",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Preferences/ClimberLowTolerance",
+              "_title": "Low Tolerance",
               "_glyph": 148,
               "_showGlyph": false
             }
