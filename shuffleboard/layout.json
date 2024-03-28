@@ -250,8 +250,8 @@
               "Controls/Rotation": "NONE",
               "compression": -1.0,
               "fps": -1,
-              "imageWidth": 0,
-              "imageHeight": 0
+              "imageWidth": -1,
+              "imageHeight": -1
             }
           },
           "6,3": {
