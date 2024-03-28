@@ -10,8 +10,7 @@ public class TeleopDrive extends Command {
 
     DriveSubsystem drive;
     Supplier<Double> lSpeedFunc, rSpeedFunc;
-    SlewRateLimiter leftLimiter, rightLimiter, leftTurnLimiter, rightTurnLimiter;
-    double turnDiffThreshold;
+    SlewRateLimiter leftLimiter, rightLimiter;
 
     /**
      * Creates a TeleopDrive Command. This command is used to control the drive in the teleop phase.
@@ -26,9 +25,7 @@ public class TeleopDrive extends Command {
         DriveSubsystem drive,
         Supplier<Double> lSpeedFunc,
         Supplier<Double> rSpeedFunc,
-        double rateLimit,
-        double turnRateLimit,
-        double turnDiffThreshold
+        double rateLimit
     ) {
         addRequirements(drive);
         this.drive = drive;
@@ -36,25 +33,14 @@ public class TeleopDrive extends Command {
         this.rSpeedFunc = rSpeedFunc;
         this.leftLimiter = new SlewRateLimiter(rateLimit);
         this.rightLimiter = new SlewRateLimiter(rateLimit);
-        this.leftTurnLimiter = new SlewRateLimiter(turnRateLimit);
-        this.rightTurnLimiter = new SlewRateLimiter(turnRateLimit);
-        this.turnDiffThreshold = turnDiffThreshold;
     }
 
     @Override
     public void execute() {
         final double stickLeft = lSpeedFunc.get();
         final double stickRight = rSpeedFunc.get();
-        final double leftSpeed, rightSpeed;
-        if (Math.abs(stickLeft - stickRight) >= turnDiffThreshold) { // Turn detected, use alternate slew
-            leftSpeed = leftTurnLimiter.calculate(stickLeft);
-            rightSpeed = rightTurnLimiter.calculate(stickRight);
-        } else {
-            leftSpeed = leftLimiter.calculate(stickLeft);
-            rightSpeed = rightLimiter.calculate(stickRight);
-        }
-        drive.setLeftMotors(leftSpeed);
-        drive.setRightMotors(rightSpeed);
+        drive.setLeftMotors(leftLimiter.calculate(stickLeft));
+        drive.setRightMotors(rightLimiter.calculate(stickRight));
         SmartDashboard.putNumber("Stick Left", stickLeft);
         SmartDashboard.putNumber("Stick Right", stickRight);
     }

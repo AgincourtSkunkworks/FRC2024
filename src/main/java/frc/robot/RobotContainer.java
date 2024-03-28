@@ -224,9 +224,7 @@ public class RobotContainer {
                 () -> -controller.getRawAxis(Constants.TeleOp.LEFT_DRIVE_STICK),
                 () ->
                     -controller.getRawAxis(Constants.TeleOp.RIGHT_DRIVE_STICK),
-                Constants.TeleOp.SLEW_RATE_LIMIT,
-                Constants.TeleOp.TURN_SLEW_RATE_LIMIT,
-                Constants.TeleOp.TURN_DIFF_THRESHOLD
+                Constants.TeleOp.SLEW_RATE_LIMIT
             )
         );
 
