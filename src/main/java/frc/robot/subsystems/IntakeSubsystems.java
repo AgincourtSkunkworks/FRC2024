@@ -25,10 +25,10 @@ public class IntakeSubsystems {
             GenericController lm = new GenericController(type, lmID);
             lm.setInverted(lmInvert);
             motors.add(lm);
-            positionalMotor = lm; // The first (left) motor is the motor we get the position from
             GenericController rm = new GenericController(type, rmID);
             rm.setInverted(rmInvert);
             motors.add(rm);
+            positionalMotor = rm; // The second (right) motor is the motor we get the position from
         }
 
         /** Create a new RotationSubsystem.
