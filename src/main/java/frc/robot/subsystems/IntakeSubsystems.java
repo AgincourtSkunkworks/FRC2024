@@ -12,7 +12,7 @@ public class IntakeSubsystems {
     public static class RotationSubsystem extends SubsystemBase {
 
         final ArrayList<GenericController> motors = new ArrayList<>();
-        final GenericController positionalMotor; // The motor we get the position from -- the left/first motor
+        final GenericController positionalMotor; // The motor we get the position from -- the right/second motor
 
         // Private constructor so people use .create() instead
         private RotationSubsystem(
@@ -110,7 +110,7 @@ public class IntakeSubsystems {
             }
         }
 
-        /** Get the position of the positional motor (left/first)
+        /** Get the position of the positional motor (right/second)
          * @return The position of the positional motor, in raw encoder units
          */
         public double getPosition() {
