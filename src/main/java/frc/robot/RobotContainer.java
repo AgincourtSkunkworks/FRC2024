@@ -246,11 +246,18 @@ public class RobotContainer {
         autoChooser.addOption(
             "Shoot",
             new SequentialCommandGroup(
-                Commands.runOnce(() ->
-                    intakeFeeder.setMotor(-Constants.Intake.Feeder.SHOOT_SPEED)
-                ),
+                rotationHighPID.create(),
+                (Constants.Intake.Feeder.HOLD_ON_SPINUP)
+                    ? Commands.runOnce(() ->
+                        intakeFeeder.setMotor(Constants.Intake.Feeder.SPEED)
+                    )
+                    : Commands.none(),
                 Commands.runOnce(() ->
                     outtake.setMotors(Constants.Outtake.SPEED)
+                ),
+                Commands.waitSeconds(Constants.Outtake.SPINUP_TIME),
+                Commands.runOnce(() ->
+                    intakeFeeder.setMotor(-Constants.Intake.Feeder.SHOOT_SPEED)
                 ),
                 Commands.waitSeconds(Constants.Autonomous.SHOOT_TIME),
                 Commands.runOnce(() -> intakeFeeder.setMotor(0)),
@@ -260,11 +267,18 @@ public class RobotContainer {
         autoChooser.addOption(
             "Shoot & Leave (Straight)",
             new SequentialCommandGroup(
-                Commands.runOnce(() ->
-                    intakeFeeder.setMotor(-Constants.Intake.Feeder.SHOOT_SPEED)
-                ),
+                rotationHighPID.create(),
+                (Constants.Intake.Feeder.HOLD_ON_SPINUP)
+                    ? Commands.runOnce(() ->
+                        intakeFeeder.setMotor(Constants.Intake.Feeder.SPEED)
+                    )
+                    : Commands.none(),
                 Commands.runOnce(() ->
                     outtake.setMotors(Constants.Outtake.SPEED)
+                ),
+                Commands.waitSeconds(Constants.Outtake.SPINUP_TIME),
+                Commands.runOnce(() ->
+                    intakeFeeder.setMotor(-Constants.Intake.Feeder.SHOOT_SPEED)
                 ),
                 Commands.waitSeconds(Constants.Autonomous.SHOOT_TIME),
                 Commands.runOnce(() -> intakeFeeder.setMotor(0)),
