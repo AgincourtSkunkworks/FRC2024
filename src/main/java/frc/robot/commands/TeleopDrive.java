@@ -11,6 +11,7 @@ public class TeleopDrive extends Command {
     DriveSubsystem drive;
     Supplier<Double> lSpeedFunc, rSpeedFunc;
     SlewRateLimiter leftLimiter, rightLimiter;
+    double speedMult;
 
     /**
      * Creates a TeleopDrive Command. This command is used to control the drive in the teleop phase.
@@ -33,16 +34,41 @@ public class TeleopDrive extends Command {
         this.rSpeedFunc = rSpeedFunc;
         this.leftLimiter = new SlewRateLimiter(rateLimit);
         this.rightLimiter = new SlewRateLimiter(rateLimit);
+        this.speedMult = 1;
+    }
+
+    /** Get the current speed multiplier
+     * @return The current speed multiplier
+     */
+    public double getSpeedMult() {
+        return this.speedMult;
+    }
+
+    /** Set a speed multiplier for teleop sticks (e.g. 0.5 means half speed at full joysticks)
+     * @param speedMult Speed multiplier to set to (1 being normal)
+     */
+    public void setSpeedMult(double speedMult) {
+        this.speedMult = speedMult;
+    }
+
+    /**
+     * Shortcut to reset speed multiplier to normal speed
+     */
+    public void resetSpeedMult() {
+        setSpeedMult(1);
     }
 
     @Override
     public void execute() {
         final double stickLeft = lSpeedFunc.get();
         final double stickRight = rSpeedFunc.get();
-        drive.setLeftMotors(leftLimiter.calculate(stickLeft));
-        drive.setRightMotors(rightLimiter.calculate(stickRight));
+        double speedLeft = leftLimiter.calculate(stickLeft) * this.speedMult;
+        double speedRight = rightLimiter.calculate(stickRight) * this.speedMult;
+        drive.setLeftMotors(speedLeft);
+        drive.setRightMotors(speedRight);
         SmartDashboard.putNumber("Stick Left", stickLeft);
         SmartDashboard.putNumber("Stick Right", stickRight);
+        SmartDashboard.putNumber("Teleop Speed Mult", speedMult);
     }
 
     @Override

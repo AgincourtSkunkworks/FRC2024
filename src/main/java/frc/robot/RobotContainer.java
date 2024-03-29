@@ -128,9 +128,10 @@ public class RobotContainer {
         autoChooser = new SendableChooser<>();
     }
 
-    // ! COMMAND FACTORIES
+    // ! COMMAND [FACTORIES]
     private final RotationPIDFactory rotationLowPID, rotationHighPID;
     private final ClimberPIDFactory climberLowPID, climberHighPID;
+    private final TeleopDrive teleopDrive;
 
     {
         rotationLowPID =
@@ -186,6 +187,15 @@ public class RobotContainer {
                 Constants.Climber.DefaultPID.High.D,
                 Constants.Climber.DefaultPID.High.IMax
             );
+
+        teleopDrive =
+            new TeleopDrive(
+                drive,
+                () -> -controller.getRawAxis(Constants.TeleOp.LEFT_DRIVE_STICK),
+                () ->
+                    -controller.getRawAxis(Constants.TeleOp.RIGHT_DRIVE_STICK),
+                Constants.TeleOp.SLEW_RATE_LIMIT
+            );
     }
 
     public RobotContainer() {
@@ -218,15 +228,7 @@ public class RobotContainer {
         configureButtonBindings();
 
         // ! DEFAULT COMMANDS
-        drive.setDefaultCommand(
-            new TeleopDrive(
-                drive,
-                () -> -controller.getRawAxis(Constants.TeleOp.LEFT_DRIVE_STICK),
-                () ->
-                    -controller.getRawAxis(Constants.TeleOp.RIGHT_DRIVE_STICK),
-                Constants.TeleOp.SLEW_RATE_LIMIT
-            )
-        );
+        drive.setDefaultCommand(teleopDrive);
 
         // ! CONFIGURATION
         intakeRotation.setPositions(0); // ! INTAKE IS EXPECTED TO BE IN HIGH AT STARTUP
@@ -268,6 +270,30 @@ public class RobotContainer {
      * Creates the expected controller bindings.
      */
     private void configureButtonBindings() {
+        // ! TeleOp Controls
+        controller
+            .getTrigger(Constants.TeleOp.SPEED_MOD_1_TRG)
+            .onTrue(
+                Commands.runOnce(() -> {
+                    if (
+                        teleopDrive.getSpeedMult() == 1
+                    ) teleopDrive.setSpeedMult(
+                        Constants.TeleOp.SPEED_MOD_1_MULT
+                    ); else teleopDrive.resetSpeedMult();
+                })
+            );
+        controller
+            .getTrigger(Constants.TeleOp.SPEED_MOD_2_TRG)
+            .onTrue(
+                Commands.runOnce(() -> {
+                    if (
+                        teleopDrive.getSpeedMult() == 1
+                    ) teleopDrive.setSpeedMult(
+                        Constants.TeleOp.SPEED_MOD_2_MULT
+                    ); else teleopDrive.resetSpeedMult();
+                })
+            );
+
         // ! Intake/Outtake
         // * AUTOMATED SEQUENCES
         controller

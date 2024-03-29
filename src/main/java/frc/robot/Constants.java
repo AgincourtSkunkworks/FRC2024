@@ -194,7 +194,11 @@ public final class Constants {
 
         static final Axis LEFT_DRIVE_STICK = Axis.LY; // Joystick to use for left motor control
         static final Axis RIGHT_DRIVE_STICK = Axis.RY; // Joystick to use for right motor control
+        static final Button SPEED_MOD_1_TRG = Button.STK_L;
+        static final Button SPEED_MOD_2_TRG = Button.STK_R;
         static final double SLEW_RATE_LIMIT = 2.5; // Slew rate limit for joystick input
+        static final double SPEED_MOD_1_MULT = 0.5;
+        static final double SPEED_MOD_2_MULT = 0.75;
     }
 
     /*
