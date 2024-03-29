@@ -159,9 +159,9 @@ public final class Constants {
 
             public static final class Low {
 
-                static final double P = 0.04;
+                static final double P = 0.06;
                 static final double I = 0.05;
-                static final double IMax = 3;
+                static final double IMax = 4;
                 static final double D = 0.004;
             }
 
