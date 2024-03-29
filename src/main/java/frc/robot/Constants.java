@@ -135,7 +135,7 @@ public final class Constants {
 
     public static final class Climber {
 
-        public static final boolean ENABLE = false; // Whether the climber is enabled (at all)
+        public static final boolean ENABLE = true; // Whether the climber is enabled (at all)
         static final BaseController MOTOR_TYPE = BaseController.TALONFX;
         static final NeutralMode NEUTRAL_MODE = NeutralMode.Brake;
         static final POV HIGH_TRG = POV.N;
