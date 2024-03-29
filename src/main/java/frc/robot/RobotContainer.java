@@ -244,6 +244,20 @@ public class RobotContainer {
             )
         );
         autoChooser.addOption(
+            "Shoot",
+            new SequentialCommandGroup(
+                Commands.runOnce(() ->
+                    intakeFeeder.setMotor(-Constants.Intake.Feeder.SHOOT_SPEED)
+                ),
+                Commands.runOnce(() ->
+                    outtake.setMotors(Constants.Outtake.SPEED)
+                ),
+                Commands.waitSeconds(Constants.Autonomous.SHOOT_TIME),
+                Commands.runOnce(() -> intakeFeeder.setMotor(0)),
+                Commands.runOnce(() -> outtake.setMotors(0))
+            )
+        );
+        autoChooser.addOption(
             "Shoot & Leave (Straight)",
             new SequentialCommandGroup(
                 Commands.runOnce(() ->
