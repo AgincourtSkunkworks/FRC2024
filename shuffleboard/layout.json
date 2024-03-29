@@ -269,6 +269,25 @@
               "Range/Max": 150.0,
               "Visuals/Show value": true
             }
+          },
+          "12,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Number Bar",
+              "_source0": "network_table:///SmartDashboard/Teleop Speed Mult",
+              "_title": "Speed Mult",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Range/Min": 0.0,
+              "Range/Max": 2.0,
+              "Range/Center": 1.0,
+              "Visuals/Num tick marks": 5,
+              "Visuals/Show text": true,
+              "Visuals/Orientation": "HORIZONTAL"
+            }
           }
         }
       }
