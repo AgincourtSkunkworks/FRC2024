@@ -110,6 +110,14 @@ public final class Constants {
             static final boolean HOLD_ON_SPINUP = false; // Whether to run the motor in reverse to hold the piece on spinup
             static final double SPEED = 0.85; // Speed in which to run the intake feeder
             static final double SHOOT_SPEED = 1; // Speed in which to run the intake feeder when shooting & overriding
+
+            public static final class CurrentLimit {
+
+                static final boolean SUPPLY = true; // Whether to enable supply current limiting
+                static final double SUPPLY_LIMIT = 70; // Supply current limit
+                static final double SUPPLY_TRIGGER = 80; // Current in which to trigger the supply limit (lower to SUPPLY_LIMIT)
+                static final double SUPPLY_TRIGGER_TIME = 0.4; // Amount of time to go over SUPPLY_TRIGGER before triggering the limit
+            }
         }
     }
 

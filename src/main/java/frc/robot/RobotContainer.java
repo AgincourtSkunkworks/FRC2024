@@ -82,7 +82,13 @@ public class RobotContainer {
                 Constants.Intake.Feeder.MOTOR_TYPE,
                 Constants.ID.IF,
                 Constants.Intake.Feeder.INVERSE
-            );
+            )
+                .setSupplyLimit(
+                    Constants.Intake.Feeder.CurrentLimit.SUPPLY,
+                    Constants.Intake.Feeder.CurrentLimit.SUPPLY_LIMIT,
+                    Constants.Intake.Feeder.CurrentLimit.SUPPLY_TRIGGER,
+                    Constants.Intake.Feeder.CurrentLimit.SUPPLY_TRIGGER_TIME
+                );
         outtake =
             new OuttakeSubsystem(
                 Constants.Outtake.FLYWHEEL_MOTOR_TYPE,

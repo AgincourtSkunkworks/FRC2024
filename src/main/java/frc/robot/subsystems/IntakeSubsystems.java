@@ -187,6 +187,28 @@ public class IntakeSubsystems {
         }
 
         /** Set the supply current limit
+         * @param limit Whether to enable the supply current limit
+         * @param currentLimit The current limit to set
+         * @param triggerCurrent The current at which to trigger the limit
+         * @param triggerTime The time to trigger the limit
+         * @return The FeederSubsystem, for chaining
+         */
+        public FeederSubsystem setSupplyLimit(
+            boolean limit,
+            double currentLimit,
+            double triggerCurrent,
+            double triggerTime
+        ) {
+            motor.setSupplyCurrentLimit(
+                limit,
+                currentLimit,
+                triggerCurrent,
+                triggerTime
+            );
+            return this;
+        }
+
+        /** Set the supply current limit
          * @param speed The speed to set the motor to
          */
         public void setMotor(double speed) {
