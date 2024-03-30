@@ -233,6 +233,11 @@ public class RobotContainer {
         // ! CONFIGURATION
         intakeRotation.setPositions(0); // ! INTAKE IS EXPECTED TO BE IN HIGH AT STARTUP
         if (Constants.Climber.ENABLE) climber.setPosition(0); // ! CLIMBER IS EXPECTED TO BE IN LOW AT STARTUP
+        DynamicValue<Double> autoLeaveTime = new DynamicValue<>(
+            "Auto Leave Time",
+            Constants.Autonomous.DEFAULT_COMM_LEAVE_TIME
+        );
+        autoLeaveTime.set(Constants.Autonomous.DEFAULT_COMM_LEAVE_TIME); // Reset to default on robot startup
 
         // ! AUTONOMOUS
         autoChooser.addOption(
@@ -240,10 +245,7 @@ public class RobotContainer {
             new DriveForTime(
                 drive,
                 Constants.Autonomous.MOVE_SPEED,
-                new DynamicValue<>(
-                    "Auto Leave Time",
-                    Constants.Autonomous.DEFAULT_COMM_LEAVE_TIME
-                )
+                autoLeaveTime
             )
         );
         autoChooser.addOption(
@@ -289,10 +291,7 @@ public class RobotContainer {
                 new DriveForTime(
                     drive,
                     Constants.Autonomous.MOVE_SPEED,
-                    new DynamicValue<>(
-                        "Auto Leave Time",
-                        Constants.Autonomous.DEFAULT_COMM_LEAVE_TIME
-                    )
+                    autoLeaveTime
                 )
             )
         );
