@@ -252,6 +252,7 @@ public class RobotContainer {
             "Shoot",
             new SequentialCommandGroup(
                 rotationHighPID.create(),
+                Commands.waitSeconds(Constants.Autonomous.SHOOT_DELAY),
                 (Constants.Intake.Feeder.HOLD_ON_SPINUP)
                     ? Commands.runOnce(() ->
                         intakeFeeder.setMotor(Constants.Intake.Feeder.SPEED)
@@ -273,6 +274,7 @@ public class RobotContainer {
             "Shoot & Leave (Straight)",
             new SequentialCommandGroup(
                 rotationHighPID.create(),
+                Commands.waitSeconds(Constants.Autonomous.SHOOT_DELAY),
                 (Constants.Intake.Feeder.HOLD_ON_SPINUP)
                     ? Commands.runOnce(() ->
                         intakeFeeder.setMotor(Constants.Intake.Feeder.SPEED)
