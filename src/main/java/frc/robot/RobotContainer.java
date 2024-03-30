@@ -233,7 +233,7 @@ public class RobotContainer {
         // ! CONFIGURATION
         intakeRotation.setPositions(0); // ! INTAKE IS EXPECTED TO BE IN HIGH AT STARTUP
         if (Constants.Climber.ENABLE) climber.setPosition(0); // ! CLIMBER IS EXPECTED TO BE IN LOW AT STARTUP
-        DynamicValue<Double> autoLeaveTime = new DynamicValue<>(
+        DynamicValue<Double> autoLeaveTime = new DynamicValue<>( // Allow for on-the-fly auto leave time adjustment
             "Auto Leave Time",
             Constants.Autonomous.DEFAULT_COMM_LEAVE_TIME
         );
