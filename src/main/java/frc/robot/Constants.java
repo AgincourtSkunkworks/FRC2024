@@ -108,7 +108,7 @@ public final class Constants {
             public static Button OVERRIDE_REV_TRG = Button.L1;
             static final boolean INVERSE = false; // Whether the motor is inverted
             static final boolean HOLD_ON_SPINUP = false; // Whether to run the motor in reverse to hold the piece on spinup
-            static final double SPEED = 0.75; // Speed in which to run the intake feeder
+            static final double SPEED = 0.85; // Speed in which to run the intake feeder
             static final double SHOOT_SPEED = 1; // Speed in which to run the intake feeder when shooting & overriding
         }
     }
