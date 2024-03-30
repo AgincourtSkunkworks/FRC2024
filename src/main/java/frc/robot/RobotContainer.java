@@ -240,7 +240,10 @@ public class RobotContainer {
             new DriveForTime(
                 drive,
                 Constants.Autonomous.MOVE_SPEED,
-                Constants.Autonomous.COMM_LEAVE_TIME
+                new DynamicValue<>(
+                    "Auto Leave Time",
+                    Constants.Autonomous.DEFAULT_COMM_LEAVE_TIME
+                )
             )
         );
         autoChooser.addOption(
@@ -286,7 +289,10 @@ public class RobotContainer {
                 new DriveForTime(
                     drive,
                     Constants.Autonomous.MOVE_SPEED,
-                    Constants.Autonomous.COMM_LEAVE_TIME
+                    new DynamicValue<>(
+                        "Auto Leave Time",
+                        Constants.Autonomous.DEFAULT_COMM_LEAVE_TIME
+                    )
                 )
             )
         );
