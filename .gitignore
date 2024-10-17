@@ -2,3 +2,10 @@ build/
 bin/
 .idea/
 .vscode/
+.gradle/
+node_modules/
+
+# Robot Simulation Files
+networktables.json*
+simgui*.json
+ctre_sim/

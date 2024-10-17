@@ -1,0 +1,771 @@
+{
+  "tabPane": [
+    {
+      "title": "Competition",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {
+          "9,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/SendableChooser[0]",
+              "_title": "Autonomous Chooser",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,0": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Basic Subsystem",
+              "_source0": "network_table:///SmartDashboard/DriveSubsystem",
+              "_title": "Drive",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,2": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Basic Subsystem",
+              "_source0": "network_table:///SmartDashboard/FeederSubsystem",
+              "_title": "Feeder",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,4": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Basic Subsystem",
+              "_source0": "network_table:///SmartDashboard/OuttakeSubsystem",
+              "_title": "Outtake",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,3": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Basic Subsystem",
+              "_source0": "network_table:///SmartDashboard/ClimberSubsystem",
+              "_title": "Climber",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,1": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Basic Subsystem",
+              "_source0": "network_table:///SmartDashboard/RotationSubsystem",
+              "_title": "Rotation",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "3,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Number Bar",
+              "_source0": "network_table:///SmartDashboard/Rotation Primary Position",
+              "_title": "Rot. Lead Pos",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Range/Min": -6.0,
+              "Range/Max": 6.0,
+              "Range/Center": 0.0,
+              "Visuals/Num tick marks": 7,
+              "Visuals/Show text": true,
+              "Visuals/Orientation": "HORIZONTAL"
+            }
+          },
+          "5,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Simple Dial",
+              "_source0": "network_table:///SmartDashboard/Drive Highest Temp",
+              "_title": "Drv. Highest Temp",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Range/Min": 0.0,
+              "Range/Max": 150.0,
+              "Visuals/Show value": true
+            }
+          },
+          "3,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Drive Left Motor Position (First)",
+              "_title": "Drv. Left Pos",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "4,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Drive Right Motor Position (First)",
+              "_title": "Drv. Right Pos",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Number Bar",
+              "_source0": "network_table:///SmartDashboard/Stick Left",
+              "_title": "Stick Left",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Range/Min": -1.0,
+              "Range/Max": 1.0,
+              "Range/Center": 0.0,
+              "Visuals/Num tick marks": 5,
+              "Visuals/Show text": true,
+              "Visuals/Orientation": "VERTICAL"
+            }
+          },
+          "11,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Number Bar",
+              "_source0": "network_table:///SmartDashboard/Stick Right",
+              "_title": "Stick Right",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Range/Min": -1.0,
+              "Range/Max": 1.0,
+              "Range/Center": 0.0,
+              "Visuals/Num tick marks": 5,
+              "Visuals/Show text": true,
+              "Visuals/Orientation": "VERTICAL"
+            }
+          },
+          "5,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/ZeroRotationPos",
+              "_title": "Zero Rot. Pos",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "3,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Number Bar",
+              "_source0": "network_table:///SmartDashboard/Climber Position",
+              "_title": "Climber Pos",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Range/Min": -5.0,
+              "Range/Max": 85.0,
+              "Range/Center": 0.0,
+              "Visuals/Num tick marks": 5,
+              "Visuals/Show text": true,
+              "Visuals/Orientation": "HORIZONTAL"
+            }
+          },
+          "5,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/ZeroClimberPos",
+              "_title": "Zero Climber Pos",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,0": {
+            "size": [
+              4,
+              4
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://USB Camera 0",
+              "_title": "Camera",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Crosshair/Show crosshair": true,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": true,
+              "Controls/Rotation": "NONE",
+              "compression": -1.0,
+              "fps": -1,
+              "imageWidth": -1,
+              "imageHeight": -1
+            }
+          },
+          "6,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Simple Dial",
+              "_source0": "network_table:///SmartDashboard/Climber Temperature",
+              "_title": "Climber Temp.",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Range/Min": 0.0,
+              "Range/Max": 150.0,
+              "Visuals/Show value": true
+            }
+          },
+          "12,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Number Bar",
+              "_source0": "network_table:///SmartDashboard/Teleop Speed Mult",
+              "_title": "Speed Mult",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Range/Min": 0.0,
+              "Range/Max": 2.0,
+              "Range/Center": 1.0,
+              "Visuals/Num tick marks": 5,
+              "Visuals/Show text": true,
+              "Visuals/Orientation": "HORIZONTAL"
+            }
+          },
+          "12,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Preferences/Auto Leave Time",
+              "_title": "/Preferences/Auto Leave Time",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Tuning",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Basic Subsystem",
+              "_source0": "network_table:///SmartDashboard/DriveSubsystem",
+              "_title": "Drive Subsystem",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Basic Subsystem",
+              "_source0": "network_table:///SmartDashboard/FeederSubsystem",
+              "_title": "Feeder Subsystem",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Basic Subsystem",
+              "_source0": "network_table:///SmartDashboard/OuttakeSubsystem",
+              "_title": "Outtake Subsystem",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Basic Subsystem",
+              "_source0": "network_table:///SmartDashboard/RotationSubsystem",
+              "_title": "Rotation Subsystem",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Basic Subsystem",
+              "_source0": "network_table:///SmartDashboard/ClimberSubsystem",
+              "_title": "Climber Subsystem",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "2,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Climber Position",
+              "_title": "/SmartDashboard/Climber Position",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "2,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rotation Primary Position",
+              "_title": "Rot. Primary Pos.",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "2,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Drive Left Motor Position (First)",
+              "_title": "LM Pos. (First)",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "9,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Preferences/ClimberHighP",
+              "_title": "High P",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "10,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Preferences/ClimberHighI",
+              "_title": "High I",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "11,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Preferences/ClimberHighD",
+              "_title": "High D",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "12,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Preferences/ClimberHighIMax",
+              "_title": "High I Max",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "4,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Preferences/ClimberLowP",
+              "_title": "Low P",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Preferences/ClimberLowI",
+              "_title": "Low I",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "6,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Preferences/ClimberLowD",
+              "_title": "Low D",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "7,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Preferences/ClimberLowIMax",
+              "_title": "Low I Max",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "4,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Preferences/IntakeLowP",
+              "_title": "Low P",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Preferences/IntakeLowI",
+              "_title": "Low I",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "6,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Preferences/IntakeLowD",
+              "_title": "Low D",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "7,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Preferences/IntakeLowIMax",
+              "_title": "Low I Max",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Preferences/IntakeLowTolerance",
+              "_title": "Low Tolerance",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "9,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Preferences/IntakeHighP",
+              "_title": "High P",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "10,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Preferences/IntakeHighI",
+              "_title": "High I",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "11,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Preferences/IntakeHighD",
+              "_title": "High D",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "12,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Preferences/IntakeHighIMax",
+              "_title": "High I Max",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Preferences/IntakeHighTolerance",
+              "_title": "High Tolerance",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Preferences/DriveLMOffset",
+              "_title": "LM Offset",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "3,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/ZeroRotationPos",
+              "_title": "Zero Rot. Pos.",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "6,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Preferences/DriveRMOffset",
+              "_title": "RM Offset",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "3,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Drive Right Motor Position (First)",
+              "_title": "RM Pos. (First)",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "3,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/ZeroClimberPos",
+              "_title": "Zero Climber Pos",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Preferences/ClimberHighTolerance",
+              "_title": "High Tolerance",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Preferences/ClimberLowTolerance",
+              "_title": "Low Tolerance",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Debug",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {}
+      }
+    }
+  ],
+  "windowGeometry": {
+    "x": -7.0,
+    "y": 0.0,
+    "width": 1933.0,
+    "height": 851.0
+  }
+}
